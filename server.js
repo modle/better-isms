@@ -30,10 +30,8 @@ app.use(logger('dev'));
 
 // set up root and users routes
 var router = express.Router()
-router.get('/', function(req, res) {
-    res.render('index', { title: 'Node to the Max' });
-});
-app.use('/', router);
+var index = require('./routes/index');
+app.use('/', index);
 var users = require('./routes/users');
 app.use('/users', users);
 

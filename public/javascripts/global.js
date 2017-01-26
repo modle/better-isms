@@ -1,25 +1,22 @@
-// Userlist data array for filling in info box
-var userListData = [];
+// Ismlist data array for filling in info box
+var ismData = [];
 
 // DOM Ready =============================================================
 $(document).ready(function() {
-    // Populate the user table on initial page load
+    // Populate the ism table on initial page load
     populateTable();
 
-    // Username link click
-    $('#userList table tbody').on('click', 'td a.linkshowuser', showUserInfo);
+    // Add Ism button click
+    $('#btnAddIsm').on('click', addIsm);
 
-    // Add User button click
-    $('#btnAddUser').on('click', addUser);
+    // Update Ism link click
+    $('#ismList table tbody').on('click', 'td a.linkupdateism', populateUpdateIsmFields);
 
-    // Update User link click
-    $('#userList table tbody').on('click', 'td a.linkupdateuser', populateUpdateUserFields);
+    // Update Ism button click
+    $('#btnUpdateIsm').on('click', updateIsm);
 
-    // Update User button click
-    $('#btnUpdateUser').on('click', updateUser);
-
-    // Delete User link click
-    $('#userList table tbody').on('click', 'td a.linkdeleteuser', deleteUser);
+    // Delete Ism link click
+    $('#ismList table tbody').on('click', 'td a.linkdeleteism', deleteIsm);
 });
 
 // Functions =============================================================
@@ -27,72 +24,53 @@ $(document).ready(function() {
 // Fill table with data
 function populateTable() {
     // Empty content string
+    console.log('isms populated!');
+
     var tableContent = '';
     // jQuery AJAX call for JSON
-    $.getJSON( '/users/userlist', function( data ) {
-        userListData = data;
+    $.getJSON( '/isms/ismlist', function( data ) {
+        ismListData = data;
         // For each item in our JSON, add a table row and cells to the content string
         $.each(data, function(){
             tableContent += '<tr>';
-            tableContent += '<td><a href="#" class="linkshowuser" rel="' + this.username + '">' + this.username + '</a></td>';
-            tableContent += '<td>' + this.email + '</td>';
-            tableContent += '<td><a href="#" class="linkupdateuser" rel="' + this._id + '">update</a></td>';
-            tableContent += '<td><a href="#" class="linkdeleteuser" rel="' + this._id + '">delete</a></td>';
+            tableContent += '<td>' + this.category + '</td>';
+            tableContent += '<td>' + this.name + '</td>';
+            tableContent += '<td>' + this.body + '</td>';
+            tableContent += '<td><a href="#" class="linkupdateism" rel="' + this._id + '">u</a></td>';
+            tableContent += '<td><a href="#" class="linkdeleteism" rel="' + this._id + '">d</a></td>';
             tableContent += '</tr>';
         });
 
         // Inject the whole content string into our existing HTML table
-        $('#userList table tbody').html(tableContent);
+        $('#ismList table tbody').html(tableContent);
     });
 };
 
-// Show User Info
-function showUserInfo(event) {
-    // Prevent Link from Firing
+// Add Ism
+function addIsm(event) {
     event.preventDefault();
+    console.log('add ism clicked!');
 
-    // Retrieve username from link rel attribute
-    var thisUserName = $(this).attr('rel');
-
-    // Get Index of object based on id value
-    var arrayPosition = userListData.map(function(arrayItem) { return arrayItem.username; }).indexOf(thisUserName);
-
-    // Get our User Object
-    var thisUserObject = userListData[arrayPosition];
-
-    //Populate Info Box
-    $('#userInfoName').text(thisUserObject.fullname);
-    $('#userInfoAge').text(thisUserObject.age);
-    $('#userInfoGender').text(thisUserObject.gender);
-    $('#userInfoLocation').text(thisUserObject.location);
-};
-
-// Add User
-function addUser(event) {
-    event.preventDefault();
     // Super basic validation - increase errorCount variable if any fields are blank
     var errorCount = 0;
-    $('#addUser input').each(function(index, val) {
+    $('#addIsm input').each(function(index, val) {
         if($(this).val() === '') { errorCount++; }
     });
 
     if(errorCount === 0) {
-        var newUser = {
-            'username': $('#addUser fieldset input#inputUserName').val(),
-            'email': $('#addUser fieldset input#inputUserEmail').val(),
-            'fullname': $('#addUser fieldset input#inputUserFullname').val(),
-            'age': $('#addUser fieldset input#inputUserAge').val(),
-            'location': $('#addUser fieldset input#inputUserLocation').val(),
-            'gender': $('#addUser fieldset input#inputUserGender').val()
+        var newIsm = {
+            'category': $('#addIsm fieldset input#inputCategory').val(),
+            'name': $('#addIsm fieldset input#inputName').val(),
+            'body': $('#addIsm fieldset input#inputBody').val()
         }
         $.ajax({
             type: 'POST',
-            data: newUser,
-            url: '/users/adduser',
+            data: newIsm,
+            url: '/isms/addism',
             dataType: 'JSON'
         }).done(function( response ) {
             if (response.msg === '') {
-                $('#addUser fieldset input').val('');
+                $('#addIsm fieldset input').val('');
                 populateTable();
             } else {
                 alert('Error: ' + response.msg);
@@ -105,15 +83,17 @@ function addUser(event) {
     }
 };
 
-// Delete User
-function deleteUser(event) {
+// Delete Ism
+function deleteIsm(event) {
     event.preventDefault();
-    var confirmation = confirm('Are you sure you want to delete this user?');
-    userId = $(this).attr('rel');
+    console.log('delete ism clicked!');
+
+    var confirmation = confirm('Are you sure you want to delete this ism?');
+    ismId = $(this).attr('rel');
     if (confirmation === true) {
         $.ajax({
             type: 'DELETE',
-            url: '/users/deleteuser/' + userId
+            url: '/isms/deleteism/' + ismId
         }).done(function( response ) {
             if (response.msg === '') {
             } else {
@@ -121,9 +101,9 @@ function deleteUser(event) {
             }
             populateTable();
             // clear the update fields if the id matches
-            if ($('#updateUser fieldset button#btnUpdateUser').val() === userId) {
-                $('#updateUser fieldset input').val('');
-                $('#userBeingUpdated').text('');
+            if ($('#updateIsm fieldset button#btnUpdateIsm').val() === ismId) {
+                $('#updateIsm fieldset input').val('');
+                $('#ismBeingUpdated').text('');
             }
         });
     }
@@ -132,71 +112,65 @@ function deleteUser(event) {
     }
 };
 
-function populateUpdateUserFields(event) {
+function populateUpdateIsmFields(event) {
     event.preventDefault();
     console.log('populatefieldsclicked!');
 
-    // Retrieve username from link rel attribute
-    var thisUserId = $(this).attr('rel');
+    // Retrieve ismname from link rel attribute
+    var thisIsmId = $(this).attr('rel');
 
-    console.log('id is ' + thisUserId);
+    console.log('id is ' + thisIsmId);
 
     // Get Index of object based on id value
-    var arrayPosition = userListData.map(function(arrayItem) {
+    var arrayPosition = ismListData.map(function(arrayItem) {
         return arrayItem._id;
-    }).indexOf(thisUserId);
+    }).indexOf(thisIsmId);
 
-    // Get our User Object
-    var thisUserObject = userListData[arrayPosition];
+    // Get our Ism Object
+    var thisIsmObject = ismListData[arrayPosition];
 
     //Populate Update Fields
-    console.log('the user is ' + JSON.stringify(thisUserObject));
+    console.log('the ism is ' + JSON.stringify(thisIsmObject));
 
-    // fill the user to update field with the username
-    $('#userBeingUpdated').text(thisUserObject.username);
+    // fill the ism to update field with the ismname
+    $('#ismBeingUpdated').text(thisIsmObject.ismname);
 
     // Inject the current value into the update field
-    $('#updateUser fieldset input#updateUserName').val(thisUserObject.username);
-    $('#updateUser fieldset input#updateUserFullname').val(thisUserObject.fullname);
-    $('#updateUser fieldset input#updateUserLocation').val(thisUserObject.location);
-    $('#updateUser fieldset input#updateUserEmail').val(thisUserObject.email);
-    $('#updateUser fieldset input#updateUserAge').val(thisUserObject.age);
-    $('#updateUser fieldset input#updateUserGender').val(thisUserObject.gender);
-    $('#updateUser fieldset button#btnUpdateUser').val(thisUserObject._id);
+    $('#updateIsm fieldset input#updateCategory').val(thisIsmObject.category);
+    $('#updateIsm fieldset input#updateName').val(thisIsmObject.name);
+    $('#updateIsm fieldset input#updateBody').val(thisIsmObject.body);
+    $('#updateIsm fieldset button#btnUpdateIsm').val(thisIsmObject._id);
 
-    console.log('exiting populateUpdateUserFields');
+    console.log('exiting populateUpdateIsmFields');
 }
 
-function updateUser(event) {
+function updateIsm(event) {
     event.preventDefault();
-    console.warn('triggered updateUser');
+    console.warn('triggered updateIsm');
     // Super basic validation - increase errorCount variable if any fields are blank
     var errorCount = 0;
-    $('#updateUser input').each(function(index, val) {
+    $('#updateIsm input').each(function(index, val) {
         if($(this).val() === '') { errorCount++; }
     });
 
     if(errorCount === 0) {
-        var updateUser = {
-            'username': $('#updateUser fieldset input#updateUserName').val(),
-            'fullname': $('#updateUser fieldset input#updateUserFullname').val(),
-            'location': $('#updateUser fieldset input#updateUserLocation').val(),
-            'email': $('#updateUser fieldset input#updateUserEmail').val(),
-            'age': $('#updateUser fieldset input#updateUserAge').val(),
-            'gender': $('#updateUser fieldset input#updateUserGender').val()
+        var updateIsm = {
+            'category': $('#updateIsm fieldset input#updateCategory').val(),
+            'name': $('#updateIsm fieldset input#updateName').val(),
+            'body': $('#updateIsm fieldset input#updateBody').val(),
         }
         console.log($(this).attr('value'));
         $.ajax({
             type: 'PUT',
-            data: updateUser,
-            url: '/users/updateuser/' + $(this).attr('value'),
+            data: updateIsm,
+            url: '/isms/updateism/' + $(this).attr('value'),
             dataType: 'JSON'
         }).done(function( response ) {
             if (response.msg === '') {
-                $('#updateUser fieldset input').val('');
-                $('#userBeingUpdated').text('');
+                $('#updateIsm fieldset input').val('');
+                $('#ismBeingUpdated').text('');
                 populateTable();
-                console.log('user updated!');
+                console.log('ism updated!');
             } else {
                 alert('Error: ' + response.msg);
             }

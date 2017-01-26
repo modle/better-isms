@@ -28,12 +28,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 var logger = require('morgan');
 app.use(logger('dev'));
 
-// set up root and users routes
+// set up root and isms routes
 var router = express.Router()
 var index = require('./routes/index');
 app.use('/', index);
-var users = require('./routes/users');
-app.use('/users', users);
+var isms = require('./routes/isms');
+app.use('/isms', isms);
 
 if(!module.parent){
     app.listen(process.env.PORT || 3000, function(){

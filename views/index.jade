@@ -2,73 +2,52 @@ extends layout
 
 block content
     h1= title
-    p Welcome to our test
+    p Better Isms
 
     // Wrapper
     #wrapper
 
-        // USER INFO
-        #userInfo
-            h2 User Info
-            p
-                strong Name:
-                |  <span id='userInfoName'></span>
-                br
-                strong Age:
-                |  <span id='userInfoAge'></span>
-                br
-                strong Gender:
-                |  <span id='userInfoGender'></span>
-                br
-                strong Location:
-                |  <span id='userInfoLocation'></span>
-        // /USER INFO
-
-        // USER LIST
-        h2 User List
-        #userList
+        // ISM LIST
+        h2 Isms
+        #ismList
             table
                 thead
-                    th UserName
-                    th Email
-                    th Update
-                    th Delete?
+                    th category
+                    th name
+                    th body
+                    th U
+                    th D
                 tbody
-        // /USER LIST
+        // /ISM LIST
 
-        // ADD USER
-        h2 Add User
-        #addUser
+        // ADD ISM
+        h2 Add Ism
+        #addIsm
             fieldset
-                input#inputUserName(type='text', placeholder='Username')
-                input#inputUserEmail(type='text', placeholder='Email')
+                input#inputCategory(type='text', placeholder='category')
                 br
-                input#inputUserFullname(type='text', placeholder='Full Name')
-                input#inputUserAge(type='text', placeholder='Age')
+                input#inputName(type='text', placeholder='name')
                 br
-                input#inputUserLocation(type='text', placeholder='Location')
-                input#inputUserGender(type='text', placeholder='gender')
+                input#inputBody(type='text', placeholder='body')
                 br
-                button#btnAddUser Add User
-        // /ADD USER
-
-        // UPDATE USER
-        h2 Update User
-        #updateUser
+                button#btnAddIsm Add Ism
+        // /ADD ISM
+        br
+        br
+        // UPDATE ISM
+        h2 Update Ism
+        #updateIsm
             fieldset
-                strong User to Update:
-                |  <span id='userBeingUpdated'></span>
+                strong ism to update:
+                |  <span id='ismBeingUpdated'></span>
                 br
-                input#updateUserName(type='text', placeholder='Username')
-                input#updateUserEmail(type='text', placeholder='Email')
+                input#updateCategory(type='text', placeholder='category')
                 br
-                input#updateUserFullname(type='text', placeholder='Full Name')
-                input#updateUserAge(type='text', placeholder='Age')
+                input#updateName(type='text', placeholder='name')
                 br
-                input#updateUserLocation(type='text', placeholder='Location')
-                input#updateUserGender(type='text', placeholder='gender')
+                input#updateBody(type='text', placeholder='body')
                 br
-                button#btnUpdateUser Update User
-        // /UPDATE USER
+                button#btnUpdateIsm Update Ism
+        // /UPDATE ISM
 
     // /WRAPPER

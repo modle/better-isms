@@ -13,7 +13,7 @@ app.use(cookieParser());
 // set up the db
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('mongodb://modle:61cKIXYXNndi5wkyXQ1k@ds131099.mlab.com:31099/better-isms');
+var db = monk(process.env.DATABASE_URL);
 // Make our db accessible to our router
 app.use(function(req,res,next){
     req.db = db;

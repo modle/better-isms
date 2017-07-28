@@ -36,6 +36,7 @@ function populateTable() {
             tableContent += '<td>' + this.category + '</td>';
             tableContent += '<td>' + this.name + '</td>';
             tableContent += '<td>' + this.body + '</td>';
+            tableContent += '<td>' + (this.tags || '') + '</td>';
             tableContent += '<td><a href="#" class="linkupdateism" rel="' + this._id + '">u</a></td>';
             tableContent += '<td><a href="#" class="linkdeleteism" rel="' + this._id + '">d</a></td>';
             tableContent += '</tr>';
@@ -61,7 +62,8 @@ function addIsm(event) {
         var newIsm = {
             'category': $('#addIsm fieldset input#inputCategory').val(),
             'name': $('#addIsm fieldset input#inputName').val(),
-            'body': $('#addIsm fieldset input#inputBody').val()
+            'body': $('#addIsm fieldset input#inputBody').val(),
+            'tags': $('#addIsm fieldset input#inputTags').val()
         }
         $.ajax({
             type: 'POST',
@@ -139,6 +141,7 @@ function populateUpdateIsmFields(event) {
     $('#updateIsm fieldset input#updateCategory').val(thisIsmObject.category);
     $('#updateIsm fieldset input#updateName').val(thisIsmObject.name);
     $('#updateIsm fieldset input#updateBody').val(thisIsmObject.body);
+    $('#updateIsm fieldset input#updateTags').val(thisIsmObject.tags);
     $('#updateIsm fieldset button#btnUpdateIsm').val(thisIsmObject._id);
 
     console.log('exiting populateUpdateIsmFields');
@@ -158,6 +161,7 @@ function updateIsm(event) {
             'category': $('#updateIsm fieldset input#updateCategory').val(),
             'name': $('#updateIsm fieldset input#updateName').val(),
             'body': $('#updateIsm fieldset input#updateBody').val(),
+            'tags': $('#updateIsm fieldset input#updateTags').val(),
         }
         console.log($(this).attr('value'));
         $.ajax({

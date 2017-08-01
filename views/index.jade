@@ -25,16 +25,17 @@ block content
         // ADD ISM
         h2 Add Ism
         #addIsm
-            fieldset
-                input#inputSource(type='text', placeholder='book title, etc')
+          .form-container-wrapper
+            fieldset.form-container
+                input#inputSource(type='text', placeholder='book title, etc').form-field
                 br
-                input#inputNumber(type='text', placeholder='page number')
+                input#inputNumber(type='text', placeholder='page number').form-field
                 br
-                input#inputTags(type='text', placeholder='tags')
+                input#inputTags(type='text', placeholder='tags').form-field
                 br
-                input#inputQuote(type='text', placeholder='quote or note').textarea
+                textarea#inputQuote(type='textarea', placeholder='quote or note', rows=10).form-field
                 br
-                input#inputComments(type='text', placeholder='comments').textarea
+                textarea#inputComments(type='textarea', placeholder='comments', rows=10).form-field
                 br
                 button#btnAddIsm Add Ism
         // /ADD ISM
@@ -43,19 +44,20 @@ block content
         // UPDATE ISM
         h2 Update Ism
         #updateIsm
-            fieldset
+          .form-container-wrapper
+            fieldset.form-container
                 strong ism to update:
                 |  <span id='ismBeingUpdated'></span>
                 br
-                input#updateSource(type='text', placeholder='book title, etc')
+                input#updateSource(type='text', placeholder='book title, etc').form-field
                 br
-                input#updateNumber(type='text', placeholder='page number')
+                input#updateNumber(type='text', placeholder='page number').form-field
                 br
-                input#updateTags(type='text', placeholder='tags')
+                input#updateTags(type='text', placeholder='tags').form-field
                 br
-                input#updateQuote(type='textarea', placeholder='quote or note').textarea
+                textarea#updateQuote(type='textarea', placeholder='quote or note', rows='10').form-field
                 br
-                input#updateComments(type='textarea', placeholder='comments').textarea
+                textarea#updateComments(type='textarea', placeholder='comments', rows=10).form-field
                 br
                 button#btnUpdateIsm Update Ism
         // /UPDATE ISM

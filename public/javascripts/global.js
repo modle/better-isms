@@ -64,8 +64,8 @@ function addIsm(event) {
             'source': $('#addIsm fieldset input#inputSource').val(),
             'number': $('#addIsm fieldset input#inputNumber').val(),
             'tags': $('#addIsm fieldset input#inputTags').val(),
-            'quote': $('#addIsm fieldset input#inputQuote').val(),
-            'comments': $('#addIsm fieldset input#inputComments').val(),
+            'quote': $('#addIsm fieldset textarea#inputQuote').val(),
+            'comments': $('#addIsm fieldset textarea#inputComments').val(),
         }
         $.ajax({
             type: 'POST',
@@ -75,6 +75,7 @@ function addIsm(event) {
         }).done(function( response ) {
             if (response.msg === '') {
                 $('#addIsm fieldset input').val('');
+                $('#addIsm fieldset textarea').val('');
                 populateTable();
             } else {
                 alert('Error: ' + response.msg);
@@ -143,8 +144,8 @@ function populateUpdateIsmFields(event) {
     $('#updateIsm fieldset input#updateSource').val(thisIsmObject.source);
     $('#updateIsm fieldset input#updateNumber').val(thisIsmObject.number);
     $('#updateIsm fieldset input#updateTags').val(thisIsmObject.tags);
-    $('#updateIsm fieldset input#updateQuote').val(thisIsmObject.quote);
-    $('#updateIsm fieldset input#updateComments').val(thisIsmObject.comments);
+    $('#updateIsm fieldset textarea#updateQuote').val(thisIsmObject.quote);
+    $('#updateIsm fieldset textarea#updateComments').val(thisIsmObject.comments);
     $('#updateIsm fieldset button#btnUpdateIsm').val(thisIsmObject._id);
 
     console.log('exiting populateUpdateIsmFields');
@@ -164,8 +165,8 @@ function updateIsm(event) {
             'source': $('#updateIsm fieldset input#updateSource').val(),
             'number': $('#updateIsm fieldset input#updateNumber').val(),
             'tags': $('#updateIsm fieldset input#updateTags').val(),
-            'quote': $('#updateIsm fieldset input#updateQuote').val(),
-            'comments': $('#updateIsm fieldset input#updateComments').val(),
+            'quote': $('#updateIsm fieldset textarea#updateQuote').val(),
+            'comments': $('#updateIsm fieldset textarea#updateComments').val(),
         }
         console.log($(this).attr('value'));
         $.ajax({

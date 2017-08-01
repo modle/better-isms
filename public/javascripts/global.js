@@ -33,10 +33,11 @@ function populateTable() {
         // For each item in our JSON, add a table row and cells to the content string
         $.each(data, function(){
             tableContent += '<tr>';
-            tableContent += '<td>' + this.category + '</td>';
-            tableContent += '<td>' + this.name + '</td>';
-            tableContent += '<td>' + this.body + '</td>';
+            tableContent += '<td>' + this.source + '</td>';
+            tableContent += '<td>' + this.number + '</td>';
             tableContent += '<td>' + (this.tags || '') + '</td>';
+            tableContent += '<td>' + this.quote + '</td>';
+            tableContent += '<td>' + this.comments + '</td>';
             tableContent += '<td><a href="#" class="linkupdateism" rel="' + this._id + '">u</a></td>';
             tableContent += '<td><a href="#" class="linkdeleteism" rel="' + this._id + '">d</a></td>';
             tableContent += '</tr>';
@@ -60,10 +61,11 @@ function addIsm(event) {
 
     if(errorCount === 0) {
         var newIsm = {
-            'category': $('#addIsm fieldset input#inputCategory').val(),
-            'name': $('#addIsm fieldset input#inputName').val(),
-            'body': $('#addIsm fieldset input#inputBody').val(),
-            'tags': $('#addIsm fieldset input#inputTags').val()
+            'source': $('#addIsm fieldset input#inputSource').val(),
+            'number': $('#addIsm fieldset input#inputNumber').val(),
+            'tags': $('#addIsm fieldset input#inputTags').val(),
+            'quote': $('#addIsm fieldset input#inputQuote').val(),
+            'comments': $('#addIsm fieldset input#inputComments').val(),
         }
         $.ajax({
             type: 'POST',
@@ -138,10 +140,11 @@ function populateUpdateIsmFields(event) {
     $('#ismBeingUpdated').text(thisIsmObject.ismname);
 
     // Inject the current value into the update field
-    $('#updateIsm fieldset input#updateCategory').val(thisIsmObject.category);
-    $('#updateIsm fieldset input#updateName').val(thisIsmObject.name);
-    $('#updateIsm fieldset input#updateBody').val(thisIsmObject.body);
+    $('#updateIsm fieldset input#updateSource').val(thisIsmObject.source);
+    $('#updateIsm fieldset input#updateNumber').val(thisIsmObject.number);
     $('#updateIsm fieldset input#updateTags').val(thisIsmObject.tags);
+    $('#updateIsm fieldset input#updateQuote').val(thisIsmObject.quote);
+    $('#updateIsm fieldset input#updateComments').val(thisIsmObject.comments);
     $('#updateIsm fieldset button#btnUpdateIsm').val(thisIsmObject._id);
 
     console.log('exiting populateUpdateIsmFields');
@@ -158,10 +161,11 @@ function updateIsm(event) {
 
     if(errorCount === 0) {
         var updateIsm = {
-            'category': $('#updateIsm fieldset input#updateCategory').val(),
-            'name': $('#updateIsm fieldset input#updateName').val(),
-            'body': $('#updateIsm fieldset input#updateBody').val(),
+            'source': $('#updateIsm fieldset input#updateSource').val(),
+            'number': $('#updateIsm fieldset input#updateNumber').val(),
             'tags': $('#updateIsm fieldset input#updateTags').val(),
+            'quote': $('#updateIsm fieldset input#updateQuote').val(),
+            'comments': $('#updateIsm fieldset input#updateComments').val(),
         }
         console.log($(this).attr('value'));
         $.ajax({

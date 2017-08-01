@@ -12,10 +12,11 @@ block content
         #ismList
             table
                 thead
-                    th category
-                    th name
-                    th body
+                    th source
+                    th page number
                     th tags
+                    th quote
+                    th comments
                     th U
                     th D
                 tbody
@@ -25,13 +26,15 @@ block content
         h2 Add Ism
         #addIsm
             fieldset
-                input#inputCategory(type='text', placeholder='category')
+                input#inputSource(type='text', placeholder='book title, etc')
                 br
-                input#inputName(type='text', placeholder='name')
-                br
-                input#inputBody(type='text', placeholder='body')
+                input#inputNumber(type='text', placeholder='page number')
                 br
                 input#inputTags(type='text', placeholder='tags')
+                br
+                input#inputQuote(type='text', placeholder='quote or note').textarea
+                br
+                input#inputComments(type='text', placeholder='comments').textarea
                 br
                 button#btnAddIsm Add Ism
         // /ADD ISM
@@ -44,13 +47,15 @@ block content
                 strong ism to update:
                 |  <span id='ismBeingUpdated'></span>
                 br
-                input#updateCategory(type='text', placeholder='category')
+                input#updateSource(type='text', placeholder='book title, etc')
                 br
-                input#updateName(type='text', placeholder='name')
-                br
-                input#updateBody(type='text', placeholder='body')
+                input#updateNumber(type='text', placeholder='page number')
                 br
                 input#updateTags(type='text', placeholder='tags')
+                br
+                input#updateQuote(type='textarea', placeholder='quote or note').textarea
+                br
+                input#updateComments(type='textarea', placeholder='comments').textarea
                 br
                 button#btnUpdateIsm Update Ism
         // /UPDATE ISM

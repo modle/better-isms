@@ -6,14 +6,11 @@ $(document).ready(function() {
     // Populate the ism table on initial page load
     populateTable();
 
-    // Add Ism button click
-    $('#btnAddIsm').on('click', addIsm);
+    // Add or Update Ism button click
+    $('#btnAddOrUpdateIsm').on('click', addOrUpdateIsm);
 
     // Update Ism link click
-    $('#ismList table tbody').on('click', 'td a.linkupdateism', populateUpdateIsmFields);
-
-    // Update Ism button click
-    $('#btnUpdateIsm').on('click', updateIsm);
+    $('#ismList table tbody').on('click', 'td a.linkupdateism', populateIsmFields);
 
     // Delete Ism link click
     $('#ismList table tbody').on('click', 'td a.linkdeleteism', deleteIsm);
@@ -24,7 +21,7 @@ $(document).ready(function() {
 // Fill table with data
 function populateTable() {
     // Empty content string
-    console.log('isms populated!');
+    console.log('isms table populated!');
 
     var tableContent = '';
     // jQuery AJAX call for JSON
@@ -48,34 +45,42 @@ function populateTable() {
     });
 };
 
-// Add Ism
-function addIsm(event) {
+// Add or Update Ism
+function addOrUpdateIsm(event) {
     event.preventDefault();
-    console.log('add ism clicked!');
+    console.log('update or add ism clicked!');
 
     // Super basic validation - increase errorCount variable if any fields are blank
     var errorCount = 0;
-    $('#addIsm input').each(function(index, val) {
+    $('#addOrUpdateIsm input').each(function(index, val) {
         if($(this).val() === '') { errorCount++; }
     });
 
     if(errorCount === 0) {
-        var newIsm = {
-            'source': $('#addIsm fieldset input#inputSource').val(),
-            'number': $('#addIsm fieldset input#inputNumber').val(),
-            'tags': $('#addIsm fieldset input#inputTags').val(),
-            'quote': $('#addIsm fieldset textarea#inputQuote').val(),
-            'comments': $('#addIsm fieldset textarea#inputComments').val(),
+        var ism = {
+            'source': $('#addOrUpdateIsm fieldset input#inputSource').val(),
+            'number': $('#addOrUpdateIsm fieldset input#inputNumber').val(),
+            'tags': $('#addOrUpdateIsm fieldset input#inputTags').val(),
+            'quote': $('#addOrUpdateIsm fieldset textarea#inputQuote').val(),
+            'comments': $('#addOrUpdateIsm fieldset textarea#inputComments').val(),
         }
+        var url = '/isms/addorupdateism/';
+        var type = 'POST';
+        if ($(this).attr('value')) {
+          url += $(this).attr('value')
+          type = 'PUT';
+        }
+        console.log(url)
         $.ajax({
-            type: 'POST',
-            data: newIsm,
-            url: '/isms/addism',
+            type: type,
+            data: ism,
+            url: url,
             dataType: 'JSON'
         }).done(function( response ) {
             if (response.msg === '') {
-                $('#addIsm fieldset input').val('');
-                $('#addIsm fieldset textarea').val('');
+                $('#addOrUpdateIsm fieldset input').val('');
+                $('#addOrUpdateIsm fieldset textarea').val('');
+                $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val('');
                 populateTable();
             } else {
                 alert('Error: ' + response.msg);
@@ -87,6 +92,7 @@ function addIsm(event) {
         return false;
     }
 };
+
 
 // Delete Ism
 function deleteIsm(event) {
@@ -106,9 +112,8 @@ function deleteIsm(event) {
             }
             populateTable();
             // clear the update fields if the id matches
-            if ($('#updateIsm fieldset button#btnUpdateIsm').val() === ismId) {
-                $('#updateIsm fieldset input').val('');
-                $('#ismBeingUpdated').text('');
+            if ($('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val() === ismId) {
+                $('#addOrUpdateIsm fieldset input').val('');
             }
         });
     }
@@ -117,7 +122,7 @@ function deleteIsm(event) {
     }
 };
 
-function populateUpdateIsmFields(event) {
+function populateIsmFields(event) {
     event.preventDefault();
     console.log('populatefieldsclicked!');
 
@@ -141,52 +146,12 @@ function populateUpdateIsmFields(event) {
     $('#ismBeingUpdated').text(thisIsmObject.ismname);
 
     // Inject the current value into the update field
-    $('#updateIsm fieldset input#updateSource').val(thisIsmObject.source);
-    $('#updateIsm fieldset input#updateNumber').val(thisIsmObject.number);
-    $('#updateIsm fieldset input#updateTags').val(thisIsmObject.tags);
-    $('#updateIsm fieldset textarea#updateQuote').val(thisIsmObject.quote);
-    $('#updateIsm fieldset textarea#updateComments').val(thisIsmObject.comments);
-    $('#updateIsm fieldset button#btnUpdateIsm').val(thisIsmObject._id);
+    $('#addOrUpdateIsm fieldset input#inputSource').val(thisIsmObject.source);
+    $('#addOrUpdateIsm fieldset input#inputNumber').val(thisIsmObject.number);
+    $('#addOrUpdateIsm fieldset input#inputTags').val(thisIsmObject.tags);
+    $('#addOrUpdateIsm fieldset textarea#inputQuote').val(thisIsmObject.quote);
+    $('#addOrUpdateIsm fieldset textarea#inputComments').val(thisIsmObject.comments);
+    $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val(thisIsmObject._id);
 
-    console.log('exiting populateUpdateIsmFields');
+    console.log('exiting populateIsmFields');
 }
-
-function updateIsm(event) {
-    event.preventDefault();
-    console.warn('triggered updateIsm');
-    // Super basic validation - increase errorCount variable if any fields are blank
-    var errorCount = 0;
-    $('#updateIsm input').each(function(index, val) {
-        if($(this).val() === '') { errorCount++; }
-    });
-
-    if(errorCount === 0) {
-        var updateIsm = {
-            'source': $('#updateIsm fieldset input#updateSource').val(),
-            'number': $('#updateIsm fieldset input#updateNumber').val(),
-            'tags': $('#updateIsm fieldset input#updateTags').val(),
-            'quote': $('#updateIsm fieldset textarea#updateQuote').val(),
-            'comments': $('#updateIsm fieldset textarea#updateComments').val(),
-        }
-        console.log($(this).attr('value'));
-        $.ajax({
-            type: 'PUT',
-            data: updateIsm,
-            url: '/isms/updateism/' + $(this).attr('value'),
-            dataType: 'JSON'
-        }).done(function( response ) {
-            if (response.msg === '') {
-                $('#updateIsm fieldset input').val('');
-                $('#ismBeingUpdated').text('');
-                populateTable();
-                console.log('ism updated!');
-            } else {
-                alert('Error: ' + response.msg);
-            }
-        });
-    }
-    else {
-        alert('Please fill in all fields');
-        return false;
-    }
-};

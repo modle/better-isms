@@ -13,28 +13,28 @@ router.get('/ismlist', function(req, res) {
 });
 
 /*
- * POST to addism.
- */
-router.post('/addism', function(req, res) {
-    var db = req.db;
-    var collection = db.get('ismlist');
-    collection.insert(req.body, function(err, result){
-        res.send(
-            (err === null) ? { msg: '' } : { msg: err }
-        );
-    });
-});
-
-/*
  * PUT to updateism.
  */
-router.put('/updateism/:id', function(req, res) {
+router.put('/addorupdateism/:id', function(req, res) {
     var db = req.db;
     var collection = db.get('ismlist');
     var ismToUpdate = req.params.id;
     collection.update({ '_id' : ismToUpdate }, req.body, function(err) {
         res.send(
             (err === null) ? { msg: '' } : { msg:'error: ' + err }
+        );
+    });
+});
+
+/*
+ * POST to addism.
+ */
+router.post('/addorupdateism', function(req, res) {
+    var db = req.db;
+    var collection = db.get('ismlist');
+    collection.insert(req.body, function(err, result){
+        res.send(
+            (err === null) ? { msg: '' } : { msg: err }
         );
     });
 });

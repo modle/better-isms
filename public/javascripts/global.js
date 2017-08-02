@@ -9,6 +9,9 @@ $(document).ready(function() {
     // Add or Update Ism button click
     $('#btnAddOrUpdateIsm').on('click', addOrUpdateIsm);
 
+    // Clear Ism button click
+    $('#btnClearIsm').on('click', clearIsm);
+
     // Update Ism link click
     $('#ismList table tbody').on('click', 'td a.linkupdateism', populateIsmFields);
 
@@ -21,7 +24,7 @@ $(document).ready(function() {
 // Fill table with data
 function populateTable() {
     // Empty content string
-    console.log('isms table populated!');
+    console.log('entering populateTable');
 
     var tableContent = '';
     // jQuery AJAX call for JSON
@@ -43,6 +46,7 @@ function populateTable() {
         // Inject the whole content string into our existing HTML table
         $('#ismList table tbody').html(tableContent);
     });
+    console.log('exiting populateTable');
 };
 
 // Add or Update Ism
@@ -89,8 +93,20 @@ function addOrUpdateIsm(event) {
     }
     else {
         alert('Please fill in all fields');
+        console.log('exiting clearIsm with return false');
         return false;
     }
+    console.log('exiting addOrUpdateIsm');
+};
+
+// Add or Update Ism
+function clearIsm(event) {
+    event.preventDefault();
+    console.log('clear ism clicked!');
+    $('#addOrUpdateIsm fieldset input').val('');
+    $('#addOrUpdateIsm fieldset textarea').val('');
+    $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val('');
+    console.log('exiting clearIsm');
 };
 
 
@@ -118,8 +134,10 @@ function deleteIsm(event) {
         });
     }
     else {
+        console.log('exiting deleteIsm with return false');
         return false;
     }
+    console.log('exiting deleteIsm');
 };
 
 function populateIsmFields(event) {

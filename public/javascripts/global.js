@@ -22,6 +22,27 @@ $(document).ready(function() {
 
   // Delete Ism link click
   $('#ismList table tbody').on('click', 'td a.linkdeleteism', deleteIsm);
+
+  $("#addOrUpdateIsm").keyup(function (event) {
+    // enter or ctrl+s
+    if (event.keyCode == 13 || (event.ctrlKey && event.keyCode == 83)) {
+      $("#btnAddOrUpdateIsm").click();
+      event.preventDefault();
+    }
+  });
+
+  $(window).keydown(function(event) {
+    // ctrl+s
+    if(event.ctrlKey && event.keyCode == 83) {
+      event.preventDefault();
+    }
+    // ctrl+i
+    if(event.ctrlKey && event.keyCode == 73) {
+      $('#newIsm').click();
+      event.preventDefault();
+    }
+  });
+
 });
 
 // Functions =============================================================
@@ -50,6 +71,7 @@ function hideAddOrUpdateForm() {
 function showAddOrUpdateForm() {
   $('#addOrUpdateIsm').show();
   $('#addOrUpdateIsmHeader').show();
+  $('#inputSource').focus();
 }
 
 function clearTheFields() {

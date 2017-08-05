@@ -3,6 +3,7 @@ extends layout
 block content
     h1= title
     p Better Isms
+    button#newIsm New Ism
 
     // Wrapper
     #wrapper
@@ -23,7 +24,7 @@ block content
         // /ISM LIST
 
         // ADD ISM
-        h2 Ism
+        h2#addOrUpdateIsmHeader Ism
         #addOrUpdateIsm
           .form-container-wrapper
             fieldset.form-container

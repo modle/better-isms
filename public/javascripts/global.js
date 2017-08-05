@@ -6,8 +6,13 @@ $(document).ready(function() {
     // Populate the ism table on initial page load
     populateTable();
 
+    hideAddOrUpdateForm();
+
     // Add or Update Ism button click
     $('#btnAddOrUpdateIsm').on('click', addOrUpdateIsm);
+
+    // New Ism button click
+    $('#newIsm').on('click', setNewIsmFormElementText);
 
     // Clear Ism button click
     $('#btnClearIsm').on('click', clearIsm);
@@ -20,6 +25,38 @@ $(document).ready(function() {
 });
 
 // Functions =============================================================
+
+function setNewIsmFormElementText() {
+  $('#addOrUpdateIsmHeader').text("New Ism");
+  $('#btnAddOrUpdateIsm').text("Add Ism");
+  clearTheFields();
+  $('#btnClearIsm').show();
+  showAddOrUpdateForm();
+}
+
+function setUpdateIsmFormElementText() {
+  $('#addOrUpdateIsmHeader').text("Update Ism");
+  $('#btnAddOrUpdateIsm').text("Update Ism");
+  $('#btnClearIsm').hide();
+  showAddOrUpdateForm();
+}
+
+function hideAddOrUpdateForm() {
+  $('#addOrUpdateIsm').hide();
+  $('#addOrUpdateIsmHeader').hide();
+  $('#addOrUpdateIsmHeader').text("");
+}
+
+function showAddOrUpdateForm() {
+  $('#addOrUpdateIsm').show();
+  $('#addOrUpdateIsmHeader').show();
+}
+
+function clearTheFields() {
+  $('#addOrUpdateIsm fieldset input').val('');
+  $('#addOrUpdateIsm fieldset textarea').val('');
+  $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val('');
+}
 
 // Fill table with data
 function populateTable() {
@@ -96,6 +133,7 @@ function addOrUpdateIsm(event) {
         console.log('exiting clearIsm with return false');
         return false;
     }
+    hideAddOrUpdateForm();
     console.log('exiting addOrUpdateIsm');
 };
 
@@ -103,9 +141,7 @@ function addOrUpdateIsm(event) {
 function clearIsm(event) {
     event.preventDefault();
     console.log('clear ism clicked!');
-    $('#addOrUpdateIsm fieldset input').val('');
-    $('#addOrUpdateIsm fieldset textarea').val('');
-    $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val('');
+    clearTheFields();
     console.log('exiting clearIsm');
 };
 
@@ -143,6 +179,7 @@ function deleteIsm(event) {
 function populateIsmFields(event) {
     event.preventDefault();
     console.log('populatefieldsclicked!');
+    setUpdateIsmFormElementText();
 
     // Retrieve ismname from link rel attribute
     var thisIsmId = $(this).attr('rel');

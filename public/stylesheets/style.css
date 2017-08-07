@@ -12,37 +12,11 @@ a {
 }
 
 #wrapper {
-	padding-left:312px;
 	position:relative;
 }
 
 #ismList {
 	margin:0 0 30px 0;
-}
-
-#ismList table {
-	border-collapse:separate;
-	border-spacing:1px;
-	background:#CCC;
-}
-
-#ismList table th {
-	background:#EEE;
-	font-weight:600;
-	padding:10px 20px;
-	text-align:center;
-}
-
-#ismList table tbody {
-	padding:0; margin:0;
-	border-collapse:collapse;
-	border-spacing:0px;
-}
-
-#ismList table td {
-	background:#FFF;
-	padding:5px 10px;
-	text-align:center;
 }
 
 fieldset {

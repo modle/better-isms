@@ -1,45 +1,34 @@
 extends layout
 
 block content
-    h1= title
-    p Better Isms
-    button#newIsm New Ism
+  h1= title
+  button#newIsm New Ism
 
-    // Wrapper
-    #wrapper
+  // Wrapper
+  #wrapper
 
-        // ISM LIST
-        h2 Isms
-        #ismList
-            table
-                thead
-                    th source
-                    th page number
-                    th tags
-                    th quote
-                    th comments
-                    th U
-                    th D
-                tbody
-        // /ISM LIST
+    // ISM LIST
+    #ismList
+      isms
+    // /ISM LIST
 
-        // ADD ISM
-        h2#addOrUpdateIsmHeader Ism
-        #addOrUpdateIsm
-          .form-container-wrapper
-            fieldset.form-container
-                input#inputSource(type='text', placeholder='book title, etc').form-field
-                br
-                input#inputNumber(type='text', placeholder='page number').form-field
-                br
-                input#inputTags(type='text', placeholder='tags').form-field
-                br
-                textarea#inputQuote(type='textarea', placeholder='quote or note', rows=10).form-field
-                br
-                textarea#inputComments(type='textarea', placeholder='comments', rows=10).form-field
-                br
-                button#btnAddOrUpdateIsm Add or Update Ism
-                button#btnClearIsm Clear
-        // /ADD ISM
+    // ISM FORM
+    h2#addOrUpdateIsmHeader Ism
+    #addOrUpdateIsm
+      .form-container-wrapper
+        fieldset.form-container
+          input#inputSource(type='text', placeholder='book title, etc').form-field
+          br
+          input#inputNumber(type='text', placeholder='page number').form-field
+          br
+          input#inputTags(type='text', placeholder='tags').form-field
+          br
+          textarea#inputQuote(type='textarea', placeholder='quote or note', rows=10).form-field
+          br
+          textarea#inputComments(type='textarea', placeholder='comments', rows=10).form-field
+          br
+          button#btnAddOrUpdateIsm Add or Update Ism
+          button#btnClearIsm Clear
+    // /ADD ISM
 
-    // /WRAPPER
+  // /WRAPPER

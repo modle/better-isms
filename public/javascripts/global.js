@@ -18,10 +18,10 @@ $(document).ready(function() {
   $('#btnClearIsm').on('click', clearIsm);
 
   // Update Ism link click
-  $('#ismList table tbody').on('click', 'td a.linkupdateism', populateIsmFields);
+  $('#ismList isms').on('click', 'a.linkupdateism', populateIsmFields);
 
   // Delete Ism link click
-  $('#ismList table tbody').on('click', 'td a.linkdeleteism', deleteIsm);
+  $('#ismList isms').on('click', 'a.linkdeleteism', deleteIsm);
 
   $("#addOrUpdateIsm").keyup(function (event) {
     // enter or ctrl+s
@@ -91,19 +91,14 @@ function populateTable() {
     ismListData = data;
     // For each item in our JSON, add a table row and cells to the content string
     $.each(data, function(){
-      tableContent += '<tr>';
-      tableContent += '<td>' + this.source + '</td>';
-      tableContent += '<td>' + this.number + '</td>';
-      tableContent += '<td>' + (this.tags || '') + '</td>';
-      tableContent += '<td>' + this.quote + '</td>';
-      tableContent += '<td>' + this.comments + '</td>';
-      tableContent += '<td><a href="#" class="linkupdateism" rel="' + this._id + '">u</a></td>';
-      tableContent += '<td><a href="#" class="linkdeleteism" rel="' + this._id + '">d</a></td>';
-      tableContent += '</tr>';
+      tableContent += '<div>' + this.source + '|' + this.number + '|' + (this.tags || '') + '|' + this.quote + '|' + this.comments + '|';
+      tableContent += '<a href="#" class="linkupdateism" rel="' + this._id + '">u</a>' + '|';
+      tableContent += '<a href="#" class="linkdeleteism" rel="' + this._id + '">d</a>';
+      tableContent += '</div>';
     });
 
-    // Inject the whole content string into our existing HTML table
-    $('#ismList table tbody').html(tableContent);
+    // Inject the whole content string into our existing HTML
+    $('#ismList isms').html(tableContent);
   });
   console.log('exiting populateTable');
 };

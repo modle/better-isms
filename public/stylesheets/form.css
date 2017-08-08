@@ -123,3 +123,18 @@
   background-image: -ms-linear-gradient(top, #00477d 0%, #4b94cc 100%);
   color: #fff;
 }
+
+@media (min-width: 768px) {
+}
+
+@media (max-width: 767px) {
+  .form-field {
+    width: 100%;
+    overflow: auto;
+  }
+  .form-container {
+    width: 100%;
+    padding: 20px 0;
+    overflow: hidden;
+  }
+}

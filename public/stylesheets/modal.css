@@ -29,3 +29,12 @@
   from {top: -300px; opacity: 0}
   to {top: 0; opacity: 1}
 }
+
+@media (max-width: 767px) {
+  .modal {
+    width: 100%;
+  }
+  .modal-form {
+    width: 100%;
+  }
+}

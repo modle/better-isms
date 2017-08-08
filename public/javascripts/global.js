@@ -58,6 +58,7 @@ $(document).ready(function() {
 function openFormModal() {
   console.log("opening form modal");
   modal.style.display = "block";
+  $('#inputSource').focus();
 }
 
 function closeFormModal() {

@@ -1,18 +1,22 @@
 // Ismlist data array for filling in info box
 var ismData = [];
 
+var modal;
+
 // DOM Ready =============================================================
 $(document).ready(function() {
   // Populate the ism table on initial page load
   populateTable();
 
-  hideAddOrUpdateForm();
+  modal = document.getElementById('formModal');
+
+  closeFormModal();
 
   // Add or Update Ism button click
   $('#btnAddOrUpdateIsm').on('click', addOrUpdateIsm);
 
   // New Ism button click
-  $('#newIsm').on('click', setNewIsmFormElementText);
+  $('#newIsm').on('click', openFormModal);
 
   // Clear Ism button click
   $('#btnClearIsm').on('click', clearIsm);
@@ -47,31 +51,31 @@ $(document).ready(function() {
 
 // Functions =============================================================
 
+function openFormModal() {
+  console.log("opening form modal");
+  modal.style.display = "block";
+}
+
+function closeFormModal() {
+  console.log("closing form modal");
+  modal.style.display = "none";
+  $('#addOrUpdateIsmHeader').hide();
+  $('#addOrUpdateIsmHeader').text("");
+}
+
 function setNewIsmFormElementText() {
   $('#addOrUpdateIsmHeader').text("New Ism");
   $('#btnAddOrUpdateIsm').text("Add Ism");
   clearTheFields();
   $('#btnClearIsm').show();
-  showAddOrUpdateForm();
+  openFormModal();
 }
 
 function setUpdateIsmFormElementText() {
   $('#addOrUpdateIsmHeader').text("Update Ism");
   $('#btnAddOrUpdateIsm').text("Update Ism");
   $('#btnClearIsm').hide();
-  showAddOrUpdateForm();
-}
-
-function hideAddOrUpdateForm() {
-  $('#addOrUpdateIsm').hide();
-  $('#addOrUpdateIsmHeader').hide();
-  $('#addOrUpdateIsmHeader').text("");
-}
-
-function showAddOrUpdateForm() {
-  $('#addOrUpdateIsm').show();
-  $('#addOrUpdateIsmHeader').show();
-  $('#inputSource').focus();
+  openFormModal();
 }
 
 function clearTheFields() {
@@ -151,7 +155,7 @@ function addOrUpdateIsm(event) {
     console.log('exiting clearIsm with return false');
     return false;
   }
-  hideAddOrUpdateForm();
+  closeFormModal();
   console.log('exiting addOrUpdateIsm');
 };
 

@@ -2,51 +2,39 @@ extends layout
 
 block content
   h1= title
+
   button#newIsm New Ism
   hr
 
   // Wrapper
   #wrapper
 
+    // ISM FORM
+    .modal#formModal
+      .modal-form
+        h2#addOrUpdateIsmHeader Ism
+        #addOrUpdateIsm
+          .form-container-wrapper
+            fieldset.form-container
+              input#inputSource(type='text', placeholder='book title, etc').form-field
+              br
+              input#inputNumber(type='text', placeholder='page number').form-field
+              br
+              input#inputTags(type='text', placeholder='tags').form-field
+              br
+              textarea#inputQuote(type='textarea', placeholder='quote or note', rows=10).form-field
+              br
+              textarea#inputComments(type='textarea', placeholder='comments', rows=10).form-field
+              br
+              button#btnAddOrUpdateIsm Add or Update Ism
+              button#btnClearIsm Clear
+    // /ISM FORM
+
     // ISM LIST
     #ismList
       isms
     // /ISM LIST
 
-    // ISM FORM
-    h2#addOrUpdateIsmHeader Ism
-    #addOrUpdateIsm
-      .form-container-wrapper
-        fieldset.form-container
-          input#inputSource(type='text', placeholder='book title, etc').form-field
-          br
-          input#inputNumber(type='text', placeholder='page number').form-field
-          br
-          input#inputTags(type='text', placeholder='tags').form-field
-          br
-          textarea#inputQuote(type='textarea', placeholder='quote or note', rows=10).form-field
-          br
-          textarea#inputComments(type='textarea', placeholder='comments', rows=10).form-field
-          br
-          button#btnAddOrUpdateIsm Add or Update Ism
-          button#btnClearIsm Clear
-    // /ADD ISM
-
   // /WRAPPER
 
   a(href="#") back to top
-
-  hr
-  br
-  br
-  button#modalBtn Open Modal
-  .modal#myModal
-    .modal-content
-      .modal-header
-        span.modal-close &times;
-        h2 Modal Header
-      .modal-body
-        p Some text in the Modal Body
-        p Some other text...
-      .modal-footer
-        h3 Modal Footer

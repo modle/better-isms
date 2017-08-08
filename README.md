@@ -1,2 +1,3 @@
-a single user dungeon, using node.js, mongodb, express, jade, ajax, and REST
+A reader's note-taking companion app
 
+[demo](https://better-isms.herokuapp.com/)

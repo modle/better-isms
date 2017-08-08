@@ -45,6 +45,10 @@ $(document).ready(function() {
       $('#newIsm').click();
       event.preventDefault();
     }
+    if(event.keyCode == 27) {
+      closeFormModal();
+      event.preventDefault();
+    }
   });
 
 });
@@ -231,4 +235,11 @@ function populateIsmFields(event) {
   $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val(thisIsmObject._id);
 
   console.log('exiting populateIsmFields');
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        closeFormModal();
+    }
 }

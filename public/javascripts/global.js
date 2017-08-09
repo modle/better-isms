@@ -100,7 +100,7 @@ function populateTable() {
     ismListData = data;
     // For each item in our JSON, add a table row and cells to the content string
     $.each(data.reverse(), function(){
-      tableContent += '<div>' + this.source + ' | ' + this.number + ' | ' + (this.tags || '') + ' | ' + this.quote + ' | ' + this.comments + ' | ';
+      tableContent += '<div class="record">' + this.source + ' | ' + this.number + ' | ' + (this.tags || '') + ' | ' + this.quote + ' | ' + this.comments + ' | ';
       tableContent += '<a href="#" class="linkupdateism" rel="' + this._id + '">u</a>' + ' | ';
       tableContent += '<a href="#" class="linkdeleteism" rel="' + this._id + '">d</a>';
       tableContent += '</div>';

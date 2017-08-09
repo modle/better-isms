@@ -1,6 +1,5 @@
 body {
-  padding: 2em;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 10px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 h2 {
@@ -9,7 +8,6 @@ h2 {
 
 a {
   color: #00B7FF;
-  font: 10em;
 }
 
 #wrapper {
@@ -20,7 +18,14 @@ a {
 	margin: 0 0 2em 0;
 }
 
+.record {
+  font-size: 1.5em;
+}
+
 @media (min-device-width: 768px) {
+  body {
+    padding: 2em;
+  }
 }
 
 @media (max-device-width: 767px) {

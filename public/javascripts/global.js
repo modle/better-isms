@@ -15,6 +15,9 @@ $(document).ready(function() {
   // Add or Update Ism button click
   $('#btnAddOrUpdateIsm').on('click', addOrUpdateIsm);
 
+  // Apply filter
+  $('#applyFilter').on('click', getFilteredIsms);
+
   // New Ism button click
   $('#newIsm').on('click', openFormModal);
 
@@ -79,6 +82,11 @@ $(document).ready(function() {
 });
 
 // Functions =============================================================
+
+function getFilteredIsms() {
+  var filterString = $('#filter').val();
+  console.log(filterString);
+}
 
 function openFormModal() {
   console.log("opening form modal");

@@ -29,7 +29,7 @@ $(document).ready(function() {
 
   $("#addOrUpdateIsm").keyup(function (event) {
     // enter or ctrl+s
-    if (event.keyCode == 13 || (event.ctrlKey && event.keyCode == 83)) {
+    if (event.ctrlKey && event.keyCode == 83) {
       $("#btnAddOrUpdateIsm").click();
       event.preventDefault();
     }
@@ -45,9 +45,34 @@ $(document).ready(function() {
       $('#newIsm').click();
       event.preventDefault();
     }
+    // esc
     if(event.keyCode == 27) {
       closeFormModal();
       event.preventDefault();
+    }
+  });
+
+  $('#btnClearIsm').on('keydown', function (evt) {
+      if(evt.keyCode === 9) { // Tab pressed
+          evt.preventDefault();
+          $('#inputSource').focus();
+      }
+  });
+
+  $('input,select').keydown(function(event) {
+    var key = event.charCode ? event.charCode : event.keyCode ? event.keyCode : 0;
+    if (key == 13) {
+      event.preventDefault();
+      var inputs = $('#addOrUpdateIsm').find(':input:visible');
+      var nextinput = 0;
+      if (inputs.index(this) < (inputs.length - 1)) {
+        nextinput = inputs.index(this) + 1;
+      }
+      if (inputs.length == 1) {
+        $(this).blur().focus();
+      } else {
+        inputs.eq(nextinput).focus();
+      }
     }
   });
 

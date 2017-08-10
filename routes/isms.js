@@ -7,7 +7,18 @@ var router = express.Router();
 router.get('/ismlist', function(req, res) {
   var db = req.db;
   var collection = db.get('ismlist');
-  collection.find({},{},function(e,docs){
+  collection.find({},{},function(e, docs){
+    res.json(docs);
+  });
+});
+
+/*
+ * GET ismlist with filter.
+ */
+router.get('/ismlist/:id', function(req, res) {
+  var db = req.db;
+  var collection = db.get('ismlist');
+  collection.find({tags: { $in: [req.params.id] }}, {}, function(e, docs) {
     res.json(docs);
   });
 });

@@ -1,12 +1,9 @@
-// Ismlist data array for filling in info box
-var ismData = [];
-
 var modal;
 
 // DOM Ready =============================================================
 $(document).ready(function() {
   // Populate the ism table on initial page load
-  populateTable();
+  populateTable('');
 
   modal = document.getElementById('formModal');
 
@@ -87,11 +84,13 @@ function getFilteredIsms() {
   var filterPairs = parseFilterPairs();
   queryString = '';
   for (var key in filterPairs) {
-    if (filterPairs.hasOwnProperty(key) && key == 'tag') {
-      queryString = key + ": " + "'" + filterPairs[key] + "'";
-      console.log(queryString);
+    if (filterPairs.hasOwnProperty(key) && key == 'tags') {
+      queryString += filterPairs[key];
     }
   }
+  console.log("logging queryString")
+  console.log(queryString);
+  populateTable(queryString);
 }
 
 function parseFilterPairs() {
@@ -155,24 +154,30 @@ function clearTheFields() {
 }
 
 // Fill table with data
-function populateTable() {
+function populateTable(filter) {
   // Empty content string
   console.log('entering populateTable');
-
+  console.log('filter string is: ' + filter)
   var tableContent = '';
-  // jQuery AJAX call for JSON
-  $.getJSON( '/isms/ismlist', function( data ) {
-    ismListData = data;
-    // For each item in our JSON, add a table row and cells to the content string
-    $.each(data.reverse(), function(){
+  var url = '/isms/ismlist/';
+  if (filter) {
+    url += filter;
+  }
+  // // jQuery AJAX call for JSON
+  $.ajax({
+    type: 'GET',
+    url: url,
+    dataType: 'JSON'
+  }).done(function( response ) {
+    ismListData = response;
+    $.each(response.reverse(), function(){
       tableContent += '<div class="record">' + this.source + ' | ' + this.number + ' | ' + (this.tags || '') + ' | ' + this.quote + ' | ' + this.comments + ' | ';
       tableContent += '<a href="#" class="linkupdateism" rel="' + this._id + '">u</a>' + ' | ';
       tableContent += '<a href="#" class="linkdeleteism" rel="' + this._id + '">d</a>';
       tableContent += '</div>';
       tableContent += '<hr>';
     });
-
-    // Inject the whole content string into our existing HTML
+    console.log("got past ajax call to ism/ismlist")
     $('#ismList isms').html(tableContent);
   });
   console.log('exiting populateTable');
@@ -236,7 +241,6 @@ function clearIsm(event) {
   clearTheFields();
   console.log('exiting clearIsm');
 };
-
 
 // Delete Ism
 function deleteIsm(event) {

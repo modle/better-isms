@@ -84,7 +84,14 @@ $(document).ready(function() {
 // Functions =============================================================
 
 function getFilteredIsms() {
-  var filteredPairs = parseFilterPairs();
+  var filterPairs = parseFilterPairs();
+  queryString = '';
+  for (var key in filterPairs) {
+    if (filterPairs.hasOwnProperty(key) && key == 'tag') {
+      queryString = key + ": " + "'" + filterPairs[key] + "'";
+      console.log(queryString);
+    }
+  }
 }
 
 function parseFilterPairs() {

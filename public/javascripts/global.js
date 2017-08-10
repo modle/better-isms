@@ -84,8 +84,33 @@ $(document).ready(function() {
 // Functions =============================================================
 
 function getFilteredIsms() {
+  var filteredPairs = parseFilterPairs();
+}
+
+function parseFilterPairs() {
   var filterString = $('#filter').val();
-  console.log(filterString);
+  // split on ','
+  var commaSplitElements = filterString.split(",");
+  var equalsSplitElements = []
+  var tempArray = []
+  // split each element of splitString on '='
+  for (i = 0; i < commaSplitElements.length; i++) {
+    // this seems really assonine, having to loop through the tempArray to add its elements to equalsSplitElements
+    tempArray = commaSplitElements[i].split("=");
+    for (j = 0; j < tempArray.length; j++) {
+      equalsSplitElements.push(tempArray[j]);
+    }
+  }
+  var filterDict = {};
+  // if equalsSplitElements length is an odd number, we don't have valid pairings, so return
+  if (equalsSplitElements.length % 2 > 0 || equalsSplitElements.length == 0) {
+    return;
+  }
+  // convert splitElements into a map
+  for (i = 0; i < equalsSplitElements.length; i += 2) {
+    filterDict[equalsSplitElements[i]] = equalsSplitElements[i + 1];
+  }
+  return filterDict;
 }
 
 function openFormModal() {

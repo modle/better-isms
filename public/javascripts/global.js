@@ -16,6 +16,9 @@ $(document).ready(function() {
   // New Ism button click
   $('#newIsm').on('click', openFormModal);
 
+  // show all button click
+  $('#showAll').on('click', populateTable);
+
   // Clear Ism button click
   $('#btnClearIsm').on('click', clearIsm);
 
@@ -122,9 +125,9 @@ function populateTable(event) {
   console.log('entering populateTable');
   var tableContent = '';
   var url = '/isms/ismlist/';
-  if (event) {
-    console.log($(this).attr('rel'));
-    url += $(this).attr('rel');
+  var rel = $(this).attr('rel');
+  if (rel) {
+    url += rel;
   }
   // // jQuery AJAX call for JSON
   $.ajax({

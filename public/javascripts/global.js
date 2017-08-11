@@ -1,4 +1,5 @@
 var modal;
+var tagCloud = '';
 
 // DOM Ready =============================================================
 $(document).ready(function() {
@@ -12,9 +13,6 @@ $(document).ready(function() {
   // Add or Update Ism button click
   $('#btnAddOrUpdateIsm').on('click', addOrUpdateIsm);
 
-  // Apply filter
-  $('#applyFilter').on('click', getFilteredIsms);
-
   // New Ism button click
   $('#newIsm').on('click', openFormModal);
 
@@ -26,6 +24,9 @@ $(document).ready(function() {
 
   // Delete Ism link click
   $('#ismList isms').on('click', 'a.linkdeleteism', deleteIsm);
+
+  // Tag cloud link click
+  $('#tagCloud').on('click', 'a.linktagfilter', populateTable);
 
   $("#addOrUpdateIsm").keyup(function (event) {
     // enter or ctrl+s
@@ -80,44 +81,6 @@ $(document).ready(function() {
 
 // Functions =============================================================
 
-function getFilteredIsms() {
-  var filterPairs = parseFilterPairs();
-  queryString = '';
-  for (var key in filterPairs) {
-    if (filterPairs.hasOwnProperty(key) && key == 'tags') {
-      queryString += filterPairs[key];
-    }
-  }
-  console.log("logging queryString")
-  console.log(queryString);
-  populateTable(queryString);
-}
-
-function parseFilterPairs() {
-  var filterString = $('#filter').val();
-  // split on ','
-  var commaSplitElements = filterString.split(",");
-  var equalsSplitElements = []
-  var tempArray = []
-  // split each element of splitString on '='
-  for (i = 0; i < commaSplitElements.length; i++) {
-    // this seems really assonine, having to loop through the tempArray to add its elements to equalsSplitElements
-    tempArray = commaSplitElements[i].split("=");
-    for (j = 0; j < tempArray.length; j++) {
-      equalsSplitElements.push(tempArray[j]);
-    }
-  }
-  var filterDict = {};
-  // if equalsSplitElements length is an odd number, we don't have valid pairings, so return
-  if (equalsSplitElements.length % 2 > 0 || equalsSplitElements.length == 0) {
-    return;
-  }
-  // convert splitElements into a map
-  for (i = 0; i < equalsSplitElements.length; i += 2) {
-    filterDict[equalsSplitElements[i]] = equalsSplitElements[i + 1];
-  }
-  return filterDict;
-}
 
 function openFormModal() {
   console.log("opening form modal");
@@ -154,13 +117,14 @@ function clearTheFields() {
 }
 
 // Fill table with data
-function populateTable(filter) {
+function populateTable(event) {
   // Empty content string
   console.log('entering populateTable');
   var tableContent = '';
   var url = '/isms/ismlist/';
-  if (filter) {
-    url += filter;
+  if (event) {
+    console.log($(this).attr('rel'));
+    url += $(this).attr('rel');
   }
   // // jQuery AJAX call for JSON
   $.ajax({
@@ -170,13 +134,32 @@ function populateTable(filter) {
   }).done(function( response ) {
     ismListData = response;
     $.each(response.reverse(), function(){
-      tableContent += '<div class="record">' + this.source + ' | ' + this.number + ' | ' + this["tags[]"].join() + ' | ' + this.quote + ' | ' + this.comments + ' | ';
+      // a single element gets added to the document as a string :(
+      if (Array.isArray(this["tags[]"])) {
+        // this bit for gathering tags is fugly
+        // also, should probably add them all to a set to avoid duplicates, then create the tagCloud html
+
+        // only generate the tag cloud if this is not a filter from a tag anchor click
+        if (!event) {
+          for(i = 0; i < this["tags[]"].length; i++) {
+            tagCloud += '<span><a href="#" class="linktagfilter" rel="' + this["tags[]"][i] + '">' + this["tags[]"][i] + '</a></span><span> </span>';
+          }
+        }
+        joinedTags = this["tags[]"].join();
+      } else {
+        if (!event) {
+          tagCloud += '<span><a href="#" class="linktagfilter" rel="' + this["tags[]"] + '">' + this["tags[]"] + '</a></span><span> </span>';
+        }
+        joinedTags = this["tags[]"];
+      }
+      tableContent += '<div class="record">' + this.source + ' | ' + this.number + ' | ' + joinedTags + ' | ' + this.quote + ' | ' + this.comments + ' | ';
       tableContent += '<a href="#" class="linkupdateism" rel="' + this._id + '">u</a>' + ' | ';
       tableContent += '<a href="#" class="linkdeleteism" rel="' + this._id + '">d</a>';
       tableContent += '</div>';
       tableContent += '<hr>';
     });
     $('#ismList isms').html(tableContent);
+    $('#tagCloud').html(tagCloud);
   });
   console.log('exiting populateTable');
 };

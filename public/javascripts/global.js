@@ -1,5 +1,6 @@
 var modal;
-var tagCloud = '';
+var rel;
+var tagCloudSet = new Set();
 
 // DOM Ready =============================================================
 $(document).ready(function() {
@@ -16,7 +17,7 @@ $(document).ready(function() {
   // New Ism button click
   $('#newIsm').on('click', openFormModal);
 
-  // show all button click
+  // Show all button click
   $('#showAll').on('click', populateTable);
 
   // Clear Ism button click
@@ -124,6 +125,7 @@ function populateTable(event) {
   // Empty content string
   console.log('entering populateTable');
   var tableContent = '';
+  var tagCloud = '';
   var url = '/isms/ismlist/';
   var rel = $(this).attr('rel');
   if (rel) {
@@ -139,20 +141,12 @@ function populateTable(event) {
     $.each(response.reverse(), function(){
       // a single element gets added to the document as a string :(
       if (Array.isArray(this["tags[]"])) {
-        // this bit for gathering tags is fugly
-        // also, should probably add them all to a set to avoid duplicates, then create the tagCloud html
-
-        // only generate the tag cloud if this is not a filter from a tag anchor click
-        if (!event) {
-          for(i = 0; i < this["tags[]"].length; i++) {
-            tagCloud += '<span><a href="#" class="linktagfilter" rel="' + this["tags[]"][i] + '">' + this["tags[]"][i] + '</a></span><span> </span>';
-          }
+        for (i = 0; i < this["tags[]"].length; i++) {
+          tagCloudSet.add(this["tags[]"][i]);
         }
         joinedTags = this["tags[]"].join();
       } else {
-        if (!event) {
-          tagCloud += '<span><a href="#" class="linktagfilter" rel="' + this["tags[]"] + '">' + this["tags[]"] + '</a></span><span> </span>';
-        }
+        tagCloudSet.add(this["tags[]"]);
         joinedTags = this["tags[]"];
       }
       tableContent += '<div class="record">' + this.source + ' | ' + this.number + ' | ' + joinedTags + ' | ' + this.quote + ' | ' + this.comments + ' | ';
@@ -162,6 +156,9 @@ function populateTable(event) {
       tableContent += '<hr>';
     });
     $('#ismList isms').html(tableContent);
+    for (var item of tagCloudSet) {
+      tagCloud += '<span><a href="#" class="linktagfilter" rel="' + item + '">' + item + '</a></span><span> </span>';
+    }
     $('#tagCloud').html(tagCloud);
   });
   console.log('exiting populateTable');
@@ -203,7 +200,7 @@ function addOrUpdateIsm(event) {
         $('#addOrUpdateIsm fieldset input').val('');
         $('#addOrUpdateIsm fieldset textarea').val('');
         $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val('');
-        populateTable();
+        populateTable(null);
       } else {
         alert('Error: ' + response.msg);
       }

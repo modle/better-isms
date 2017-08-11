@@ -18,7 +18,8 @@ router.get('/ismlist', function(req, res) {
 router.get('/ismlist/:id', function(req, res) {
   var db = req.db;
   var collection = db.get('ismlist');
-  collection.find({tags: { $in: [req.params.id] }}, {}, function(e, docs) {
+  console.log(req.params.id);
+  collection.find({tags: "/" + req.params.id + "/" }, {}, function(e, docs) {
     res.json(docs);
   });
 });

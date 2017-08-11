@@ -157,7 +157,6 @@ function clearTheFields() {
 function populateTable(filter) {
   // Empty content string
   console.log('entering populateTable');
-  console.log('filter string is: ' + filter)
   var tableContent = '';
   var url = '/isms/ismlist/';
   if (filter) {
@@ -171,13 +170,12 @@ function populateTable(filter) {
   }).done(function( response ) {
     ismListData = response;
     $.each(response.reverse(), function(){
-      tableContent += '<div class="record">' + this.source + ' | ' + this.number + ' | ' + (this.tags || '') + ' | ' + this.quote + ' | ' + this.comments + ' | ';
+      tableContent += '<div class="record">' + this.source + ' | ' + this.number + ' | ' + this["tags[]"].join() + ' | ' + this.quote + ' | ' + this.comments + ' | ';
       tableContent += '<a href="#" class="linkupdateism" rel="' + this._id + '">u</a>' + ' | ';
       tableContent += '<a href="#" class="linkdeleteism" rel="' + this._id + '">d</a>';
       tableContent += '</div>';
       tableContent += '<hr>';
     });
-    console.log("got past ajax call to ism/ismlist")
     $('#ismList isms').html(tableContent);
   });
   console.log('exiting populateTable');
@@ -198,7 +196,7 @@ function addOrUpdateIsm(event) {
     var ism = {
       'source': $('#addOrUpdateIsm fieldset input#inputSource').val(),
       'number': $('#addOrUpdateIsm fieldset input#inputNumber').val(),
-      'tags': $('#addOrUpdateIsm fieldset input#inputTags').val(),
+      'tags': $('#addOrUpdateIsm fieldset input#inputTags').val().split(/\s*,\s*/),
       'quote': $('#addOrUpdateIsm fieldset textarea#inputQuote').val(),
       'comments': $('#addOrUpdateIsm fieldset textarea#inputComments').val(),
     }
@@ -295,11 +293,11 @@ function populateIsmFields(event) {
 
   // fill the ism to update field with the ismname
   $('#ismBeingUpdated').text(thisIsmObject.ismname);
-
+this
   // Inject the current value into the update field
   $('#addOrUpdateIsm fieldset input#inputSource').val(thisIsmObject.source);
   $('#addOrUpdateIsm fieldset input#inputNumber').val(thisIsmObject.number);
-  $('#addOrUpdateIsm fieldset input#inputTags').val(thisIsmObject.tags);
+  $('#addOrUpdateIsm fieldset input#inputTags').val(thisIsmObject["tags[]"].join());
   $('#addOrUpdateIsm fieldset textarea#inputQuote').val(thisIsmObject.quote);
   $('#addOrUpdateIsm fieldset textarea#inputComments').val(thisIsmObject.comments);
   $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val(thisIsmObject._id);

@@ -15,7 +15,7 @@ $(document).ready(function() {
   $('#btnAddOrUpdateIsm').on('click', addOrUpdateIsm);
 
   // New Ism button click
-  $('#newIsm').on('click', openFormModal);
+  $('#newIsm').on('click', openNewIsmForm);
 
   // Show all button click
   $('#showAll').on('click', populateTable);
@@ -99,7 +99,7 @@ function closeFormModal() {
   $('#addOrUpdateIsmHeader').text("");
 }
 
-function setNewIsmFormElementText() {
+function openNewIsmForm() {
   $('#addOrUpdateIsmHeader').text("New Ism");
   $('#btnAddOrUpdateIsm').text("Add Ism");
   clearTheFields();

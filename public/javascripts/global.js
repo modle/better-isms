@@ -128,8 +128,12 @@ function populateTable(event) {
   var tagCloud = '';
   var url = '/isms/ismlist/';
   var rel = $(this).attr('rel');
-  if (rel) {
+  if (rel != null) {
+    // this is a tag query
     url += rel;
+  } else {
+    // clear tag cloud for every full reload to remove unreferenced tags
+    tagCloudSet.clear();
   }
   // // jQuery AJAX call for JSON
   $.ajax({

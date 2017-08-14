@@ -160,7 +160,7 @@ function populateTable(event) {
       tableContent += '<hr>';
     });
     $('#ismList isms').html(tableContent);
-    for (var item of tagCloudSet) {
+    for (var item of Array.from(tagCloudSet).sort()) {
       tagCloud += '<span><a href="#" class="linktagfilter" rel="' + item + '">' + item + '</a></span><span> </span>';
     }
     $('#tagCloud').html(tagCloud);

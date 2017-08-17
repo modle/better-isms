@@ -1,11 +1,12 @@
 var modal;
 var rel;
 var tagCloudSet = new Set();
+var tagCloudDict = {}
 
 // DOM Ready =============================================================
 $(document).ready(function() {
   // Populate the ism table on initial page load
-  populateTable('');
+  generateIsmDivs('');
 
   modal = document.getElementById('formModal');
 
@@ -18,7 +19,7 @@ $(document).ready(function() {
   $('#newIsm').on('click', openNewIsmForm);
 
   // Show all button click
-  $('#showAll').on('click', populateTable);
+  $('#showAll').on('click', generateIsmDivs);
 
   // Clear Ism button click
   $('#btnClearIsm').on('click', clearIsm);
@@ -30,7 +31,7 @@ $(document).ready(function() {
   $('#ismList isms').on('click', 'a.linkdeleteism', deleteIsm);
 
   // Tag cloud link click
-  $('#tagCloud').on('click', 'a.linktagfilter', populateTable);
+  $('#tagCloud').on('click', 'a.linktagfilter', generateIsmDivs);
 
   $("#addOrUpdateIsm").keyup(function (event) {
     // enter or ctrl+s
@@ -120,12 +121,62 @@ function clearTheFields() {
   $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val('');
 }
 
-// Fill table with data
-function populateTable(event) {
-  // Empty content string
-  console.log('entering populateTable');
-  var tableContent = '';
+function addToTagsDict(tags, index) {
+  if (tags[index] in tagCloudDict) {
+    tagCloudDict[tags[index]] += 1;
+  } else {
+    tagCloudDict[tags[index]] = 1;
+  }
+}
+
+function addToTags(tags) {
+  if (Array.isArray(tags)) {
+    for (i = 0; i < tags.length; i++) {
+      addToTagsDict(tags, i);
+    }
+  } else {
+    addToTagsDict(tags);
+  }
+}
+
+function joinTheTagsIfArray(tags) {
+  if (Array.isArray(tags)) {
+    joinedTags = tags.join();
+  } else {
+    joinedTags = tags;
+  }
+  return joinedTags;
+}
+
+function addIsmDiv(record, tags) {
+  var divContent = '';
+  divContent += '<div class="record">' + record.source + ' | ' + record.number + ' | ' + joinTheTagsIfArray(tags) + ' | ' + record.quote + ' | ' + record.comments + ' | ';
+  divContent += '<a href="#" class="linkupdateism" rel="' + record._id + '">u</a>' + ' | ';
+  divContent += '<a href="#" class="linkdeleteism" rel="' + record._id + '">d</a>';
+  divContent += '</div>';
+  divContent += '<hr>';
+  return divContent;
+}
+
+function setTableContent(tableContent) {
+  $('#ismList isms').html(tableContent);
+}
+
+function generateTagCloud() {
   var tagCloud = '';
+  for (var item of Array.from(Object.keys(tagCloudDict)).sort()) {
+    tagCloud += '<span><a href="#" class="linktagfilter" rel="' + item + '">' + item + '</a></span><span> </span>';
+  }
+  return tagCloud;
+}
+
+function setTagCloud(tagCloud) {
+  $('#tagCloud').html(tagCloud);
+}
+
+function generateIsmDivs(event) {
+  console.log('entering generateIsmDivs');
+  var ismDivs = '';
   var url = '/isms/ismlist/';
   var rel = $(this).attr('rel');
   if (rel != null) {
@@ -133,9 +184,8 @@ function populateTable(event) {
     url += rel;
   } else {
     // clear tag cloud for every full reload to remove unreferenced tags
-    tagCloudSet.clear();
+    tagCloudDict = {};
   }
-  // // jQuery AJAX call for JSON
   $.ajax({
     type: 'GET',
     url: url,
@@ -144,28 +194,15 @@ function populateTable(event) {
     ismListData = response;
     $.each(response.reverse(), function(){
       // a single element gets added to the document as a string :(
-      if (Array.isArray(this["tags[]"])) {
-        for (i = 0; i < this["tags[]"].length; i++) {
-          tagCloudSet.add(this["tags[]"][i]);
-        }
-        joinedTags = this["tags[]"].join();
-      } else {
-        tagCloudSet.add(this["tags[]"]);
-        joinedTags = this["tags[]"];
-      }
-      tableContent += '<div class="record">' + this.source + ' | ' + this.number + ' | ' + joinedTags + ' | ' + this.quote + ' | ' + this.comments + ' | ';
-      tableContent += '<a href="#" class="linkupdateism" rel="' + this._id + '">u</a>' + ' | ';
-      tableContent += '<a href="#" class="linkdeleteism" rel="' + this._id + '">d</a>';
-      tableContent += '</div>';
-      tableContent += '<hr>';
+      var tags = this["tags[]"]
+      addToTags(tags);
+      ismDivs += addIsmDiv(this, tags);
     });
-    $('#ismList isms').html(tableContent);
-    for (var item of Array.from(tagCloudSet).sort()) {
-      tagCloud += '<span><a href="#" class="linktagfilter" rel="' + item + '">' + item + '</a></span><span> </span>';
-    }
-    $('#tagCloud').html(tagCloud);
+    setTableContent(ismDivs);
+    var tagCloud = generateTagCloud();
+    setTagCloud(tagCloud);
   });
-  console.log('exiting populateTable');
+  console.log('exiting generateIsmDivs');
 };
 
 // Add or Update Ism
@@ -204,7 +241,7 @@ function addOrUpdateIsm(event) {
         $('#addOrUpdateIsm fieldset input').val('');
         $('#addOrUpdateIsm fieldset textarea').val('');
         $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val('');
-        populateTable(null);
+        generateIsmDivs(null);
       } else {
         alert('Error: ' + response.msg);
       }
@@ -243,7 +280,7 @@ function deleteIsm(event) {
       } else {
         alert('Error: ' + response.msg);
       }
-      populateTable();
+      generateIsmDivs();
       // clear the update fields if the id matches
       if ($('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val() === ismId) {
         $('#addOrUpdateIsm fieldset input').val('');

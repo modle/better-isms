@@ -122,10 +122,11 @@ function clearTheFields() {
 }
 
 function addToTagDict(tag) {
-  if (tag in tagCloudDict) {
-    tagCloudDict[tag] += 1;
+  lowerCasedTag = tag.toLowerCase();
+  if (lowerCasedTag in tagCloudDict) {
+    tagCloudDict[lowerCasedTag] += 1;
   } else {
-    tagCloudDict[tag] = 1;
+    tagCloudDict[lowerCasedTag] = 1;
   }
 }
 
@@ -162,10 +163,26 @@ function setTableContent(tableContent) {
   $('#ismList isms').html(tableContent);
 }
 
+function calculateTagSize(tag) {
+  var tagArray = Array.from(Object.values(tagCloudDict));
+  var maxCount = Math.max.apply(null, tagArray);
+  var minCount = Math.min.apply(null, tagArray);
+  var range = maxCount - minCount;
+  var tagCount = tagCloudDict[tag];
+  var tagSizeRatio = tagCount / range;
+  var baseEmSize = 1;
+  var emSizeRange = 2;
+  var emSize = tagSizeRatio * emSizeRange;
+  var finalEmSize = emSize + baseEmSize;
+  return finalEmSize;
+}
+
 function generateTagCloud() {
   var tagCloud = '';
-  for (var item of Array.from(Object.keys(tagCloudDict)).sort()) {
-    tagCloud += '<span><a href="#" class="linktagfilter" rel="' + item + '">' + item + '</a></span><span> </span>';
+  for (var tag of Array.from(Object.keys(tagCloudDict)).sort()) {
+    var size = calculateTagSize(tag);
+    tagCloud += '<span><a href="#" class="linktagfilter" rel="' + tag + '" style="font-size:' + size + 'em">';
+    tagCloud += tag + '</a></span><span> </span>';
   }
   return tagCloud;
 }
@@ -177,13 +194,14 @@ function setTagCloud(tagCloud) {
 function generateIsmDivs(event) {
   console.log('entering generateIsmDivs');
   var ismDivs = '';
+  var tagQuery = false;
   var url = '/isms/ismlist/';
   var rel = $(this).attr('rel');
   if (rel != null) {
-    // this is a tag query
+    tagQuery = true;
     url += rel;
   } else {
-    // clear tag cloud for every full reload to remove unreferenced tags
+    tagQuery = false;
     tagCloudDict = {};
   }
   $.ajax({
@@ -193,14 +211,14 @@ function generateIsmDivs(event) {
   }).done(function( response ) {
     ismListData = response;
     $.each(response.reverse(), function(){
-      // a single element gets added to the document as a string :(
       var tags = this["tags[]"]
-      addToTags(tags);
+      if (!tagQuery) {
+        addToTags(tags);
+      }
       ismDivs += addIsmDiv(this, tags);
     });
     setTableContent(ismDivs);
     var tagCloud = generateTagCloud();
-    console.log(tagCloudDict);
     setTagCloud(tagCloud);
   });
   console.log('exiting generateIsmDivs');
@@ -221,7 +239,7 @@ function addOrUpdateIsm(event) {
     var ism = {
       'source': $('#addOrUpdateIsm fieldset input#inputSource').val(),
       'number': $('#addOrUpdateIsm fieldset input#inputNumber').val(),
-      'tags': $('#addOrUpdateIsm fieldset input#inputTags').val().split(/\s*,\s*/),
+      'tags': $('#addOrUpdateIsm fieldset input#inputTags').val().toLowerCase().split(/\s*,\s*/),
       'quote': $('#addOrUpdateIsm fieldset textarea#inputQuote').val(),
       'comments': $('#addOrUpdateIsm fieldset textarea#inputComments').val(),
     }

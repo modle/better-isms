@@ -121,21 +121,21 @@ function clearTheFields() {
   $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val('');
 }
 
-function addToTagsDict(tags, index) {
-  if (tags[index] in tagCloudDict) {
-    tagCloudDict[tags[index]] += 1;
+function addToTagDict(tag) {
+  if (tag in tagCloudDict) {
+    tagCloudDict[tag] += 1;
   } else {
-    tagCloudDict[tags[index]] = 1;
+    tagCloudDict[tag] = 1;
   }
 }
 
 function addToTags(tags) {
   if (Array.isArray(tags)) {
     for (i = 0; i < tags.length; i++) {
-      addToTagsDict(tags, i);
+      addToTagDict(tags[i]);
     }
   } else {
-    addToTagsDict(tags);
+    addToTagDict(tags);
   }
 }
 
@@ -200,6 +200,7 @@ function generateIsmDivs(event) {
     });
     setTableContent(ismDivs);
     var tagCloud = generateTagCloud();
+    console.log(tagCloudDict);
     setTagCloud(tagCloud);
   });
   console.log('exiting generateIsmDivs');

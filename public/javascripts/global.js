@@ -5,7 +5,7 @@ var tagCloudDict = {}
 
 // DOM Ready =============================================================
 $(document).ready(function() {
-  // Populate the ism table on initial page load
+  // generate the isms on initial page load
   generateIsmDivs('');
 
   modal = document.getElementById('formModal');
@@ -159,8 +159,8 @@ function addIsmDiv(record, tags) {
   return divContent;
 }
 
-function setTableContent(tableContent) {
-  $('#ismList isms').html(tableContent);
+function setIsmsList(ismDivs) {
+  $('#ismList isms').html(ismDivs);
 }
 
 function calculateTagSize(tag) {
@@ -171,9 +171,7 @@ function calculateTagSize(tag) {
   var tagCount = tagCloudDict[tag];
   var tagSizeRatio = tagCount / range;
   var baseEmSize = 1;
-  var emSizeRange = 2;
-  var emSize = tagSizeRatio * emSizeRange;
-  var finalEmSize = emSize + baseEmSize;
+  var finalEmSize = tagSizeRatio + baseEmSize;
   return finalEmSize;
 }
 
@@ -191,9 +189,20 @@ function setTagCloud(tagCloud) {
   $('#tagCloud').html(tagCloud);
 }
 
+function generateIsmHeaders() {
+  var divHeaders = '';
+  divHeaders += '<div class="record">record | page number | tags | quote | comments | ';
+  divHeaders += 'update | ';
+  divHeaders += 'delete';
+  divHeaders += '</div>';
+  divHeaders += '<hr>';
+  divHeaders += '<hr>';
+  return divHeaders;
+}
+
 function generateIsmDivs(event) {
   console.log('entering generateIsmDivs');
-  var ismDivs = '';
+  var ismDivs = generateIsmHeaders();
   var tagQuery = false;
   var url = '/isms/ismlist/';
   var rel = $(this).attr('rel');
@@ -217,7 +226,7 @@ function generateIsmDivs(event) {
       }
       ismDivs += addIsmDiv(this, tags);
     });
-    setTableContent(ismDivs);
+    setIsmsList(ismDivs);
     var tagCloud = generateTagCloud();
     setTagCloud(tagCloud);
   });

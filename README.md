@@ -1,3 +1,3 @@
 A reader's note-taking companion app
 
-[demo](https://better-isms.herokuapp.com/)
+[demo](https://isms-test.herokuapp.com/)

@@ -9,8 +9,10 @@ $(document).ready(function() {
   generateIsmDivs('');
 
   modal = document.getElementById('formModal');
-
   closeFormModal();
+
+  loginModal = document.getElementById('loginModal');
+  closeLoginModal();
 
   // Add or Update Ism button click
   $('#btnAddOrUpdateIsm').on('click', addOrUpdateIsm);
@@ -98,6 +100,11 @@ function closeFormModal() {
   modal.style.display = "none";
   $('#addOrUpdateIsmHeader').hide();
   $('#addOrUpdateIsmHeader').text("");
+}
+
+function closeLoginModal() {
+  console.log("closing login form modal");
+  loginModal.style.display = "none";
 }
 
 function openNewIsmForm() {

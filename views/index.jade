@@ -3,16 +3,31 @@ extends layout
 block content
   h1= title
 
-  button#newIsm.submit-button New Ism
-  br
-  br
-  br
-  #tagCloud
-  br
-  button#showAll.submit-button(value='') Show All
-
   // Wrapper
   #wrapper
+    // LOGIN FORM
+    .modal#loginModal
+      br
+      br
+      br
+      br
+      .modal-form
+        #loginForm
+          .form-container-wrapper
+            fieldset.form-container
+              input#inputUsername(type='text', placeholder='username').form-field
+              br
+              input#inputPassword(type='password', placeholder='password').form-field
+              button#btnSubmitLogin.submit-button Login
+    // /LOGIN FORM
+
+    button#newIsm.submit-button New Ism
+    br
+    br
+    br
+    #tagCloud
+    br
+    button#showAll.submit-button(value='') Show All
 
     // ISM FORM
     .modal#formModal

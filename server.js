@@ -34,6 +34,8 @@ var index = require('./routes/index');
 app.use('/', index);
 var isms = require('./routes/isms');
 app.use('/isms', isms);
+var loginasdf = require('./routes/login');
+app.use('/login', loginasdf);
 
 if(!module.parent){
     app.listen(process.env.PORT || 3000, function(){

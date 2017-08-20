@@ -20,6 +20,15 @@ $(document).ready(function() {
   // New Ism button click
   $('#newIsm').on('click', openNewIsmForm);
 
+  // Login button click
+  $('#login').on('click', openLoginModal);
+
+  // read cookie button click
+  $('#readCookie').on('click', readCookie);
+
+  // Login submit button click
+  $('#btnSubmitLogin').on('click', logUserIn);
+
   // Show all button click
   $('#showAll').on('click', generateIsmDivs);
 
@@ -89,6 +98,55 @@ $(document).ready(function() {
 // Functions =============================================================
 
 
+// function checkLoginCookie() {
+//   var loginCookie = document.cookie; // this
+//   console.log("login cookie = " + loginCookie);
+//   loginCookie = document.cookie = "login=true; path=/;";
+//   console.log("login cookie = " + loginCookie);
+//
+// }
+
+// Add or Update Ism
+function logUserIn(event) {
+  event.preventDefault();
+  console.log('login button clicked!');
+
+  // Super basic validation - increase errorCount variable if any fields are blank
+  var errorCount = 0;
+  $('#loginForm input').each(function(index, val) {
+    if($(this).val() === '') { errorCount++; }
+  });
+
+  if(errorCount === 0) {
+    var user = {
+      'username': $('#loginForm fieldset input#inputUsername').val(),
+      'password': $('#loginForm fieldset input#inputPassword').val(),
+    }
+    var url = '/login/';
+    var type = 'POST';
+    console.log(url)
+    $.ajax({
+      type: type,
+      data: user,
+      url: url,
+      dataType: 'JSON'
+    }).done(function( response ) {
+      if (response.msg === '') {
+        setCookie("username", user.username, 365);
+      } else {
+        alert('Error: ' + response.msg);
+      }
+    });
+  }
+  else {
+    alert('Please fill in all fields');
+    console.log('exiting login with return false');
+    return false;
+  }
+  closeLoginModal();
+  console.log('exiting logUserIn');
+};
+
 function openFormModal() {
   console.log("opening form modal");
   modal.style.display = "block";
@@ -105,6 +163,16 @@ function closeFormModal() {
 function closeLoginModal() {
   console.log("closing login form modal");
   loginModal.style.display = "none";
+}
+
+function openLoginModal() {
+  if (checkLoggedIn()) {
+    console.log("already logged in");
+    return;
+  }
+  console.log("opening login form modal");
+  loginModal.style.display = "block";
+  $('#inputUsername').focus();
 }
 
 function openNewIsmForm() {

@@ -10,6 +10,9 @@ $(document).ready(function() {
   // New Ism button click
   $('#newIsm').on('click', openNewIsmForm);
 
+  // Show login form button click
+  $('#login').on('click', promptUserToLogin);
+
   // Login submit button click
   $('#btnSubmitLogin').on('click', logUserIn);
 
@@ -57,10 +60,10 @@ $(document).ready(function() {
   });
 
   $('#btnClearIsm').on('keydown', function (evt) {
-      if(evt.keyCode === 9) { // Tab pressed
-          evt.preventDefault();
-          $('#inputSource').focus();
-      }
+    if(evt.keyCode === 9) { // Tab pressed
+      evt.preventDefault();
+      $('#inputSource').focus();
+    }
   });
 
   $('input,select').keydown(function(event) {
@@ -86,7 +89,6 @@ $(document).ready(function() {
 
   loginModal = document.getElementById('loginModal');
   hideModal(loginModal);
-  $('#logout').hide();
 
   loggedOutModal = document.getElementById('loggedOutModal');
   hideModal(loggedOutModal);
@@ -94,10 +96,13 @@ $(document).ready(function() {
   ismDeletedModal = document.getElementById('ismDeletedModal');
   hideModal(ismDeletedModal);
 
+  hideButton('logout');
+  hideButton('login');
+
   // generate the isms on initial page load if user is logged in
   if (checkLoggedIn()) {
     generateIsmDivs('');
-    $('#logout').show();
+    showButton('logout');
   } else {
     console.log("user is not logged in");
     promptUserToLogin();
@@ -111,10 +116,19 @@ function logUserOut() {
   clearIsmDivs();
   clearTagCloud();
   console.log('user is logged out');
-  $('#logout').hide();
+  hideButton('logout');
+  showButton('login');
   hideModal(formModal);
   showModal(loggedOutModal);
   hideModalAfterAWhile(loggedOutModal);
+}
+
+function hideButton(buttonClass) {
+  $('#' + buttonClass).hide();
+}
+
+function showButton(buttonClass) {
+  $('#' + buttonClass).show();
 }
 
 function hideModalAfterAWhile(modal) {
@@ -174,7 +188,8 @@ function logUserIn(event) {
       }
       hideModal(loginModal);
       generateIsmDivs('');
-      $('#logout').show();
+      showButton('logout');
+      hideButton('login');
     });
   }
   else {

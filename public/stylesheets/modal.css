@@ -41,4 +41,7 @@
   .modal-container {
     width: 100%;
   }
+  .modal-toast {
+    padding: 0;
+  }
 }

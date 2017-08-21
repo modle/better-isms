@@ -5,23 +5,11 @@ var tagCloudDict = {}
 
 // DOM Ready =============================================================
 $(document).ready(function() {
-  // generate the isms on initial page load
-  generateIsmDivs('');
-
-  modal = document.getElementById('formModal');
-  closeFormModal();
-
-  loginModal = document.getElementById('loginModal');
-  closeLoginModal();
-
   // Add or Update Ism button click
   $('#btnAddOrUpdateIsm').on('click', addOrUpdateIsm);
 
   // New Ism button click
   $('#newIsm').on('click', openNewIsmForm);
-
-  // Login button click
-  $('#login').on('click', openLoginModal);
 
   // read cookie button click
   $('#readCookie').on('click', readCookie);
@@ -93,20 +81,31 @@ $(document).ready(function() {
     }
   });
 
+  // close the modals on initial page load
+  modal = document.getElementById('formModal');
+  closeFormModal();
+
+  loginModal = document.getElementById('loginModal');
+  closeLoginModal();
+
+  // generate the isms on initial page load if user is logged in
+  if (checkLoggedIn()) {
+    generateIsmDivs('');
+  } else {
+    console.log("user is not logged in");
+    openLoginModal();
+  }
 });
 
 // Functions =============================================================
 
+function openLoginModal() {
+  console.log("opening login form modal");
+  loginModal.style.display = "block";
+  $('#inputUsername').focus();
+}
 
-// function checkLoginCookie() {
-//   var loginCookie = document.cookie; // this
-//   console.log("login cookie = " + loginCookie);
-//   loginCookie = document.cookie = "login=true; path=/;";
-//   console.log("login cookie = " + loginCookie);
-//
-// }
-
-// Add or Update Ism
+// Login event
 function logUserIn(event) {
   event.preventDefault();
   console.log('login button clicked!');
@@ -136,6 +135,8 @@ function logUserIn(event) {
       } else {
         alert('Error: ' + response.msg);
       }
+      closeLoginModal();
+      generateIsmDivs('');
     });
   }
   else {
@@ -143,9 +144,13 @@ function logUserIn(event) {
     console.log('exiting login with return false');
     return false;
   }
-  closeLoginModal();
   console.log('exiting logUserIn');
 };
+
+function closeLoginModal() {
+  console.log("closing login form modal");
+  loginModal.style.display = "none";
+}
 
 function openFormModal() {
   console.log("opening form modal");
@@ -158,21 +163,6 @@ function closeFormModal() {
   modal.style.display = "none";
   $('#addOrUpdateIsmHeader').hide();
   $('#addOrUpdateIsmHeader').text("");
-}
-
-function closeLoginModal() {
-  console.log("closing login form modal");
-  loginModal.style.display = "none";
-}
-
-function openLoginModal() {
-  if (checkLoggedIn()) {
-    console.log("already logged in");
-    return;
-  }
-  console.log("opening login form modal");
-  loginModal.style.display = "block";
-  $('#inputUsername').focus();
 }
 
 function openNewIsmForm() {
@@ -277,6 +267,11 @@ function generateIsmHeaders() {
 
 function generateIsmDivs(event) {
   console.log('entering generateIsmDivs');
+  if (!checkLoggedIn()) {
+    console.log("user is not logged in");
+    openLoginModal();
+    return;
+  }
   var ismDivs = generateIsmHeaders();
   var tagQuery = false;
   var url = '/isms/ismlist/';
@@ -312,6 +307,11 @@ function generateIsmDivs(event) {
 function addOrUpdateIsm(event) {
   event.preventDefault();
   console.log('update or add ism clicked!');
+  if (!checkLoggedIn()) {
+    console.log("user is not logged in");
+    openLoginModal();
+    return;
+  }
 
   // Super basic validation - increase errorCount variable if any fields are blank
   var errorCount = 0;
@@ -372,6 +372,12 @@ function deleteIsm(event) {
   event.preventDefault();
   console.log('delete ism clicked!');
 
+  if (!checkLoggedIn()) {
+    console.log("user is not logged in");
+    openLoginModal();
+    return;
+  }
+
   var confirmation = confirm('Are you sure you want to delete this ism?');
   ismId = $(this).attr('rel');
   if (confirmation === true) {
@@ -400,6 +406,12 @@ function deleteIsm(event) {
 function populateIsmFields(event) {
   event.preventDefault();
   console.log('populatefieldsclicked!');
+  if (!checkLoggedIn()) {
+    console.log("user is not logged in");
+    openLoginModal();
+    return;
+  }
+
   setUpdateIsmFormElementText();
 
   // Retrieve ismname from link rel attribute

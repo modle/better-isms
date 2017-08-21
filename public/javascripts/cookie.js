@@ -23,8 +23,7 @@ function getCookie(cname) {
 function checkLoggedIn() {
   var user = getCookie("username");
   if (user != "") {
-    alert("already logged in");
-    closeLoginModal();
+    console.log("user is logged in");
     return true;
   }
   return false;

@@ -5,13 +5,24 @@ block content
 
   // Wrapper
   #wrapper
+
+    // LOGGED OUT TOAST
+    .modal#loggedOutModal
+      br
+      br
+      br
+      br
+      .modal-container
+        h1 You have been logged out
+    // /LOGGED OUT TOAST
+
     // LOGIN FORM
     .modal#loginModal
       br
       br
       br
       br
-      .modal-form
+      .modal-container
         #loginForm
           .form-container-wrapper
             fieldset.form-container
@@ -19,6 +30,7 @@ block content
               input#inputUsername(type='text', placeholder='username').form-field
               br
               input#inputPassword(type='password', placeholder='password').form-field
+              br
               button#btnSubmitLogin.submit-button Login
     // /LOGIN FORM
 
@@ -37,7 +49,7 @@ block content
       br
       br
       br
-      .modal-form
+      .modal-container
         h2#addOrUpdateIsmHeader Ism
         #addOrUpdateIsm
           .form-container-wrapper

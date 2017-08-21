@@ -88,6 +88,10 @@ $(document).ready(function() {
   closeLoginModal();
   $('#logout').hide();
 
+  loggedOutModal = document.getElementById('loggedOutModal');
+  closeLoggedOutModal();
+
+
   // generate the isms on initial page load if user is logged in
   if (checkLoggedIn()) {
     generateIsmDivs('');
@@ -105,8 +109,10 @@ function logUserOut() {
   clearIsmDivs();
   clearTagCloud();
   console.log('user is logged out');
-  alert('You have been logged out');
+  // alert('You have been logged out');
   $('#logout').hide();
+  loggedOutModal.style.display = "block";
+  setTimeout(function(){ closeLoggedOutModal(); }, 3000);
 }
 
 function clearTagCloud() {
@@ -141,7 +147,6 @@ function logUserIn(event) {
     }
     var url = '/login/';
     var type = 'POST';
-    console.log(url)
     $.ajax({
       type: type,
       data: user,
@@ -169,6 +174,11 @@ function logUserIn(event) {
 function closeLoginModal() {
   console.log("closing login form modal");
   loginModal.style.display = "none";
+}
+
+function closeLoggedOutModal() {
+  console.log("closing logged out form modal");
+  loggedOutModal.style.display = "none";
 }
 
 function openFormModal() {

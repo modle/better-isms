@@ -1,12 +1,16 @@
-function setCookie(cname, cvalue, exdays) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    var expires = "expires="+d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+function deleteCookie(cookieName) {
+  setCookie(cookieName, '', 0);
 }
 
-function getCookie(cname) {
-  var name = cname + "=";
+function setCookie(cookieName, cookieValue, daysToExpiration) {
+    var d = new Date();
+    d.setTime(d.getTime() + (daysToExpiration * 24 * 60 * 60 * 1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cookieName + "=" + cookieValue + ";" + expires + ";path=/";
+}
+
+function getCookie(cookieName) {
+  var name = cookieName + "=";
   var ca = document.cookie.split(';');
   for(var i = 0; i < ca.length; i++) {
     var c = ca[i];
@@ -27,9 +31,4 @@ function checkLoggedIn() {
     return true;
   }
   return false;
-}
-
-function readCookie() {
-  var ca = document.cookie.split(';');
-  console.log(ca);
 }

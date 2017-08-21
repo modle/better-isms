@@ -1,6 +1,5 @@
 var modal;
 var rel;
-var tagCloudSet = new Set();
 var tagCloudDict = {}
 
 // DOM Ready =============================================================
@@ -11,11 +10,11 @@ $(document).ready(function() {
   // New Ism button click
   $('#newIsm').on('click', openNewIsmForm);
 
-  // read cookie button click
-  $('#readCookie').on('click', readCookie);
-
   // Login submit button click
   $('#btnSubmitLogin').on('click', logUserIn);
+
+  // Login submit button click
+  $('#logout').on('click', logUserOut);
 
   // Show all button click
   $('#showAll').on('click', generateIsmDivs);
@@ -87,10 +86,12 @@ $(document).ready(function() {
 
   loginModal = document.getElementById('loginModal');
   closeLoginModal();
+  $('#logout').hide();
 
   // generate the isms on initial page load if user is logged in
   if (checkLoggedIn()) {
     generateIsmDivs('');
+    $('#logout').show();
   } else {
     console.log("user is not logged in");
     openLoginModal();
@@ -98,6 +99,23 @@ $(document).ready(function() {
 });
 
 // Functions =============================================================
+
+function logUserOut() {
+  deleteCookie('username');
+  clearIsmDivs();
+  clearTagCloud();
+  console.log('user is logged out');
+  alert('You have been logged out');
+  $('#logout').hide();
+}
+
+function clearTagCloud() {
+  setTagCloud('');
+}
+
+function clearIsmDivs() {
+  setIsmsList('');
+}
 
 function openLoginModal() {
   console.log("opening login form modal");
@@ -137,6 +155,7 @@ function logUserIn(event) {
       }
       closeLoginModal();
       generateIsmDivs('');
+      $('#logout').show();
     });
   }
   else {
@@ -166,6 +185,11 @@ function closeFormModal() {
 }
 
 function openNewIsmForm() {
+  if (!checkLoggedIn()) {
+    console.log("user is not logged in");
+    openLoginModal();
+    return;
+  }
   $('#addOrUpdateIsmHeader').text("New Ism");
   $('#btnAddOrUpdateIsm').text("Add Ism");
   clearTheFields();

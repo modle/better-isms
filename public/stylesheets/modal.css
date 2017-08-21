@@ -19,6 +19,10 @@
   position: absolute;
 }
 
+.modal-toast {
+  padding: 2em;
+}
+
 /* Add Animation */
 @-webkit-keyframes animatetop {
   from {top: -25em; opacity: 0}

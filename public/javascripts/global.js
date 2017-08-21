@@ -51,7 +51,7 @@ $(document).ready(function() {
     }
     // esc
     if(event.keyCode == 27) {
-      closeFormModal();
+      hideModal(formModal);
       event.preventDefault();
     }
   });
@@ -82,17 +82,17 @@ $(document).ready(function() {
 
   // close the modals on initial page load
   modal = document.getElementById('formModal');
-  closeFormModal();
+  hideModal(formModal);
 
   loginModal = document.getElementById('loginModal');
-  closeLoginModal();
+  hideModal(loginModal);
   $('#logout').hide();
 
   loggedOutModal = document.getElementById('loggedOutModal');
-  closeLoggedOutModal();
+  hideModal(loggedOutModal);
 
   ismDeletedModal = document.getElementById('ismDeletedModal');
-  closeIsmDeletedModal();
+  hideModal(ismDeletedModal);
 
   // generate the isms on initial page load if user is logged in
   if (checkLoggedIn()) {
@@ -100,7 +100,7 @@ $(document).ready(function() {
     $('#logout').show();
   } else {
     console.log("user is not logged in");
-    openLoginModal();
+    promptUserToLogin();
   }
 });
 
@@ -111,31 +111,23 @@ function logUserOut() {
   clearIsmDivs();
   clearTagCloud();
   console.log('user is logged out');
-  // alert('You have been logged out');
   $('#logout').hide();
-  showLoggedOutModal();
+  hideModal(formModal);
+  showModal(loggedOutModal);
+  hideModalAfterAWhile(loggedOutModal);
 }
 
-function closeLoggedOutModalAfterAWhile() {
-  setTimeout(function(){ closeLoggedOutModal(); }, 3000);
+function hideModalAfterAWhile(modal) {
+  setTimeout(function(){ hideModal(modal); }, 3000);
 }
 
-function showLoggedOutModal() {
-  loggedOutModal.style.display = "block";
-  closeLoggedOutModalAfterAWhile();
+function hideModal(modal) {
+  modal.style.display = "none";
 }
 
-function showIsmDeletedModal() {
-  ismDeletedModal.style.display = "block";
-  closeIsmDeletedModalAfterAWhile();
-}
-
-function closeIsmDeletedModalAfterAWhile() {
-  setTimeout(function(){ closeIsmDeletedModal(); }, 3000);
-}
-
-function closeIsmDeletedModal() {
-  ismDeletedModal.style.display = "none";
+function showModal(modal) {
+  console.log("showing modal: " + modal.id)
+  modal.style.display = "block";
 }
 
 function clearTagCloud() {
@@ -146,9 +138,8 @@ function clearIsmDivs() {
   setIsmsList('');
 }
 
-function openLoginModal() {
-  console.log("opening login form modal");
-  loginModal.style.display = "block";
+function promptUserToLogin() {
+  showModal(loginModal);
   $('#inputUsername').focus();
 }
 
@@ -181,7 +172,7 @@ function logUserIn(event) {
       } else {
         alert('Error: ' + response.msg);
       }
-      closeLoginModal();
+      hideModal(loginModal);
       generateIsmDivs('');
       $('#logout').show();
     });
@@ -194,47 +185,24 @@ function logUserIn(event) {
   console.log('exiting logUserIn');
 };
 
-function closeLoginModal() {
-  console.log("closing login form modal");
-  loginModal.style.display = "none";
-}
-
-function closeLoggedOutModal() {
-  console.log("closing logged out form modal");
-  loggedOutModal.style.display = "none";
-}
-
-function openFormModal() {
-  console.log("opening form modal");
-  modal.style.display = "block";
-  $('#inputSource').focus();
-}
-
-function closeFormModal() {
-  console.log("closing form modal");
-  modal.style.display = "none";
-  $('#addOrUpdateIsmHeader').hide();
-  $('#addOrUpdateIsmHeader').text("");
-}
-
 function openNewIsmForm() {
   if (!checkLoggedIn()) {
     console.log("user is not logged in");
-    openLoginModal();
+    promptUserToLogin();
     return;
   }
-  $('#addOrUpdateIsmHeader').text("New Ism");
-  $('#btnAddOrUpdateIsm').text("Add Ism");
   clearTheFields();
   $('#btnClearIsm').show();
-  openFormModal();
+  showModal(formModal);
+  $('#inputSource').focus();
 }
 
 function setUpdateIsmFormElementText() {
   $('#addOrUpdateIsmHeader').text("Update Ism");
   $('#btnAddOrUpdateIsm').text("Update Ism");
   $('#btnClearIsm').hide();
-  openFormModal();
+  showModal(formModal);
+  $('#inputSource').focus();
 }
 
 function clearTheFields() {
@@ -326,7 +294,7 @@ function generateIsmDivs(event) {
   console.log('entering generateIsmDivs');
   if (!checkLoggedIn()) {
     console.log("user is not logged in");
-    openLoginModal();
+    promptUserToLogin();
     return;
   }
   var ismDivs = generateIsmHeaders();
@@ -366,7 +334,7 @@ function addOrUpdateIsm(event) {
   console.log('update or add ism clicked!');
   if (!checkLoggedIn()) {
     console.log("user is not logged in");
-    openLoginModal();
+    promptUserToLogin();
     return;
   }
 
@@ -412,7 +380,7 @@ function addOrUpdateIsm(event) {
     console.log('exiting clearIsm with return false');
     return false;
   }
-  closeFormModal();
+  hideModal(formModal);
   console.log('exiting addOrUpdateIsm');
 };
 
@@ -431,7 +399,7 @@ function deleteIsm(event) {
 
   if (!checkLoggedIn()) {
     console.log("user is not logged in");
-    openLoginModal();
+    promptUserToLogin();
     return;
   }
 
@@ -451,7 +419,8 @@ function deleteIsm(event) {
       if ($('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val() === ismId) {
         $('#addOrUpdateIsm fieldset input').val('');
       }
-      showIsmDeletedModal();
+      showModal(ismDeletedModal);
+      hideModalAfterAWhile(ismDeletedModal);
     });
   }
   else {
@@ -466,7 +435,7 @@ function populateIsmFields(event) {
   console.log('populatefieldsclicked!');
   if (!checkLoggedIn()) {
     console.log("user is not logged in");
-    openLoginModal();
+    promptUserToLogin();
     return;
   }
 
@@ -505,7 +474,7 @@ function populateIsmFields(event) {
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-    if (event.target == modal) {
-        closeFormModal();
-    }
+  if (event.target == modal) {
+    hideModal(formModal);
+  }
 }

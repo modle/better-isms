@@ -91,6 +91,8 @@ $(document).ready(function() {
   loggedOutModal = document.getElementById('loggedOutModal');
   closeLoggedOutModal();
 
+  ismDeletedModal = document.getElementById('ismDeletedModal');
+  closeIsmDeletedModal();
 
   // generate the isms on initial page load if user is logged in
   if (checkLoggedIn()) {
@@ -111,8 +113,29 @@ function logUserOut() {
   console.log('user is logged out');
   // alert('You have been logged out');
   $('#logout').hide();
-  loggedOutModal.style.display = "block";
+  showLoggedOutModal();
+}
+
+function closeLoggedOutModalAfterAWhile() {
   setTimeout(function(){ closeLoggedOutModal(); }, 3000);
+}
+
+function showLoggedOutModal() {
+  loggedOutModal.style.display = "block";
+  closeLoggedOutModalAfterAWhile();
+}
+
+function showIsmDeletedModal() {
+  ismDeletedModal.style.display = "block";
+  closeIsmDeletedModalAfterAWhile();
+}
+
+function closeIsmDeletedModalAfterAWhile() {
+  setTimeout(function(){ closeIsmDeletedModal(); }, 3000);
+}
+
+function closeIsmDeletedModal() {
+  ismDeletedModal.style.display = "none";
 }
 
 function clearTagCloud() {
@@ -428,6 +451,7 @@ function deleteIsm(event) {
       if ($('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val() === ismId) {
         $('#addOrUpdateIsm fieldset input').val('');
       }
+      showIsmDeletedModal();
     });
   }
   else {

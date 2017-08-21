@@ -10,8 +10,6 @@
   animation-name: animatetop;
   animation-duration: 0.4s;
 
-  padding: .5em;
-
   /* centers the form, when combined with wrapper modal class text-align: center; */
   display: inline-block;
 }
@@ -36,7 +34,7 @@
   .modal {
     width: 100%;
   }
-  .modal-form {
+  .modal-container {
     width: 100%;
   }
 }

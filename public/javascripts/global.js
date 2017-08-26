@@ -206,7 +206,7 @@ function openNewIsmForm() {
     promptUserToLogin();
     return;
   }
-  clearTheFields();
+  clearIsmFormFields();
   $('#btnClearIsm').show();
   showModal(formModal);
   $('#inputSource').focus();
@@ -220,7 +220,7 @@ function setUpdateIsmFormElementText() {
   $('#inputSource').focus();
 }
 
-function clearTheFields() {
+function clearIsmFormFields() {
   $('#addOrUpdateIsm fieldset input').val('');
   $('#addOrUpdateIsm fieldset textarea').val('');
   $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val('');
@@ -414,7 +414,7 @@ function addOrUpdateIsm(event) {
 function clearIsm(event) {
   event.preventDefault();
   console.log('clear ism clicked!');
-  clearTheFields();
+  clearIsmFormFields();
   console.log('exiting clearIsm');
 };
 

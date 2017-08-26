@@ -1,6 +1,9 @@
 var modal;
 var rel;
 var tagCloudDict = {}
+var optionalIsmFields = [];
+optionalIsmFields.push('inputComments');
+
 
 // DOM Ready =============================================================
 $(document).ready(function() {
@@ -165,7 +168,10 @@ function logUserIn(event) {
   // Super basic validation - increase errorCount variable if any fields are blank
   var errorCount = 0;
   $('#loginForm input').each(function(index, val) {
-    if($(this).val() === '') { errorCount++; }
+    console.log(this)
+    if ($(this).val() === '') {
+      errorCount++;
+    }
   });
 
   if(errorCount === 0) {
@@ -367,45 +373,50 @@ function addOrUpdateIsm(event) {
   // Super basic validation - increase errorCount variable if any fields are blank
   var errorCount = 0;
   $('#addOrUpdateIsm input').each(function(index, val) {
-    if($(this).val() === '') { errorCount++; }
+    if (this.value === '' && !optionalIsmFields.includes(this.id)) {
+      errorCount++;
+    }
   });
-
-  if(errorCount === 0) {
-    var ism = {
-      'source': $('#addOrUpdateIsm fieldset input#inputSource').val(),
-      'number': $('#addOrUpdateIsm fieldset input#inputNumber').val(),
-      'tags': $('#addOrUpdateIsm fieldset input#inputTags').val().toLowerCase().split(/\s*,\s*/),
-      'quote': $('#addOrUpdateIsm fieldset textarea#inputQuote').val(),
-      'comments': $('#addOrUpdateIsm fieldset textarea#inputComments').val(),
+  $('#addOrUpdateIsm textarea').each(function(index, val) {
+    if (this.value === '' && !optionalIsmFields.includes(this.id)) {
+      errorCount++;
     }
-    var url = '/isms/addorupdateism/';
-    var type = 'POST';
-    if ($(this).attr('value')) {
-      url += $(this).attr('value')
-      type = 'PUT';
-    }
-    console.log(url)
-    $.ajax({
-      type: type,
-      data: ism,
-      url: url,
-      dataType: 'JSON'
-    }).done(function( response ) {
-      if (response.msg === '') {
-        $('#addOrUpdateIsm fieldset input').val('');
-        $('#addOrUpdateIsm fieldset textarea').val('');
-        $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val('');
-        generateIsmDivs(null);
-      } else {
-        alert('Error: ' + response.msg);
-      }
-    });
-  }
-  else {
-    alert('Please fill in all fields');
-    console.log('exiting clearIsm with return false');
+  });
+  if (errorCount > 0) {
+    alert('Please fill in all required fields');
+    console.log('exiting addOrUpdateIsm with return false');
     return false;
   }
+
+  var ism = {
+    'source': $('#addOrUpdateIsm fieldset input#inputSource').val(),
+    'number': $('#addOrUpdateIsm fieldset input#inputNumber').val(),
+    'tags': $('#addOrUpdateIsm fieldset input#inputTags').val().toLowerCase().split(/\s*,\s*/),
+    'quote': $('#addOrUpdateIsm fieldset textarea#inputQuote').val(),
+    'comments': $('#addOrUpdateIsm fieldset textarea#inputComments').val(),
+  }
+  var url = '/isms/addorupdateism/';
+  var type = 'POST';
+  if ($(this).attr('value')) {
+    url += $(this).attr('value')
+    type = 'PUT';
+  }
+  console.log(url)
+  $.ajax({
+    type: type,
+    data: ism,
+    url: url,
+    dataType: 'JSON'
+  }).done(function( response ) {
+    if (response.msg === '') {
+      $('#addOrUpdateIsm fieldset input').val('');
+      $('#addOrUpdateIsm fieldset textarea').val('');
+      $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val('');
+      generateIsmDivs(null);
+    } else {
+      alert('Error: ' + response.msg);
+    }
+  });
   hideModal(formModal);
   console.log('exiting addOrUpdateIsm');
 };

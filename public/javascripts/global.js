@@ -245,20 +245,31 @@ function addToTags(tags) {
   }
 }
 
-function joinTheTagsIfArray(tags) {
+function generateTagDivs(tags) {
+  tagDivs = ''
   if (Array.isArray(tags)) {
-    joinedTags = tags.join();
+    for (i = 0; i < tags.length; i++) {
+      tagDivs += '<span class="tag">'
+      tagDivs += tags[i];
+      tagDivs += '</span>'
+    }
   } else {
-    joinedTags = tags;
+    tagDivs += '<span class="tag">'
+    tagDivs += tags;
+    tagDivs += '</span>'
   }
-  return joinedTags;
+  return tagDivs;
 }
 
 function addIsmDiv(record, tags) {
   var divContent = '';
-  divContent += '<div class="record">' + record.source + ' | ' + record.number + ' | ' + joinTheTagsIfArray(tags) + ' | ' + record.quote + ' | ' + record.comments + ' | ';
-  divContent += '<a href="#" class="linkupdateism" rel="' + record._id + '">u</a>' + ' | ';
-  divContent += '<a href="#" class="linkdeleteism" rel="' + record._id + '">d</a>';
+  divContent += '<div class="record">' + record.source;
+  divContent += ' | ' + record.number;
+  divContent += ' | ' + generateTagDivs(tags);
+  divContent += ' | ' + record.quote;
+  divContent += ' | ' + record.comments;
+  divContent += ' | ' + '<a href="#" class="linkupdateism" rel="' + record._id + '">u</a>';
+  divContent += ' | ' + '<a href="#" class="linkdeleteism" rel="' + record._id + '">d</a>';
   divContent += '</div>';
   divContent += '<hr>';
   return divContent;

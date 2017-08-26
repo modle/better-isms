@@ -23,6 +23,16 @@ a {
   word-wrap: break-word;
 }
 
+.tag {
+  background: #E0E0D1;
+  color: #222222;
+  margin: .2em;
+  padding: 0 .2em;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
 @media (min-device-width: 768px) {
   body {
     padding: 2em;

@@ -255,12 +255,12 @@ function generateTagDivs(tags) {
   tagDivs = ''
   if (Array.isArray(tags)) {
     for (i = 0; i < tags.length; i++) {
-      tagDivs += '<span class="tag">'
+      tagDivs += '<span class="tag field">'
       tagDivs += tags[i];
       tagDivs += '</span>'
     }
   } else {
-    tagDivs += '<span class="tag">'
+    tagDivs += '<span class="tag field">'
     tagDivs += tags;
     tagDivs += '</span>'
   }
@@ -269,13 +269,13 @@ function generateTagDivs(tags) {
 
 function addIsmDiv(record, tags) {
   var divContent = '';
-  divContent += '<div class="record">' + record.source;
-  divContent += ' | ' + record.number;
-  divContent += ' | ' + generateTagDivs(tags);
-  divContent += ' | ' + record.quote;
-  divContent += ' | ' + record.comments;
-  divContent += ' | ' + '<a href="#" class="linkupdateism" rel="' + record._id + '">u</a>';
-  divContent += ' | ' + '<a href="#" class="linkdeleteism" rel="' + record._id + '">d</a>';
+  divContent += '<div class="record"><span class="source field">' + record.source + '</span> | ';
+  divContent += '<span class="num field">' + record.number + '</span> | ';
+  divContent += generateTagDivs(tags) + ' | ';
+  divContent += '<span class="quote field">' + record.quote + '</span> | ';
+  divContent += '<span class="comment field">' + record.comments + '</span> | ';
+  divContent += '<a href="#" class="linkupdateism" rel="' + record._id + '">edit</a> | ';
+  divContent += '<a href="#" class="linkdeleteism" rel="' + record._id + '">delete</a> | ';
   divContent += '</div>';
   divContent += '<hr>';
   return divContent;
@@ -313,9 +313,11 @@ function setTagCloud(tagCloud) {
 
 function generateIsmHeaders() {
   var divHeaders = '';
-  divHeaders += '<div class="record">record | page number | tags | quote | comments | ';
-  divHeaders += 'update | ';
-  divHeaders += 'delete';
+  divHeaders += '<div class="record"><span class="source">record</span> | ';
+  divHeaders += '<span class="num">page number</span> | ';
+  divHeaders += '<span class="tag">tags</span> | ';
+  divHeaders += '<span class="quote">quote</span> | ';
+  divHeaders += '<span class="comment">comments</span>';
   divHeaders += '</div>';
   divHeaders += '<hr>';
   divHeaders += '<hr>';
@@ -421,7 +423,6 @@ function addOrUpdateIsm(event) {
   console.log('exiting addOrUpdateIsm');
 };
 
-// Add or Update Ism
 function clearIsm(event) {
   event.preventDefault();
   console.log('clear ism clicked!');

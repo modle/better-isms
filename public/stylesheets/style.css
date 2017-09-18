@@ -23,14 +23,30 @@ a {
   word-wrap: break-word;
 }
 
-.tag {
-  background: #E0E0D1;
+.field {
   color: #222222;
   margin: .2em;
   padding: 0 .2em;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
+}
+
+.tag {
+  background: #E0E0D1;
+}
+
+.source {
+  background: #ffe6e6;
+}
+.num {
+  background: #e6ffcc;
+}
+.quote {
+  background: rgb(204, 241, 255);
+}
+.comment {
+  background: #ffffcc;
 }
 
 .required {

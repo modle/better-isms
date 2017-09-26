@@ -13,6 +13,18 @@ router.get('/ismlist', function(req, res) {
 });
 
 /*
+ * GET sources.
+ */
+router.get('/sources', function(req, res) {
+  var db = req.db;
+  var collection = db.get('sources');
+  collection.find({},{},function(e, docs){
+    res.json(docs);
+  });
+});
+
+
+/*
  * GET ismlist with filter.
  */
 router.get('/ismlist/:id', function(req, res) {

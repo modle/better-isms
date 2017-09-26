@@ -267,24 +267,6 @@ function generateTagDivs(tags) {
   return tagDivs;
 }
 
-function addIsmDiv(record, tags) {
-  var divContent = '';
-  divContent += '<div class="record"><span class="source field">' + record.source + '</span> | ';
-  divContent += '<span class="num field">' + record.number + '</span> | ';
-  divContent += generateTagDivs(tags) + ' | ';
-  divContent += '<span class="quote field">' + record.quote + '</span> | ';
-  divContent += '<span class="comment field">' + record.comments + '</span> | ';
-  divContent += '<a href="#" class="linkupdateism" rel="' + record._id + '">edit</a> | ';
-  divContent += '<a href="#" class="linkdeleteism" rel="' + record._id + '">delete</a> | ';
-  divContent += '</div>';
-  divContent += '<hr>';
-  return divContent;
-}
-
-function setIsmsList(ismDivs) {
-  $('#ismList isms').html(ismDivs);
-}
-
 function calculateTagSize(tag) {
   var tagArray = Array.from(Object.values(tagCloudDict));
   var maxCount = Math.max.apply(null, tagArray);
@@ -295,6 +277,37 @@ function calculateTagSize(tag) {
   var baseEmSize = 1;
   var finalEmSize = tagSizeRatio + baseEmSize;
   return finalEmSize;
+}
+
+function generateIsmHeaders() {
+  var divHeaders = '';
+  divHeaders += '<div class="record"><span class="source">record</span> | ';
+  divHeaders += '<span class="num">page number</span> | ';
+  divHeaders += '<span class="tag">tags</span> | ';
+  divHeaders += '<span class="quote">quote</span> | ';
+  divHeaders += '<span class="comment">comments</span>';
+  divHeaders += '</div>';
+  divHeaders += '<hr>';
+  divHeaders += '<hr>';
+  return divHeaders;
+}
+
+function addIsmDiv(source, details, tags) {
+  var divContent = '';
+  divContent += '<div class="record"><span class="source field">' + source.title + '</span> | ';
+  divContent += '<span class="num field">' + details.number + '</span> | ';
+  divContent += generateTagDivs(tags) + ' | ';
+  divContent += '<span class="quote field">' + details.quote + '</span> | ';
+  divContent += '<span class="comment field">' + details.comments + '</span> | ';
+  divContent += '<a href="#" class="linkupdateism" rel="' + source._id + ":" + details._id + '">edit</a> | ';
+  divContent += '<a href="#" class="linkdeleteism" rel="' + source._id + ":" + details._id + '">delete</a> | ';
+  divContent += '</div>';
+  divContent += '<hr>';
+  return divContent;
+}
+
+function setIsmsList(ismDivs) {
+  $('#ismList isms').html(ismDivs);
 }
 
 function generateTagCloud() {
@@ -309,19 +322,6 @@ function generateTagCloud() {
 
 function setTagCloud(tagCloud) {
   $('#tagCloud').html(tagCloud);
-}
-
-function generateIsmHeaders() {
-  var divHeaders = '';
-  divHeaders += '<div class="record"><span class="source">record</span> | ';
-  divHeaders += '<span class="num">page number</span> | ';
-  divHeaders += '<span class="tag">tags</span> | ';
-  divHeaders += '<span class="quote">quote</span> | ';
-  divHeaders += '<span class="comment">comments</span>';
-  divHeaders += '</div>';
-  divHeaders += '<hr>';
-  divHeaders += '<hr>';
-  return divHeaders;
 }
 
 function generateIsmDivs(event) {
@@ -348,17 +348,23 @@ function generateIsmDivs(event) {
     dataType: 'JSON'
   }).done(function( response ) {
     ismListData = response;
-    $.each(response.reverse(), function(){
-      var tags = this["tags[]"]
-      if (!tagQuery) {
-        addToTags(tags);
-      }
-      ismDivs += addIsmDiv(this, tags);
+    $.each(response, function(){
+      var source = this
+      console.log(source.title)
+      source.isms.forEach(function(ism) {
+        console.log(ism)
+        var tags = ism["tags[]"]
+        if (!tagQuery) {
+          addToTags(tags);
+        }
+        ismDivs += addIsmDiv(source, ism, tags);
+      });
     });
     setIsmsList(ismDivs);
     var tagCloud = generateTagCloud();
     setTagCloud(tagCloud);
   });
+
   console.log('exiting generateIsmDivs');
 };
 
@@ -479,19 +485,30 @@ function populateIsmFields(event) {
 
   setUpdateIsmFormElementText();
 
-  // Retrieve ismname from link rel attribute
-  var thisIsmId = $(this).attr('rel');
+  // Retrieve sourceId and ismId from link rel attribute
+  var thisSource = $(this).attr('rel');
+  var thisSourceId = thisSource.split(':')[0]
+  var thisIsmId = thisSource.split(':')[1]
 
-  console.log('id is ' + thisIsmId);
+  console.log('source id is ' + thisSourceId);
+  console.log('ism id is ' + thisIsmId);
 
-  // Get Index of object based on id value
-  var arrayPosition = ismListData.map(function(arrayItem) {
-      return arrayItem._id;
+  // Get Index of source object based on source id value
+  var sourceArrayIndex = ismListData.map(function(arrayItem) {
+    return arrayItem._id;
+  }).indexOf(thisSourceId);
+  sourceIsms = ismListData[sourceArrayIndex]
+
+  // Get Index of isms within source object based on ism id value
+  var myIsmArrayIndex = sourceIsms.isms.map(function(ism) {
+    return ism._id;
   }).indexOf(thisIsmId);
 
   // Get our Ism Object
-  var thisIsmObject = ismListData[arrayPosition];
+  var thisIsmObject = ismListData[sourceArrayIndex].isms[myIsmArrayIndex];
+  console.log(thisIsmObject)
 
+  // generate tag string from array of tags
   joinedTags = '';
   if (Array.isArray(thisIsmObject["tags[]"])) {
     joinedTags = thisIsmObject["tags[]"].join();
@@ -499,8 +516,9 @@ function populateIsmFields(event) {
     joinedTags = thisIsmObject["tags[]"];
   }
 
-  // Inject the current value into the update field
-  $('#addOrUpdateIsm fieldset input#inputSource').val(thisIsmObject.source);
+  // Inject the current values into the appropriate fields
+  // consider setting a div to sourceIsms.title instead of populating a field; we don't want to update the title here
+  $('#addOrUpdateIsm fieldset input#inputSource').val(sourceIsms.title);
   $('#addOrUpdateIsm fieldset input#inputNumber').val(thisIsmObject.number);
   $('#addOrUpdateIsm fieldset input#inputTags').val(joinedTags);
   $('#addOrUpdateIsm fieldset textarea#inputQuote').val(thisIsmObject.quote);

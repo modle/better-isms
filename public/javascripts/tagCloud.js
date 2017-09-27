@@ -1,3 +1,4 @@
+var tagCloudDict = {};
 
 function generateTagCloud() {
   var tagCloud = '';

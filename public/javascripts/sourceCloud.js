@@ -1,3 +1,4 @@
+var sourceCloudList = [];
 
 function generateSourceCloud() {
   var sourceCloud = '';

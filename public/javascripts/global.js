@@ -1,7 +1,8 @@
 var modal;
 var rel;
-var tagCloudDict = {}
-var sourceCloudList = []
+var tagCloudDict = {};
+var sourceCloudList = [];
+var updateClouds = false;
 var optionalIsmFields = [];
 optionalIsmFields.push('inputComments');
 
@@ -24,7 +25,7 @@ $(document).ready(function() {
   $('#logout').on('click', logUserOut);
 
   // Show all button click
-  $('#showAll').on('click', generateIsmDivs);
+  $('#showAll').on('click', generateContent);
 
   // Clear Ism button click
   $('#btnClearIsm').on('click', clearIsm);
@@ -36,10 +37,10 @@ $(document).ready(function() {
   $('#ismList isms').on('click', 'a.linkdeleteism', deleteIsm);
 
   // Tag cloud link click
-  $('#tagCloud').on('click', 'a.linktagfilter', generateIsmDivs);
+  $('#tagCloud').on('click', 'a.linktagfilter', generateContent);
 
   // Source cloud link click
-  $('#sourceCloud').on('click', 'a.linksourcefilter', generateIsmDivs);
+  $('#sourceCloud').on('click', 'a.linksourcefilter', generateContent);
 
   $("#addOrUpdateIsm").keyup(function (event) {
     // enter or ctrl+s
@@ -108,7 +109,7 @@ $(document).ready(function() {
 
   // generate the isms on initial page load if user is logged in
   if (checkLoggedIn()) {
-    generateIsmDivs('');
+    generateContent('');
     showButton('logout');
   } else {
     console.log("user is not logged in");
@@ -122,6 +123,7 @@ function logUserOut() {
   deleteCookie('username');
   clearIsmDivs();
   clearTagCloud();
+  clearSourceCloud();
   console.log('user is logged out');
   hideButton('logout');
   showButton('login');
@@ -155,13 +157,12 @@ function clearTagCloud() {
   setTagCloud('');
 }
 
-function clearIsmDivs() {
-  setIsmsList('');
+function clearSourceCloud() {
+  setSourceCloud('');
 }
 
-function promptUserToLogin() {
-  showModal(loginModal);
-  $('#inputUsername').focus();
+function clearIsmDivs() {
+  setIsmsList('');
 }
 
 // Login event
@@ -197,7 +198,7 @@ function logUserIn(event) {
         alert('Error: ' + response.msg);
       }
       hideModal(loginModal);
-      generateIsmDivs('');
+      generateContent('');
       showButton('logout');
       hideButton('login');
     });
@@ -210,12 +211,29 @@ function logUserIn(event) {
   console.log('exiting logUserIn');
 };
 
-function openNewIsmForm() {
+function checkLoggedIn() {
+  var user = getCookie("username");
+  if (user != "") {
+    console.log("user is logged in");
+    return true;
+  }
+  return false;
+}
+
+function promptUserToLogin() {
+  showModal(loginModal);
+  $('#inputUsername').focus();
+}
+
+function handleLogin() {
   if (!checkLoggedIn()) {
     console.log("user is not logged in");
     promptUserToLogin();
-    return;
   }
+}
+
+function openNewIsmForm() {
+  handleLogin();
   clearIsmFormFields();
   $('#btnClearIsm').show();
   showModal(formModal);
@@ -337,33 +355,13 @@ function setTagCloud(tagCloud) {
   $('#tagCloud').html(tagCloud);
 }
 
+function setSourceCloud(sourceCloud) {
+  $('#sourceCloud').html(sourceCloud);
+}
 
-
-function generateIsmDivs(event) {
-  console.log('entering generateIsmDivs');
-  if (!checkLoggedIn()) {
-    console.log("user is not logged in");
-    promptUserToLogin();
-    return;
-  }
-  var ismDivs = generateIsmHeaders();
-  var tagQuery = false;
-  var url = '/isms/ismlist/';
-  var eventClass = $(this).attr('class');
-  console.log(eventClass)
-  var rel = $(this).attr('rel');
-  if (eventClass == 'linktagfilter') {
-    tagQuery = true;
-    url += 'tag/' + rel;
-  } else if (eventClass == 'linksourcefilter') {
-    sourceQuery = true;
-    url += 'source/' + rel;
-  } else {
-    sourceQuery = false;
-    tagQuery = false;
-    tagCloudDict = {};
-    sourceCloudList = [];
-  }
+function manageGetIsmListCall(url) {
+  console.log(url);
+  ismDivs = generateIsmHeaders();
   $.ajax({
     type: 'GET',
     url: url,
@@ -374,7 +372,7 @@ function generateIsmDivs(event) {
       var source = this
       source.isms.forEach(function(ism) {
         var tags = ism["tags[]"]
-        if (!tagQuery && !sourceQuery) {
+        if (updateClouds) {
           addToTags(tags);
         }
         ismDivs += addIsmDiv(source, ism, tags);
@@ -384,7 +382,9 @@ function generateIsmDivs(event) {
     var tagCloud = generateTagCloud();
     setTagCloud(tagCloud);
   });
+}
 
+function manageGetSourceListCall() {
   var url = '/isms/sourcelist/';
   $.ajax({
     type: 'GET',
@@ -392,16 +392,44 @@ function generateIsmDivs(event) {
     dataType: 'JSON'
   }).done(function( response ) {
     $.each(response, function(){
-      if (!tagQuery && !sourceQuery) {
+      if (updateClouds) {
         sourceCloudList.push(this.title);
       }
     });
     console.log(sourceCloudList);
     var sourceCloud = generateSourceCloud();
-    $('#sourceCloud').html(sourceCloud);
+    setSourceCloud(sourceCloud);
   });
+}
 
+function determineIsmQueryUrl(eventClass, rel) {
+  url = '/isms/ismlist/';
+  if (eventClass == 'linktagfilter') {
+    url += 'tag/' + rel;
+  } else if (eventClass == 'linksourcefilter') {
+    url += 'source/' + rel;
+  }
+  return url;
+}
 
+function prepClouds(eventClass) {
+  updateClouds = false;
+  if (!eventClass) {
+    tagCloudDict = {};
+    sourceCloudList = [];
+    updateClouds = true;
+  }
+}
+
+function generateContent(event) {
+  console.log('entering generateIsmDivs');
+  handleLogin();
+  var eventClass = $(this).attr('class');
+  var rel = $(this).attr('rel');
+  url = determineIsmQueryUrl(eventClass, rel);
+  prepClouds(eventClass)
+  manageGetIsmListCall(url);
+  manageGetSourceListCall();
   console.log('exiting generateIsmDivs');
 };
 
@@ -409,12 +437,7 @@ function generateIsmDivs(event) {
 function addOrUpdateIsm(event) {
   event.preventDefault();
   console.log('update or add ism clicked!');
-  if (!checkLoggedIn()) {
-    console.log("user is not logged in");
-    promptUserToLogin();
-    return;
-  }
-
+  handleLogin();
   // Super basic validation - increase errorCount variable if any fields are blank
   var errorCount = 0;
   $('#addOrUpdateIsm input').each(function(index, val) {
@@ -460,7 +483,7 @@ function addOrUpdateIsm(event) {
       $('#addOrUpdateIsm fieldset input').val('');
       $('#addOrUpdateIsm fieldset textarea').val('');
       $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val('');
-      generateIsmDivs(null);
+      generateContent(null);
     } else {
       alert('Error: ' + response.msg);
     }
@@ -481,11 +504,7 @@ function deleteIsm(event) {
   event.preventDefault();
   console.log('delete ism clicked!');
 
-  if (!checkLoggedIn()) {
-    console.log("user is not logged in");
-    promptUserToLogin();
-    return;
-  }
+  handleLogin();
 
   var confirmation = confirm('Are you sure you want to delete this ism?');
   ismId = $(this).attr('rel');
@@ -498,7 +517,7 @@ function deleteIsm(event) {
       } else {
         alert('Error: ' + response.msg);
       }
-      generateIsmDivs();
+      generateContent();
       // clear the update fields if the id matches
       if ($('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val() === ismId) {
         $('#addOrUpdateIsm fieldset input').val('');
@@ -517,11 +536,7 @@ function deleteIsm(event) {
 function populateIsmFields(event) {
   event.preventDefault();
   console.log('populatefieldsclicked!');
-  if (!checkLoggedIn()) {
-    console.log("user is not logged in");
-    promptUserToLogin();
-    return;
-  }
+  handleLogin();
 
   setUpdateIsmFormElementText();
 

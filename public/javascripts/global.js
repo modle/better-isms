@@ -350,9 +350,7 @@ function generateIsmDivs(event) {
     ismListData = response;
     $.each(response, function(){
       var source = this
-      console.log(source.title)
       source.isms.forEach(function(ism) {
-        console.log(ism)
         var tags = ism["tags[]"]
         if (!tagQuery) {
           addToTags(tags);
@@ -397,16 +395,19 @@ function addOrUpdateIsm(event) {
   }
 
   var ism = {
-    'source': $('#addOrUpdateIsm fieldset input#inputSource').val(),
+    '_id': $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val().split(':')[1],
     'number': $('#addOrUpdateIsm fieldset input#inputNumber').val(),
     'tags': $('#addOrUpdateIsm fieldset input#inputTags').val().toLowerCase().split(/\s*,\s*/),
     'quote': $('#addOrUpdateIsm fieldset textarea#inputQuote').val(),
     'comments': $('#addOrUpdateIsm fieldset textarea#inputComments').val(),
   }
+  console.log(ism);
   var url = '/isms/addorupdateism/';
   var type = 'POST';
   if ($(this).attr('value')) {
-    url += $(this).attr('value')
+    var thisSource = $(this).attr('value');
+    console.log(thisSource)
+    url += $(this).attr('value').replace(":", "/");
     type = 'PUT';
   }
   console.log(url)
@@ -506,7 +507,6 @@ function populateIsmFields(event) {
 
   // Get our Ism Object
   var thisIsmObject = ismListData[sourceArrayIndex].isms[myIsmArrayIndex];
-  console.log(thisIsmObject)
 
   // generate tag string from array of tags
   joinedTags = '';
@@ -523,7 +523,7 @@ function populateIsmFields(event) {
   $('#addOrUpdateIsm fieldset input#inputTags').val(joinedTags);
   $('#addOrUpdateIsm fieldset textarea#inputQuote').val(thisIsmObject.quote);
   $('#addOrUpdateIsm fieldset textarea#inputComments').val(thisIsmObject.comments);
-  $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val(thisIsmObject._id);
+  $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val(thisSource);
 
   console.log('exiting populateIsmFields');
 }

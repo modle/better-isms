@@ -13,18 +13,6 @@ router.get('/ismlist', function(req, res) {
 });
 
 /*
- * GET sources.
- */
-router.get('/sources', function(req, res) {
-  var db = req.db;
-  var collection = db.get('sources');
-  collection.find({},{},function(e, docs){
-    res.json(docs);
-  });
-});
-
-
-/*
  * GET ismlist with filter.
  */
 router.get('/ismlist/:id', function(req, res) {
@@ -39,11 +27,17 @@ router.get('/ismlist/:id', function(req, res) {
 /*
  * PUT to updateism.
  */
-router.put('/addorupdateism/:id', function(req, res) {
+router.put('/addorupdateism/:id/:ismId', function(req, res) {
   var db = req.db;
   var collection = db.get('ismlist');
-  var ismToUpdate = req.params.id;
-  collection.update({ '_id' : ismToUpdate }, req.body, function(err) {
+  var sourceToUpdate = req.params.id;
+  var ismToUpdate = req.params.ismId;
+  collection.update({
+    '_id' : sourceToUpdate,
+    isms: { $elemMatch: { '_id': ismToUpdate } }
+  },
+  { $set: { "isms.$" : req.body } },
+  function(err) {
     res.send(
       (err === null) ? { msg: '' } : { msg:'error: ' + err }
     );

@@ -1,0 +1,22 @@
+{
+    "_id": {
+        "$oid": "59c9b67d734d1d341d3b90fb"
+    },
+    "title": "abook",
+    "isms": [
+        {
+            "_id": "123412341234123412341235",
+            "number": "3",
+            "tags[]": "tag1",
+            "quote": "a quote",
+            "comments": "a comment"
+        },
+        {
+            "_id": "123412341234123412341234",
+            "number": "35",
+            "tags[]": "tag2",
+            "quote": "another quote",
+            "comments": "another comment"
+        }
+    ]
+}

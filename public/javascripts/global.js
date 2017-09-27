@@ -128,98 +128,8 @@ function showButton(buttonClass) {
   $('#' + buttonClass).show();
 }
 
-function hideModalAfterAWhile(modal) {
-  setTimeout(function(){ hideModal(modal); }, 3000);
-}
-
-function hideModal(modal) {
-  modal.style.display = "none";
-}
-
-function showModal(modal) {
-  console.log("showing modal: " + modal.id)
-  modal.style.display = "block";
-}
-
-function clearTagCloud() {
-  setTagCloud('');
-}
-
-function clearSourceCloud() {
-  setSourceCloud('');
-}
-
 function clearIsmDivs() {
   setIsmsList('');
-}
-
-function openNewIsmForm() {
-  handleLogin();
-  clearIsmFormFields();
-  $('#btnClearIsm').show();
-  showModal(formModal);
-  $('#inputSource').focus();
-}
-
-function setUpdateIsmFormElementText() {
-  $('#addOrUpdateIsmHeader').text("Update Ism");
-  $('#btnAddOrUpdateIsm').text("Update Ism");
-  $('#btnClearIsm').hide();
-  showModal(formModal);
-  $('#inputSource').focus();
-}
-
-function clearIsmFormFields() {
-  $('#addOrUpdateIsm fieldset input').val('');
-  $('#addOrUpdateIsm fieldset textarea').val('');
-  $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val('');
-}
-
-function addToTagDict(tag) {
-  lowerCasedTag = tag.toLowerCase();
-  if (lowerCasedTag in tagCloudDict) {
-    tagCloudDict[lowerCasedTag] += 1;
-  } else {
-    tagCloudDict[lowerCasedTag] = 1;
-  }
-}
-
-function addToTags(tags) {
-  if (Array.isArray(tags)) {
-    for (i = 0; i < tags.length; i++) {
-      addToTagDict(tags[i]);
-    }
-  } else {
-    addToTagDict(tags);
-  }
-}
-
-function generateTagDivs(tags) {
-  tagDivs = ''
-  if (Array.isArray(tags)) {
-    for (i = 0; i < tags.length; i++) {
-      tagDivs += '<span class="tag field">'
-      tagDivs += tags[i];
-      tagDivs += '</span>'
-    }
-  } else {
-    tagDivs += '<span class="tag field">'
-    tagDivs += tags;
-    tagDivs += '</span>'
-  }
-  return tagDivs;
-}
-
-function calculateTagSize(tag) {
-  var tagArray = Array.from(Object.values(tagCloudDict));
-  var maxCount = Math.max.apply(null, tagArray);
-  var minCount = Math.min.apply(null, tagArray);
-  var range = maxCount - minCount;
-  var tagCount = tagCloudDict[tag];
-  var tagSizeRatio = tagCount / range;
-  var baseEmSize = 1;
-  var finalEmSize = tagSizeRatio + baseEmSize;
-  return finalEmSize;
 }
 
 function generateIsmHeaders() {
@@ -251,33 +161,6 @@ function addIsmDiv(source, details, tags) {
 
 function setIsmsList(ismDivs) {
   $('#ismList isms').html(ismDivs);
-}
-
-function generateSourceCloud() {
-  var sourceCloud = '';
-  for (var source of Array.from(sourceCloudList).sort()) {
-    sourceCloud += '<span><a href="#" class="linksourcefilter" rel="' + source + '"">';
-    sourceCloud += source + '</a></span><span> </span>';
-  }
-  return sourceCloud;
-}
-
-function generateTagCloud() {
-  var tagCloud = '';
-  for (var tag of Array.from(Object.keys(tagCloudDict)).sort()) {
-    var size = calculateTagSize(tag);
-    tagCloud += '<span><a href="#" class="linktagfilter" rel="' + tag + '" style="font-size:' + size + 'em">';
-    tagCloud += tag + '</a></span><span> </span>';
-  }
-  return tagCloud;
-}
-
-function setTagCloud(tagCloud) {
-  $('#tagCloud').html(tagCloud);
-}
-
-function setSourceCloud(sourceCloud) {
-  $('#sourceCloud').html(sourceCloud);
 }
 
 function manageGetIsmListCall(url) {
@@ -413,13 +296,6 @@ function addOrUpdateIsm(event) {
   console.log('exiting addOrUpdateIsm');
 };
 
-function clearIsm(event) {
-  event.preventDefault();
-  console.log('clear ism clicked!');
-  clearIsmFormFields();
-  console.log('exiting clearIsm');
-};
-
 // Delete Ism
 function deleteIsm(event) {
   event.preventDefault();
@@ -453,55 +329,6 @@ function deleteIsm(event) {
   }
   console.log('exiting deleteIsm');
 };
-
-function populateIsmFields(event) {
-  event.preventDefault();
-  console.log('populatefieldsclicked!');
-  handleLogin();
-
-  setUpdateIsmFormElementText();
-
-  // Retrieve sourceId and ismId from link rel attribute
-  var thisSource = $(this).attr('rel');
-  var thisSourceId = thisSource.split(':')[0]
-  var thisIsmId = thisSource.split(':')[1]
-
-  console.log('source id is ' + thisSourceId);
-  console.log('ism id is ' + thisIsmId);
-
-  // Get Index of source object based on source id value
-  var sourceArrayIndex = ismListData.map(function(arrayItem) {
-    return arrayItem._id;
-  }).indexOf(thisSourceId);
-  sourceIsms = ismListData[sourceArrayIndex]
-
-  // Get Index of isms within source object based on ism id value
-  var myIsmArrayIndex = sourceIsms.isms.map(function(ism) {
-    return ism._id;
-  }).indexOf(thisIsmId);
-
-  // Get our Ism Object
-  var thisIsmObject = ismListData[sourceArrayIndex].isms[myIsmArrayIndex];
-
-  // generate tag string from array of tags
-  joinedTags = '';
-  if (Array.isArray(thisIsmObject["tags[]"])) {
-    joinedTags = thisIsmObject["tags[]"].join();
-  } else {
-    joinedTags = thisIsmObject["tags[]"];
-  }
-
-  // Inject the current values into the appropriate fields
-  // consider setting a div to sourceIsms.title instead of populating a field; we don't want to update the title here
-  $('#addOrUpdateIsm fieldset input#inputSource').val(sourceIsms.title);
-  $('#addOrUpdateIsm fieldset input#inputNumber').val(thisIsmObject.number);
-  $('#addOrUpdateIsm fieldset input#inputTags').val(joinedTags);
-  $('#addOrUpdateIsm fieldset textarea#inputQuote').val(thisIsmObject.quote);
-  $('#addOrUpdateIsm fieldset textarea#inputComments').val(thisIsmObject.comments);
-  $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val(thisSource);
-
-  console.log('exiting populateIsmFields');
-}
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {

@@ -13,13 +13,36 @@ router.get('/ismlist', function(req, res) {
 });
 
 /*
- * GET ismlist with filter.
+ * GET sourcelist.
  */
-router.get('/ismlist/:id', function(req, res) {
+router.get('/sourcelist', function(req, res) {
+  var db = req.db;
+  var collection = db.get('ismlist');
+  collection.find({}, 'title', function(e, docs) {
+    res.json(docs);
+  });
+});
+
+/*
+ * GET ismlist with tag filter.
+ */
+router.get('/ismlist/tag/:id', function(req, res) {
   var db = req.db;
   var collection = db.get('ismlist');
   console.log(req.params.id);
   collection.find({'tags[]': req.params.id}, {}, function(e, docs) {
+    res.json(docs);
+  });
+});
+
+/*
+ * GET ismlist with source filter.
+ */
+router.get('/ismlist/source/:id', function(req, res) {
+  var db = req.db;
+  var collection = db.get('ismlist');
+  console.log(req.params.id);
+  collection.find({'title': req.params.id}, {}, function(e, docs) {
     res.json(docs);
   });
 });

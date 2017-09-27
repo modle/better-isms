@@ -1,6 +1,7 @@
 var modal;
 var rel;
 var tagCloudDict = {}
+var sourceCloudList = []
 var optionalIsmFields = [];
 optionalIsmFields.push('inputComments');
 
@@ -36,6 +37,9 @@ $(document).ready(function() {
 
   // Tag cloud link click
   $('#tagCloud').on('click', 'a.linktagfilter', generateIsmDivs);
+
+  // Source cloud link click
+  $('#sourceCloud').on('click', 'a.linksourcefilter', generateIsmDivs);
 
   $("#addOrUpdateIsm").keyup(function (event) {
     // enter or ctrl+s
@@ -310,6 +314,15 @@ function setIsmsList(ismDivs) {
   $('#ismList isms').html(ismDivs);
 }
 
+function generateSourceCloud() {
+  var sourceCloud = '';
+  for (var source of Array.from(sourceCloudList).sort()) {
+    sourceCloud += '<span><a href="#" class="linksourcefilter" rel="' + source + '"">';
+    sourceCloud += source + '</a></span><span> </span>';
+  }
+  return sourceCloud;
+}
+
 function generateTagCloud() {
   var tagCloud = '';
   for (var tag of Array.from(Object.keys(tagCloudDict)).sort()) {
@@ -324,6 +337,8 @@ function setTagCloud(tagCloud) {
   $('#tagCloud').html(tagCloud);
 }
 
+
+
 function generateIsmDivs(event) {
   console.log('entering generateIsmDivs');
   if (!checkLoggedIn()) {
@@ -334,13 +349,20 @@ function generateIsmDivs(event) {
   var ismDivs = generateIsmHeaders();
   var tagQuery = false;
   var url = '/isms/ismlist/';
+  var eventClass = $(this).attr('class');
+  console.log(eventClass)
   var rel = $(this).attr('rel');
-  if (rel != null) {
+  if (eventClass == 'linktagfilter') {
     tagQuery = true;
-    url += rel;
+    url += 'tag/' + rel;
+  } else if (eventClass == 'linksourcefilter') {
+    sourceQuery = true;
+    url += 'source/' + rel;
   } else {
+    sourceQuery = false;
     tagQuery = false;
     tagCloudDict = {};
+    sourceCloudList = [];
   }
   $.ajax({
     type: 'GET',
@@ -352,7 +374,7 @@ function generateIsmDivs(event) {
       var source = this
       source.isms.forEach(function(ism) {
         var tags = ism["tags[]"]
-        if (!tagQuery) {
+        if (!tagQuery && !sourceQuery) {
           addToTags(tags);
         }
         ismDivs += addIsmDiv(source, ism, tags);
@@ -362,6 +384,23 @@ function generateIsmDivs(event) {
     var tagCloud = generateTagCloud();
     setTagCloud(tagCloud);
   });
+
+  var url = '/isms/sourcelist/';
+  $.ajax({
+    type: 'GET',
+    url: url,
+    dataType: 'JSON'
+  }).done(function( response ) {
+    $.each(response, function(){
+      if (!tagQuery && !sourceQuery) {
+        sourceCloudList.push(this.title);
+      }
+    });
+    console.log(sourceCloudList);
+    var sourceCloud = generateSourceCloud();
+    $('#sourceCloud').html(sourceCloud);
+  });
+
 
   console.log('exiting generateIsmDivs');
 };

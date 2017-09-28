@@ -25,7 +25,7 @@ function setUpdateIsmFormElementText() {
   $('#btnAddOrUpdateIsm').text("Update Ism");
   $('#btnClearIsm').hide();
   showModal(formModal);
-  $('#inputSource').focus();
+  $('#inputNumber').focus();
 }
 
 function populateIsmFields(event) {
@@ -67,7 +67,7 @@ function populateIsmFields(event) {
 
   // Inject the current values into the appropriate fields
   // consider setting a div to sourceIsms.title instead of populating a field; we don't want to update the title here
-  $('#addOrUpdateIsm fieldset input#inputSource').val(sourceIsms.title);
+  $('#addOrUpdateIsm #inputSource').text(sourceIsms.title);
   $('#addOrUpdateIsm fieldset input#inputNumber').val(thisIsmObject.number);
   $('#addOrUpdateIsm fieldset input#inputTags').val(joinedTags);
   $('#addOrUpdateIsm fieldset textarea#inputQuote').val(thisIsmObject.quote);

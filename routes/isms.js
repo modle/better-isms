@@ -24,7 +24,6 @@ router.get('/sourcelist', function(req, res) {
 router.get('/ismlist/tag/:id', function(req, res) {
   var db = req.db;
   var collection = db.get('ismlist');
-  console.log(req.params.id);
   collection.find({'tags[]': req.params.id}, {}, function(e, docs) {
     res.json(docs);
   });
@@ -34,7 +33,6 @@ router.get('/ismlist/tag/:id', function(req, res) {
 router.get('/ismlist/source/:id', function(req, res) {
   var db = req.db;
   var collection = db.get('ismlist');
-  console.log(req.params.id);
   collection.find({'title': req.params.id}, {}, function(e, docs) {
     res.json(docs);
   });

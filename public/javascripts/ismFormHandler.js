@@ -12,13 +12,18 @@ function clearIsm(event) {
   console.log('exiting clearIsm');
 };
 
-function openNewIsmForm() {
+function openNewIsmForm(event) {
   handleLogin();
+  hideModal(sourceSelectModal);
   clearIsmFormFields();
+  source = this.rel;
+  sourceId = this.rel.split(':')[0];
+  sourceName = this.rel.split(':')[1];
+  $('#addOrUpdateIsm #inputSource').text(sourceName);
   $('#btnClearIsm').show();
   showModal(formModal);
   $('#inputNumber').focus();
-  $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val('58c9b67d734d1d341d3b90fb');
+  $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val(sourceId);
 }
 
 function setUpdateIsmFormElementText() {
@@ -31,7 +36,6 @@ function setUpdateIsmFormElementText() {
 
 function populateIsmFields(event) {
   event.preventDefault();
-  console.log('populatefieldsclicked!');
   handleLogin();
 
   setUpdateIsmFormElementText();
@@ -40,9 +44,6 @@ function populateIsmFields(event) {
   var thisSource = $(this).attr('rel');
   var thisSourceId = thisSource.split(':')[0]
   var thisIsmId = thisSource.split(':')[1]
-
-  console.log('source id is ' + thisSourceId);
-  console.log('ism id is ' + thisIsmId);
 
   // Get Index of source object based on source id value
   var sourceArrayIndex = ismListData.map(function(arrayItem) {

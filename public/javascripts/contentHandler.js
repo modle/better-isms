@@ -36,7 +36,6 @@ function setIsmsList(ismDivs) {
 }
 
 function manageGetIsmListCall(url) {
-  console.log(url);
   ismDivs = generateIsmHeaders();
   $.ajax({
     type: 'GET',
@@ -69,12 +68,13 @@ function manageGetSourceListCall() {
   }).done(function( response ) {
     $.each(response, function(){
       if (updateClouds) {
-        sourceCloudList.push(this.title);
+        sourceCloudDict[this._id] = this.title;
       }
     });
-    console.log(sourceCloudList);
     var sourceCloud = generateSourceCloud();
     setSourceCloud(sourceCloud);
+    var sourceModalContent = generateSourceModalContent();
+    setSourceModalContent(sourceModalContent);
   });
 }
 
@@ -93,6 +93,7 @@ function prepClouds(eventClass) {
   if (!eventClass) {
     tagCloudDict = {};
     sourceCloudList = [];
+    sourceCloudIds = [];
     updateClouds = true;
   }
 }

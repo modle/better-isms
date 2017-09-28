@@ -1,21 +1,6 @@
 var optionalIsmFields = [];
 optionalIsmFields.push('inputComments');
 
-// var responseReceived = false;
-// var myId
-
-// function generateAnId() {
-//   responseReceived = false;
-//   $.ajax({
-//     type: 'GET',
-//     url: '/generate_id/'
-//   }).done(function( response ) {
-//     console.log(response.msg);
-//     myId = response.msg;
-//   });
-
-// }
-
 function addOrUpdateIsm(event) {
   event.preventDefault();
   console.log('update or add ism clicked!');
@@ -44,11 +29,7 @@ function addOrUpdateIsm(event) {
   ism.quote = $('#addOrUpdateIsm fieldset textarea#inputQuote').val();
   ism.comments = $('#addOrUpdateIsm fieldset textarea#inputComments').val();
 
-  // get the button value
   var buttonValue = $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val();
-  console.log(buttonValue);
-  // if the id includes a :, this is an update
-  // otherwise, it's just the source, and we need to generate an id for the new isms array entry
   if (buttonValue.includes(':')) {
     var type = 'PUT';
     ism._id = buttonValue.split(':')[1];
@@ -57,11 +38,7 @@ function addOrUpdateIsm(event) {
     var type = 'POST';
     url = '/isms/addism/' + buttonValue;
   }
-  // if (!ism._id) {
-  //   console.log("ism id is undefined, aborting ism creation")
-  //   return;
-  // }
-  console.log(url)
+  console.log(type, ' to ', url)
   $.ajax({
     type: type,
     data: ism,

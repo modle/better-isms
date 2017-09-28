@@ -3,7 +3,10 @@ $(document).ready(function() {
   $('#btnAddOrUpdateIsm').on('click', addOrUpdateIsm);
 
   // New Ism button click
-  $('#newIsm').on('click', openNewIsmForm);
+  $('#newIsm').on('click', promptSourceSelection);
+
+  // Show new ism form on source select
+  $('#sourceListDiv').on('click', 'a.linksource', openNewIsmForm);
 
   // Show login form button click
   $('#login').on('click', promptUserToLogin);
@@ -94,6 +97,9 @@ $(document).ready(function() {
   ismDeletedModal = document.getElementById('ismDeletedModal');
   hideModal(ismDeletedModal);
 
+  sourceSelectModal = document.getElementById('sourceSelectModal');
+  hideModal(sourceSelectModal);
+
   hideButton('logout');
   hideButton('login');
 
@@ -122,4 +128,8 @@ window.onclick = function(event) {
   if (event.target == modal) {
     hideModal(formModal);
   }
+}
+
+function promptSourceSelection() {
+  showModal(sourceSelectModal);
 }

@@ -41,7 +41,6 @@ function logUserIn(event) {
   // Super basic validation - increase errorCount variable if any fields are blank
   var errorCount = 0;
   $('#loginForm input').each(function(index, val) {
-    console.log(this)
     if ($(this).val() === '') {
       errorCount++;
     }

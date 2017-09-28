@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var crypto = require('crypto-js');
 
 
 router.get('/ismlist', function(req, res) {
@@ -40,7 +41,7 @@ router.get('/ismlist/source/:id', function(req, res) {
 });
 
 
-router.put('/addorupdateism/:id/:ismId', function(req, res) {
+router.put('/update/:id/:ismId', function(req, res) {
   var db = req.db;
   var collection = db.get('ismlist');
   var sourceToUpdate = req.params.id;
@@ -58,14 +59,26 @@ router.put('/addorupdateism/:id/:ismId', function(req, res) {
 });
 
 
-router.post('/addorupdateism', function(req, res) {
+function generateId() {
+  var wordArray = crypto.lib.WordArray.random(24);
+  var id = crypto.enc.Hex.stringify(wordArray).slice(0, 24);
+  return id;
+}
+
+router.post('/addism/:id', function(req, res) {
   var db = req.db;
   var collection = db.get('ismlist');
-  collection.insert(req.body, function(err, result){
-    res.send(
-      (err === null) ? { msg: '' } : { msg: err }
-    );
-  });
+  var sourceToUpdate = req.params.id;
+  req.body._id = generateId();
+  collection.update(
+    { '_id' : sourceToUpdate },
+    { $push: { 'isms' : req.body } },
+    function(err) {
+      res.send(
+        (err === null) ? { msg: '' } : { msg:'error: ' + err }
+      );
+    }
+  );
 });
 
 

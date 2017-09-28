@@ -17,7 +17,8 @@ function openNewIsmForm() {
   clearIsmFormFields();
   $('#btnClearIsm').show();
   showModal(formModal);
-  $('#inputSource').focus();
+  $('#inputNumber').focus();
+  $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val('58c9b67d734d1d341d3b90fb');
 }
 
 function setUpdateIsmFormElementText() {

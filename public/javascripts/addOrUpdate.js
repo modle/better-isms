@@ -1,6 +1,21 @@
 var optionalIsmFields = [];
 optionalIsmFields.push('inputComments');
 
+// var responseReceived = false;
+// var myId
+
+// function generateAnId() {
+//   responseReceived = false;
+//   $.ajax({
+//     type: 'GET',
+//     url: '/generate_id/'
+//   }).done(function( response ) {
+//     console.log(response.msg);
+//     myId = response.msg;
+//   });
+
+// }
+
 function addOrUpdateIsm(event) {
   event.preventDefault();
   console.log('update or add ism clicked!');
@@ -23,22 +38,29 @@ function addOrUpdateIsm(event) {
     return false;
   }
 
-  var ism = {
-    '_id': $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val().split(':')[1],
-    'number': $('#addOrUpdateIsm fieldset input#inputNumber').val(),
-    'tags': $('#addOrUpdateIsm fieldset input#inputTags').val().toLowerCase().split(/\s*,\s*/),
-    'quote': $('#addOrUpdateIsm fieldset textarea#inputQuote').val(),
-    'comments': $('#addOrUpdateIsm fieldset textarea#inputComments').val(),
+  var ism = {}
+  ism.number = $('#addOrUpdateIsm fieldset input#inputNumber').val();
+  ism.tags = $('#addOrUpdateIsm fieldset input#inputTags').val().toLowerCase().split(/\s*,\s*/);
+  ism.quote = $('#addOrUpdateIsm fieldset textarea#inputQuote').val();
+  ism.comments = $('#addOrUpdateIsm fieldset textarea#inputComments').val();
+
+  // get the button value
+  var buttonValue = $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val();
+  console.log(buttonValue);
+  // if the id includes a :, this is an update
+  // otherwise, it's just the source, and we need to generate an id for the new isms array entry
+  if (buttonValue.includes(':')) {
+    var type = 'PUT';
+    ism._id = buttonValue.split(':')[1];
+    url = '/isms/updateism/' + buttonValue.replace(":", "/");
+  } else {
+    var type = 'POST';
+    url = '/isms/addism/' + buttonValue;
   }
-  console.log(ism);
-  var url = '/isms/addorupdateism/';
-  var type = 'POST';
-  if ($(this).attr('value')) {
-    var thisSource = $(this).attr('value');
-    console.log(thisSource)
-    url += $(this).attr('value').replace(":", "/");
-    type = 'PUT';
-  }
+  // if (!ism._id) {
+  //   console.log("ism id is undefined, aborting ism creation")
+  //   return;
+  // }
   console.log(url)
   $.ajax({
     type: type,
@@ -47,9 +69,7 @@ function addOrUpdateIsm(event) {
     dataType: 'JSON'
   }).done(function( response ) {
     if (response.msg === '') {
-      $('#addOrUpdateIsm fieldset input').val('');
-      $('#addOrUpdateIsm fieldset textarea').val('');
-      $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val('');
+      clearIsmFormFields();
       generateContent(null);
     } else {
       alert('Error: ' + response.msg);

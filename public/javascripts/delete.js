@@ -6,11 +6,11 @@ function deleteIsm(event) {
   handleLogin();
 
   var confirmation = confirm('Are you sure you want to delete this ism?');
-  ismId = $(this).attr('rel');
+  var thisSource = $(this).attr('rel');
   if (confirmation === true) {
     $.ajax({
       type: 'DELETE',
-      url: '/isms/deleteism/' + ismId
+      url: '/isms/deleteism/' + $(this).attr('rel').replace(":", "/")
     }).done(function( response ) {
       if (response.msg === '') {
       } else {

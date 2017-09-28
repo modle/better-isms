@@ -1,9 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-/*
- * GET ismlist.
- */
+
 router.get('/ismlist', function(req, res) {
   var db = req.db;
   var collection = db.get('ismlist');
@@ -12,9 +10,7 @@ router.get('/ismlist', function(req, res) {
   });
 });
 
-/*
- * GET sourcelist.
- */
+
 router.get('/sourcelist', function(req, res) {
   var db = req.db;
   var collection = db.get('ismlist');
@@ -23,9 +19,7 @@ router.get('/sourcelist', function(req, res) {
   });
 });
 
-/*
- * GET ismlist with tag filter.
- */
+
 router.get('/ismlist/tag/:id', function(req, res) {
   var db = req.db;
   var collection = db.get('ismlist');
@@ -35,9 +29,7 @@ router.get('/ismlist/tag/:id', function(req, res) {
   });
 });
 
-/*
- * GET ismlist with source filter.
- */
+
 router.get('/ismlist/source/:id', function(req, res) {
   var db = req.db;
   var collection = db.get('ismlist');
@@ -47,9 +39,7 @@ router.get('/ismlist/source/:id', function(req, res) {
   });
 });
 
-/*
- * PUT to updateism.
- */
+
 router.put('/addorupdateism/:id/:ismId', function(req, res) {
   var db = req.db;
   var collection = db.get('ismlist');
@@ -67,9 +57,7 @@ router.put('/addorupdateism/:id/:ismId', function(req, res) {
   });
 });
 
-/*
- * POST to addism.
- */
+
 router.post('/addorupdateism', function(req, res) {
   var db = req.db;
   var collection = db.get('ismlist');
@@ -80,18 +68,21 @@ router.post('/addorupdateism', function(req, res) {
   });
 });
 
-/*
- * DELETE to deleteism.
- */
-router.delete('/deleteism/:id', function(req, res) {
+
+router.delete('/deleteism/:id/:ismId', function(req, res) {
   var db = req.db;
   var collection = db.get('ismlist');
-  var ismToDelete = req.params.id;
-  collection.remove({ '_id' : ismToDelete }, function(err) {
-    res.send(
-      (err === null) ? { msg: '' } : { msg:'error: ' + err }
-    );
-  });
+  var sourceToUpdate = req.params.id;
+  var ismToUpdate = req.params.ismId;
+  collection.update(
+    { '_id' : sourceToUpdate },
+    { $pull: { 'isms' : { '_id': ismToUpdate} } },
+    function(err) {
+      res.send(
+        (err === null) ? { msg: '' } : { msg:'error: ' + err }
+      );
+    }
+  );
 });
 
 module.exports = router;

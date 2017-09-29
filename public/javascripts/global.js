@@ -1,9 +1,14 @@
 $(document).ready(function() {
+
+  // Click Entry Point Definitions =============================================================
   // Add or Update Ism button click
   $('#btnAddOrUpdateIsm').on('click', addOrUpdateIsm);
 
   // New Ism button click
   $('#newIsm').on('click', promptSourceSelection);
+
+  // New Source button click
+  $('#newSource').on('click', openNewSourceForm);
 
   // Show new ism form on source select
   $('#sourceListDiv').on('click', 'a.linksource', openNewIsmForm);
@@ -13,6 +18,9 @@ $(document).ready(function() {
 
   // Login submit button click
   $('#btnSubmitLogin').on('click', logUserIn);
+
+  // Add Source submit button click
+  $('#btnSubmitAddSource').on('click', addNewSource);
 
   // Login submit button click
   $('#logout').on('click', logUserOut);
@@ -35,6 +43,8 @@ $(document).ready(function() {
   // Source cloud link click
   $('#sourceCloud').on('click', 'a.linksourcefilter', generateContent);
 
+
+  // Key Events =============================================================
   $("#addOrUpdateIsm").keyup(function (event) {
     // enter or ctrl+s
     if (event.ctrlKey && event.keyCode == 83) {
@@ -100,6 +110,9 @@ $(document).ready(function() {
   sourceSelectModal = document.getElementById('sourceSelectModal');
   hideModal(sourceSelectModal);
 
+  newSourceModal = document.getElementById('newSourceModal');
+  hideModal(newSourceModal);
+
   hideButton('logout');
   hideButton('login');
 
@@ -132,4 +145,10 @@ window.onclick = function(event) {
 
 function promptSourceSelection() {
   showModal(sourceSelectModal);
+}
+
+function openNewSourceForm(event) {
+  handleLogin();
+  showModal(newSourceModal);
+  $('#inputTitle').focus();
 }

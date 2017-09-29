@@ -96,4 +96,19 @@ router.delete('/deleteism/:id/:ismId', function(req, res) {
   );
 });
 
+
+router.post('/addsource', function(req, res) {
+  var db = req.db;
+  var collection = db.get('ismlist');
+  req.body.isms = [];
+  collection.insert(req.body,
+    function(err, result) {
+      res.send(
+        (err === null) ? { msg: '' } : { msg:'error: ' + err }
+      );
+    }
+  );
+});
+
+
 module.exports = router;

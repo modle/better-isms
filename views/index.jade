@@ -26,6 +26,24 @@ block content
         h1 Ism deleted
     // /ISM DELETED TOAST
 
+    // ADD SOURCE FORM
+    .modal#newSourceModal
+      br
+      br
+      br
+      br
+      .modal-container
+        #addSourceForm
+          .form-container-wrapper
+            fieldset.form-container
+              h1 Add new source
+              input#inputTitle(type='text', placeholder='title').form-field
+              br
+              input#inputAuthor(type='text', placeholder='author').form-field
+              br
+              button#btnSubmitAddSource.submit-button Add Source
+    // /ADD SOURCE FORM
+
     // SOURCE SELECT
     .modal#sourceSelectModal
       br
@@ -56,6 +74,7 @@ block content
     // /LOGIN FORM
 
     button#newIsm.submit-button New Ism
+    button#newSource.submit-button New Source
     button#logout.submit-button Logout
     button#login.submit-button Login
     br

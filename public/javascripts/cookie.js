@@ -23,12 +23,3 @@ function getCookie(cookieName) {
   }
   return "";
 }
-
-function checkLoggedIn() {
-  var user = getCookie("username");
-  if (user != "") {
-    console.log("user is logged in");
-    return true;
-  }
-  return false;
-}

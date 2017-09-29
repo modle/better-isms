@@ -1,9 +1,8 @@
 var express = require('express');
 var router = express.Router();
+var crypto = require('crypto-js');
 
-/*
- * GET ismlist.
- */
+
 router.get('/ismlist', function(req, res) {
   var db = req.db;
   var collection = db.get('ismlist');
@@ -12,57 +11,127 @@ router.get('/ismlist', function(req, res) {
   });
 });
 
-/*
- * GET ismlist with filter.
- */
-router.get('/ismlist/:id', function(req, res) {
+
+router.get('/sourcelist', function(req, res) {
   var db = req.db;
   var collection = db.get('ismlist');
-  console.log(req.params.id);
-  collection.find({'tags[]': req.params.id}, {}, function(e, docs) {
+  collection.find({}, 'title author', function(e, docs) {
     res.json(docs);
   });
 });
 
-/*
- * PUT to updateism.
- */
-router.put('/addorupdateism/:id', function(req, res) {
+
+function* enumerate(iterable) {
+  let i = 0;
+
+  for (const x of iterable) {
+      yield [i, x];
+      i++;
+  }
+}
+
+router.get('/ismlist/tag/:id', function(req, res) {
   var db = req.db;
   var collection = db.get('ismlist');
-  var ismToUpdate = req.params.id;
-  collection.update({ '_id' : ismToUpdate }, req.body, function(err) {
+  collection.find({
+    'isms.tags': req.params.id}, {}, function(e, docs) {
+      for (doc of docs) {
+        trimmedIsms = []
+        for (const [i, ism] of enumerate(doc.isms)) {
+          if (ism.tags.includes(req.params.id)) {
+            trimmedIsms.push(ism);
+          }
+        }
+        doc.isms = trimmedIsms;
+      }
+      res.json(docs);
+    }
+  );
+});
+
+
+router.get('/ismlist/source/:id', function(req, res) {
+  var db = req.db;
+  var collection = db.get('ismlist');
+  collection.find({'_id': req.params.id}, {}, function(e, docs) {
+    res.json(docs);
+  });
+});
+
+
+router.put('/updateism/:id/:ismId', function(req, res) {
+  var db = req.db;
+  var collection = db.get('ismlist');
+  var sourceToUpdate = req.params.id;
+  var ismToUpdate = req.params.ismId;
+  collection.update({
+    '_id' : sourceToUpdate,
+    isms: { $elemMatch: { '_id': ismToUpdate } }
+  },
+  { $set: { "isms.$" : req.body } },
+  function(err) {
     res.send(
       (err === null) ? { msg: '' } : { msg:'error: ' + err }
     );
   });
 });
 
-/*
- * POST to addism.
- */
-router.post('/addorupdateism', function(req, res) {
+
+function generateId() {
+  var wordArray = crypto.lib.WordArray.random(24);
+  var id = crypto.enc.Hex.stringify(wordArray).slice(0, 24);
+  return id;
+}
+
+router.post('/addism/:id', function(req, res) {
   var db = req.db;
   var collection = db.get('ismlist');
-  collection.insert(req.body, function(err, result){
-    res.send(
-      (err === null) ? { msg: '' } : { msg: err }
-    );
-  });
+  var sourceToUpdate = req.params.id;
+  req.body._id = generateId();
+  // rename tags[] to tags
+  req.body.tags = req.body['tags[]']
+  delete req.body['tags[]']
+  collection.update(
+    { '_id' : sourceToUpdate },
+    { $push: { 'isms' : req.body } },
+    function(err) {
+      res.send(
+        (err === null) ? { msg: '' } : { msg:'error: ' + err }
+      );
+    }
+  );
 });
 
-/*
- * DELETE to deleteism.
- */
-router.delete('/deleteism/:id', function(req, res) {
+
+router.delete('/deleteism/:id/:ismId', function(req, res) {
   var db = req.db;
   var collection = db.get('ismlist');
-  var ismToDelete = req.params.id;
-  collection.remove({ '_id' : ismToDelete }, function(err) {
-    res.send(
-      (err === null) ? { msg: '' } : { msg:'error: ' + err }
-    );
-  });
+  var sourceToUpdate = req.params.id;
+  var ismToUpdate = req.params.ismId;
+  collection.update(
+    { '_id' : sourceToUpdate },
+    { $pull: { 'isms' : { '_id': ismToUpdate} } },
+    function(err) {
+      res.send(
+        (err === null) ? { msg: '' } : { msg:'error: ' + err }
+      );
+    }
+  );
 });
+
+
+router.post('/addsource', function(req, res) {
+  var db = req.db;
+  var collection = db.get('ismlist');
+  req.body.isms = [];
+  collection.insert(req.body,
+    function(err, result) {
+      res.send(
+        (err === null) ? { msg: '' } : { msg:'error: ' + err }
+      );
+    }
+  );
+});
+
 
 module.exports = router;

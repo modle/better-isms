@@ -9,6 +9,7 @@ $(document).ready(function() {
 
   // New Source button click
   $('#newSource').on('click', openNewSourceForm);
+  $('#newSource2').on('click', openNewSourceForm);
 
   // Show new ism form on source select
   $('#sourceListDiv').on('click', 'a.linksource', openNewIsmForm);
@@ -65,7 +66,9 @@ $(document).ready(function() {
     }
     // esc
     if(event.keyCode == 27) {
-      hideModal(formModal);
+      for (var modal of modals) {
+        hideModal(modal);
+      }
       event.preventDefault();
     }
   });
@@ -94,29 +97,23 @@ $(document).ready(function() {
     }
   });
 
+  // define the modals
+  modals = [
+    document.getElementById('formModal'),
+    document.getElementById('loginModal'),
+    document.getElementById('loggedOutModal'),
+    document.getElementById('ismDeletedModal'),
+    document.getElementById('sourceSelectModal'),
+    document.getElementById('newSourceModal')
+  ]
+
   // close the modals on initial page load
-  modal = document.getElementById('formModal');
-  hideModal(formModal);
+  hideAllModals();
 
-  loginModal = document.getElementById('loginModal');
-  hideModal(loginModal);
-
-  loggedOutModal = document.getElementById('loggedOutModal');
-  hideModal(loggedOutModal);
-
-  ismDeletedModal = document.getElementById('ismDeletedModal');
-  hideModal(ismDeletedModal);
-
-  sourceSelectModal = document.getElementById('sourceSelectModal');
-  hideModal(sourceSelectModal);
-
-  newSourceModal = document.getElementById('newSourceModal');
-  hideModal(newSourceModal);
-
-  hideButton('logout');
-  hideButton('login');
 
   // generate the isms on initial page load if user is logged in
+  hideButton('logout');
+  hideButton('login');
   if (checkLoggedIn()) {
     generateContent('');
     showButton('logout');
@@ -124,6 +121,7 @@ $(document).ready(function() {
     console.log("user is not logged in");
     promptUserToLogin();
   }
+
 });
 
 // Functions =============================================================
@@ -136,13 +134,6 @@ function showButton(buttonClass) {
   $('#' + buttonClass).show();
 }
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    hideModal(formModal);
-  }
-}
-
 function promptSourceSelection() {
   showModal(sourceSelectModal);
 }
@@ -151,4 +142,10 @@ function openNewSourceForm(event) {
   handleLogin();
   showModal(newSourceModal);
   $('#inputTitle').focus();
+}
+
+function hideAllModals() {
+  for (var modal of modals) {
+    hideModal(modal);
+  }
 }

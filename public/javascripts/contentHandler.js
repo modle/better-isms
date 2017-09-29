@@ -6,7 +6,7 @@ function clearIsmDivs() {
 
 function generateIsmHeaders() {
   var divHeaders = '';
-  divHeaders += '<div class="record"><span class="source">record</span> | ';
+  divHeaders += '<div class="record"><span class="source">source</span> | ';
   divHeaders += '<span class="num">page number</span> | ';
   divHeaders += '<span class="tag">tags</span> | ';
   divHeaders += '<span class="quote">quote</span> | ';

@@ -80,11 +80,15 @@ function manageGetSourceListCall() {
 
 function determineIsmQueryUrl(eventClass, rel) {
   url = '/isms/ismlist/';
+  filterString = 'none';
   if (eventClass == 'linktagfilter') {
     url += 'tag/' + rel;
+    filterString = 'tag: ' + rel;
   } else if (eventClass == 'linksourcefilter') {
     url += 'source/' + rel;
+    filterString = 'source: ' + sourceCloudDict[rel];
   }
+  $('#currentFilter').html(filterString);
   return url;
 }
 
@@ -103,7 +107,6 @@ function generateContent(event) {
   handleLogin();
   var eventClass = $(this).attr('class');
   var rel = $(this).attr('rel');
-  console.log(rel)
   url = determineIsmQueryUrl(eventClass, rel);
   prepClouds(eventClass)
   manageGetSourceListCall();

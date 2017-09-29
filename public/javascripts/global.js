@@ -30,7 +30,7 @@ $(document).ready(function() {
   $('#logout').on('click', logUserOut);
 
   // Show all button click
-  $('#showAll').on('click', generateContent);
+  $('#clearFilter').on('click', generateContent);
 
   // Clear Ism button click
   $('#btnClearIsm').on('click', clearIsm);

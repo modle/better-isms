@@ -36,11 +36,13 @@ router.get('/ismlist/tag/:id', function(req, res) {
   collection.find({
     'isms.tags': req.params.id}, {}, function(e, docs) {
       for (doc of docs) {
+        trimmedIsms = []
         for (const [i, ism] of enumerate(doc.isms)) {
-          if (!ism.tags.includes(req.params.id)) {
-            doc.isms.splice(i, 1);
+          if (ism.tags.includes(req.params.id)) {
+            trimmedIsms.push(ism);
           }
         }
+        doc.isms = trimmedIsms;
       }
       res.json(docs);
     }
@@ -86,6 +88,9 @@ router.post('/addism/:id', function(req, res) {
   var collection = db.get('ismlist');
   var sourceToUpdate = req.params.id;
   req.body._id = generateId();
+  // rename tags[] to tags
+  req.body.tags = req.body['tags[]']
+  delete req.body['tags[]']
   collection.update(
     { '_id' : sourceToUpdate },
     { $push: { 'isms' : req.body } },

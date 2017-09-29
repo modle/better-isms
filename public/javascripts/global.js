@@ -11,6 +11,9 @@ $(document).ready(function() {
   $('#newSource').on('click', openNewSourceForm);
   $('#newSource2').on('click', openNewSourceForm);
 
+  // Hide modals button click
+  $('.hideModals').on('click', hideAllModals);
+
   // Show new ism form on source select
   $('#sourceListDiv').on('click', 'a.linksource', openNewIsmForm);
 
@@ -148,4 +151,10 @@ function hideAllModals() {
   for (var modal of modals) {
     hideModal(modal);
   }
+  clearAllForms();
+}
+
+function clearAllForms() {
+  $('fieldset input').val('');
+  $('fieldset textarea').val('');
 }

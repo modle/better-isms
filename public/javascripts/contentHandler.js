@@ -46,7 +46,7 @@ function manageGetIsmListCall(url) {
     $.each(response, function(){
       var source = this
       source.isms.forEach(function(ism) {
-        var tags = ism["tags[]"]
+        var tags = ism["tags"]
         if (updateClouds) {
           addToTags(tags);
         }

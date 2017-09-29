@@ -8,14 +8,14 @@
         {
             "_id": "123412341234123412341235",
             "number": "3",
-            "tags[]": "tag1",
+            "tags": ["tag1"],
             "quote": "a quote",
             "comments": "a comment"
         },
         {
             "_id": "123412341234123412341234",
             "number": "35",
-            "tags[]": "tag2",
+            "tags": ["tag2"],
             "quote": "another quote",
             "comments": "another comment"
         }

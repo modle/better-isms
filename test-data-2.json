@@ -8,7 +8,7 @@
         {
             "_id": "993412341234123412341235",
             "number": "5",
-            "tags[]": "tag5",
+            "tags": ["tag5"],
             "quote": "aquotefromthething"
         }
     ]

@@ -21,12 +21,30 @@ router.get('/sourcelist', function(req, res) {
 });
 
 
+function* enumerate(iterable) {
+  let i = 0;
+
+  for (const x of iterable) {
+      yield [i, x];
+      i++;
+  }
+}
+
 router.get('/ismlist/tag/:id', function(req, res) {
   var db = req.db;
   var collection = db.get('ismlist');
-  collection.find({'tags[]': req.params.id}, {}, function(e, docs) {
-    res.json(docs);
-  });
+  collection.find({
+    'isms.tags': req.params.id}, {}, function(e, docs) {
+      for (doc of docs) {
+        for (const [i, ism] of enumerate(doc.isms)) {
+          if (!ism.tags.includes(req.params.id)) {
+            doc.isms.splice(i, 1);
+          }
+        }
+      }
+      res.json(docs);
+    }
+  );
 });
 
 

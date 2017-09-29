@@ -25,9 +25,14 @@ function addOrUpdateIsm(event) {
 
   var ism = {}
   ism.number = $('#addOrUpdateIsm fieldset input#inputNumber').val();
-  ism.tags = $('#addOrUpdateIsm fieldset input#inputTags').val().toLowerCase().split(/\s*,\s*/);
+  var tags = $('#addOrUpdateIsm fieldset input#inputTags').val().toLowerCase().split(/\s*,\s*/);
+  ism.tags = []
+  for (var tag of tags) {
+    ism.tags.push(tag);
+  }
   ism.quote = $('#addOrUpdateIsm fieldset textarea#inputQuote').val();
   ism.comments = $('#addOrUpdateIsm fieldset textarea#inputComments').val();
+  console.log(ism)
 
   var buttonValue = $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val();
   if (buttonValue.includes(':')) {

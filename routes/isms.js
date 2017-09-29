@@ -21,15 +21,6 @@ router.get('/sourcelist', function(req, res) {
 });
 
 
-function* enumerate(iterable) {
-  let i = 0;
-
-  for (const x of iterable) {
-      yield [i, x];
-      i++;
-  }
-}
-
 router.get('/ismlist/tag/:id', function(req, res) {
   var db = req.db;
   var collection = db.get('ismlist');
@@ -37,7 +28,7 @@ router.get('/ismlist/tag/:id', function(req, res) {
     'isms.tags': req.params.id}, {}, function(e, docs) {
       for (doc of docs) {
         trimmedIsms = []
-        for (const [i, ism] of enumerate(doc.isms)) {
+        for (ism of doc.isms) {
           if (ism.tags.includes(req.params.id)) {
             trimmedIsms.push(ism);
           }

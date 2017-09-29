@@ -19,7 +19,7 @@ function generateIsmHeaders() {
 
 function addIsmDiv(source, details, tags) {
   var divContent = '';
-  divContent += '<div class="record"><span class="source field">' + source.title + '</span> | ';
+  divContent += '<div class="record"><span class="source field">' + sourceCloudDict[source._id] + '</span> | ';
   divContent += '<span class="num field">' + details.number + '</span> | ';
   divContent += generateTagDivs(tags) + ' | ';
   divContent += '<span class="quote field">' + details.quote + '</span> | ';
@@ -68,7 +68,7 @@ function manageGetSourceListCall() {
   }).done(function( response ) {
     $.each(response, function(){
       if (updateClouds) {
-        sourceCloudDict[this._id] = this.title;
+        sourceCloudDict[this._id] = this.title + ' (' + this.author + ')';
       }
     });
     var sourceCloud = generateSourceCloud();
@@ -103,9 +103,10 @@ function generateContent(event) {
   handleLogin();
   var eventClass = $(this).attr('class');
   var rel = $(this).attr('rel');
+  console.log(rel)
   url = determineIsmQueryUrl(eventClass, rel);
   prepClouds(eventClass)
-  manageGetIsmListCall(url);
   manageGetSourceListCall();
+  manageGetIsmListCall(url);
   console.log('exiting generateIsmDivs');
 };

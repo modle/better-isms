@@ -15,7 +15,7 @@ router.get('/ismlist', function(req, res) {
 router.get('/sourcelist', function(req, res) {
   var db = req.db;
   var collection = db.get('ismlist');
-  collection.find({}, 'title', function(e, docs) {
+  collection.find({}, 'title author', function(e, docs) {
     res.json(docs);
   });
 });
@@ -33,13 +33,13 @@ router.get('/ismlist/tag/:id', function(req, res) {
 router.get('/ismlist/source/:id', function(req, res) {
   var db = req.db;
   var collection = db.get('ismlist');
-  collection.find({'title': req.params.id}, {}, function(e, docs) {
+  collection.find({'_id': req.params.id}, {}, function(e, docs) {
     res.json(docs);
   });
 });
 
 
-router.put('/update/:id/:ismId', function(req, res) {
+router.put('/updateism/:id/:ismId', function(req, res) {
   var db = req.db;
   var collection = db.get('ismlist');
   var sourceToUpdate = req.params.id;

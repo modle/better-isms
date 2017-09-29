@@ -2,9 +2,9 @@ var sourceCloudDict = {};
 
 function generateSourceCloud() {
   var sourceCloud = '';
-  for (var source of Array.from(Object.values(sourceCloudDict).sort())) {
-    sourceCloud += '<span><a href="#" class="linksourcefilter" rel="' + source + '"">';
-    sourceCloud += source + '</a></span><span> </span>';
+  for (var source of Array.from(Object.keys(sourceCloudDict).sort())) {
+    sourceCloud += '<span><a href="#" class="linksourcefilter" rel="' + source + '">';
+    sourceCloud += sourceCloudDict[source] + '</a> </span>';
   }
   return sourceCloud;
 }

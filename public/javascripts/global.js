@@ -63,7 +63,7 @@ $(document).ready(function() {
   $('#btnClearIsm').on('keydown', function (evt) {
     if(evt.keyCode === 9) { // Tab pressed
       evt.preventDefault();
-      $('#inputSource').focus();
+      $('#inputNumber').focus();
     }
   });
 

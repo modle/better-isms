@@ -19,7 +19,7 @@ function openNewIsmForm(event) {
   source = this.rel;
   sourceId = this.rel.split(':')[0];
   sourceName = this.rel.split(':')[1];
-  $('#addOrUpdateIsm #inputSource').text(sourceName);
+  $('#addOrUpdateIsm #sourceTitle').text(sourceName);
   $('#btnClearIsm').show();
   showModal(formModal);
   $('#inputNumber').focus();
@@ -69,7 +69,7 @@ function populateIsmFields(event) {
 
   // Inject the current values into the appropriate fields
   // consider setting a div to sourceIsms.title instead of populating a field; we don't want to update the title here
-  $('#addOrUpdateIsm #inputSource').text(sourceIsms.title);
+  $('#addOrUpdateIsm #sourceTitle').text(sourceIsms.title + ' (' + sourceIsms.author + ')');
   $('#addOrUpdateIsm fieldset input#inputNumber').val(thisIsmObject.number);
   $('#addOrUpdateIsm fieldset input#inputTags').val(joinedTags);
   $('#addOrUpdateIsm fieldset textarea#inputQuote').val(thisIsmObject.quote);

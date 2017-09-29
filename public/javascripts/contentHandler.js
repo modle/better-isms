@@ -19,11 +19,12 @@ function generateIsmHeaders() {
 
 function addIsmDiv(source, details, tags) {
   var divContent = '';
+  var comments = (details.comments === undefined) ? '' : details.comments;
   divContent += '<div class="record"><span class="source field">' + sourceCloudDict[source._id] + '</span> | ';
   divContent += '<span class="num field">' + details.number + '</span> | ';
   divContent += generateTagDivs(tags) + ' | ';
   divContent += '<span class="quote field">' + details.quote + '</span> | ';
-  divContent += '<span class="comment field">' + details.comments + '</span> | ';
+  divContent += '<span class="comment field">' + comments + '</span> | ';
   divContent += '<a href="#" class="linkupdateism" rel="' + source._id + ":" + details._id + '">edit</a> | ';
   divContent += '<a href="#" class="linkdeleteism" rel="' + source._id + ":" + details._id + '">delete</a> | ';
   divContent += '</div>';

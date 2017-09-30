@@ -140,7 +140,10 @@ function openNewSourceForm(event) {
   showModal(newSourceModal);
   var sourceId = $(this).attr('value');
   console.log(sourceId);
-  if (sourceId) {
+  $('#sourceFormTitle').html("Add source")
+  $('#newSourceModal fieldset button#btnSubmitAddSource').val('');
+  $('#newSourceModal fieldset button#btnSubmitAddSource').html('Add');
+if (sourceId) {
     source = sourceCloudDict[sourceId];
     $('#sourceFormTitle').html("Update source")
     $('#newSourceModal fieldset input#inputTitle').val(source['title']);

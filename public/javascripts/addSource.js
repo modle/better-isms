@@ -21,10 +21,12 @@ function addNewSource(event) {
 
   url = '/isms/addsource/'
   type = 'POST';
+  upsertedToastString = "Source added";
   var sourceId = $(this).attr('value');
   if (sourceId) {
     url += sourceId;
     type = 'PUT';
+    upsertedToastString = "Source " + getSourceDisplayString(sourceId) + " updated. New value: " + source.title + "(" + source.author + ")";
   }
 
   $.ajax({
@@ -41,12 +43,14 @@ function addNewSource(event) {
     }
   });
   hideModal(newSourceModal);
-  showNewSourceAddedToast();
+  showNewSourceAddedToast(upsertedToastString);
   console.log('exiting addNewSource');
 };
 
-function showNewSourceAddedToast() {
-  console.log("boop beep");
+function showNewSourceAddedToast(toastString) {
+  $('#sourceUpsertedHeader').html(toastString);
+  showModal(sourceUpsertedModal);
+  hideModalAfterAWhile(sourceUpsertedModal);
 }
 
 function clearSourceFormFields() {

@@ -54,7 +54,7 @@ block content
         #addSourceForm
           .form-container-wrapper
             fieldset.form-container
-              h1 Add new source
+              h1#sourceFormTitle Add new source
               input#inputTitle(type='text', placeholder='title').form-field
               br
               input#inputAuthor(type='text', placeholder='author').form-field
@@ -91,7 +91,7 @@ block content
     span Current Filter: 
     span#currentFilter
     span 
-    span#btnEditSource.submit-button Edit
+    button#btnEditSource.submit-button Edit
     br
     br
     #sourceCloud
@@ -109,7 +109,7 @@ block content
       .modal-container
         #addOrUpdateIsm
           .form-container-wrapper
-            h1#sourceTitle
+            h1#source
             fieldset.form-container
               span *&nbsp;
               input#inputNumber(type='text', placeholder='page number', value='').form-field

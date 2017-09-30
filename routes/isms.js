@@ -125,4 +125,20 @@ router.post('/addsource', function(req, res) {
 });
 
 
+router.put('/addsource/:id', function(req, res) {
+  var db = req.db;
+  var collection = db.get('ismlist');
+  req.body.isms = [];
+  collection.update({
+    '_id' : req.params.id
+  },
+  { $set: { "title" : req.body.title, "author" : req.body.author } },
+    function(err, result) {
+      res.send(
+        (err === null) ? { msg: '' } : { msg:'error: ' + err }
+      );
+    }
+  );
+});
+
 module.exports = router;

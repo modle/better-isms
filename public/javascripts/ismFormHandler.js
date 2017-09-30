@@ -17,13 +17,11 @@ function openNewIsmForm(event) {
   hideModal(sourceSelectModal);
   clearIsmFormFields();
   source = this.rel;
-  sourceId = this.rel.split(':')[0];
-  sourceName = this.rel.split(':')[1];
-  $('#addOrUpdateIsm #sourceTitle').text(sourceName);
+  $('#addOrUpdateIsm #source').text(getSourceDisplayString(source));
   $('#btnClearIsm').show();
   showModal(formModal);
   $('#inputNumber').focus();
-  $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val(sourceId);
+  $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val(source);
 }
 
 function setUpdateIsmFormElementText() {

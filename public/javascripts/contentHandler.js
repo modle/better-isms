@@ -19,7 +19,7 @@ function generateIsmHeaders() {
 
 function addIsmDiv(source, details, tags) {
   var divContent = '';
-  divContent += '<div class="record"><span class="source field">' + sourceCloudDict[source._id] + '</span> | ';
+  divContent += '<div class="record"><span class="source field">' + getSourceDisplayString(source._id) + '</span> | ';
   divContent += '<span class="num field">' + details.number + '</span> | ';
   divContent += generateTagDivs(tags) + ' | ';
   divContent += '<span class="quote field">' + details.quote + '</span> | ';
@@ -68,7 +68,7 @@ function manageGetSourceListCall() {
   }).done(function( response ) {
     $.each(response, function(){
       if (updateClouds) {
-        sourceCloudDict[this._id] = this.title + ' (' + this.author + ')';
+        sourceCloudDict[this._id] = { "title": this.title, "author": this.author };
       }
     });
     var sourceCloud = generateSourceCloud();
@@ -81,14 +81,14 @@ function manageGetSourceListCall() {
 function determineIsmQueryUrl(eventClass, rel) {
   url = '/isms/ismlist/';
   filterString = 'none';
-  $('#btnEditSource').hide();
+  deactivateSourceEditButton();
   if (eventClass == 'linktagfilter') {
     url += 'tag/' + rel;
     filterString = 'tag: ' + rel;
   } else if (eventClass == 'linksourcefilter') {
     url += 'source/' + rel;
-    filterString = 'source: ' + sourceCloudDict[rel];
-    $('#btnEditSource').show();
+    filterString = 'source: ' + getSourceDisplayString(rel);
+    activateSourceEditButton(rel);
   }
   $('#currentFilter').html(filterString);
   return url;

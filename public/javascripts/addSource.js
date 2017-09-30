@@ -19,10 +19,18 @@ function addNewSource(event) {
   source.title = $('#addSourceForm fieldset input#inputTitle').val();
   source.author = $('#addSourceForm fieldset input#inputAuthor').val();
 
+  url = '/isms/addsource/'
+  type = 'POST';
+  var sourceId = $(this).attr('value');
+  if (sourceId) {
+    url += sourceId;
+    type = 'PUT';
+  }
+
   $.ajax({
-    type: 'POST',
+    type: type,
     data: source,
-    url: '/isms/addsource/',
+    url: url,
     dataType: 'JSON'
   }).done(function( response ) {
     if (response.msg === '') {
@@ -33,7 +41,7 @@ function addNewSource(event) {
     }
   });
   hideModal(newSourceModal);
-  showNewSourceAddedToast();  
+  showNewSourceAddedToast();
   console.log('exiting addNewSource');
 };
 
@@ -43,4 +51,14 @@ function showNewSourceAddedToast() {
 
 function clearSourceFormFields() {
   $('#addSourceForm fieldset input').val('');
+}
+
+function deactivateSourceEditButton() {
+  $('#addOrUpdateIsm fieldset button#btnEditSource').val('');
+  $('#btnEditSource').hide();
+}
+
+function activateSourceEditButton(rel) {
+  $('button#btnEditSource').val(rel);
+  $('#btnEditSource').show();
 }

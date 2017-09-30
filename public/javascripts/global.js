@@ -11,6 +11,8 @@ $(document).ready(function() {
   $('#newSource').on('click', openNewSourceForm);
   $('#newSource2').on('click', openNewSourceForm);
 
+  $('#btnEditSource').on('click', openNewSourceForm);
+
   // Hide modals button click
   $('.hideModals').on('click', hideAllModals);
 
@@ -136,6 +138,16 @@ function promptSourceSelection() {
 function openNewSourceForm(event) {
   handleLogin();
   showModal(newSourceModal);
+  var sourceId = $(this).attr('value');
+  console.log(sourceId);
+  if (sourceId) {
+    source = sourceCloudDict[sourceId];
+    $('#sourceFormTitle').html("Update source")
+    $('#newSourceModal fieldset input#inputTitle').val(source['title']);
+    $('#newSourceModal fieldset input#inputAuthor').val(source['author']);
+    $('#newSourceModal fieldset button#btnSubmitAddSource').val(sourceId);
+    $('#newSourceModal fieldset button#btnSubmitAddSource').html('Update');
+  }
   $('#inputTitle').focus();
 }
 

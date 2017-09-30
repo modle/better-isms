@@ -100,19 +100,11 @@ $(document).ready(function() {
     }
   });
 
-  // define the modals
-  modals = [
-    document.getElementById('formModal'),
-    document.getElementById('loginModal'),
-    document.getElementById('loggedOutModal'),
-    document.getElementById('ismDeletedModal'),
-    document.getElementById('sourceSelectModal'),
-    document.getElementById('newSourceModal')
-  ]
+  // get the modals
+  modals = document.getElementsByClassName('modal');
 
   // close the modals on initial page load
   hideAllModals();
-
 
   // generate the isms on initial page load if user is logged in
   hideButton('logout');

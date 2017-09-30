@@ -81,12 +81,14 @@ function manageGetSourceListCall() {
 function determineIsmQueryUrl(eventClass, rel) {
   url = '/isms/ismlist/';
   filterString = 'none';
+  $('#btnEditSource').hide();
   if (eventClass == 'linktagfilter') {
     url += 'tag/' + rel;
     filterString = 'tag: ' + rel;
   } else if (eventClass == 'linksourcefilter') {
     url += 'source/' + rel;
     filterString = 'source: ' + sourceCloudDict[rel];
+    $('#btnEditSource').show();
   }
   $('#currentFilter').html(filterString);
   return url;

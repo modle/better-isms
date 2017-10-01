@@ -58,7 +58,7 @@ function clearSourceFormFields() {
 }
 
 function deactivateSourceEditButton() {
-  $('#upsertIsm fieldset button#btnEditSource').val('');
+  $('#upsertIsmForm fieldset button#btnEditSource').val('');
   $('#btnEditSource').hide();
 }
 

@@ -111,16 +111,35 @@ block content
     br
     button#clearFilter.submit-button(value='') Clear Filter
 
-    // ISM FORM
-    .modal#formModal
+    // BULK ADD ISM FORM
+    .modal#bulkAddIsmModal
       br
       br
       br
       br
       .modal-container
-        #upsertIsm
+        #bulkAddIsmForm
+          .form-container-wrapper
+            fieldset.form-container
+              h1#bulkAddIsmSourceHeader
+              div Ism bulk add
+              textarea#inputBulkIsms(type='textarea', rows=10, value='').form-field
+              br
+              button#btnSubmitBulkAddIsm.submit-button Add Isms
+              button.hideModals.submit-button Hide
+    // /BULK ADD ISM FORM
+
+    // ISM FORM
+    .modal#upsertIsmFormModal
+      br
+      br
+      br
+      br
+      .modal-container
+        #upsertIsmForm
           .form-container-wrapper
             h1#source
+            button#btnShowBulkAddIsm.submit-button Bulk Add Instead
             fieldset.form-container
               span *&nbsp;
               input#inputNumber(type='text', placeholder='page number', value='').form-field

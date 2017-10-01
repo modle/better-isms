@@ -1,8 +1,8 @@
 
 function clearIsmFormFields() {
-  $('#upsertIsm fieldset input').val('');
-  $('#upsertIsm fieldset textarea').val('');
-  $('#upsertIsm fieldset button#btnUpsertIsm').val('');
+  $('#upsertIsmForm fieldset input').val('');
+  $('#upsertIsmForm fieldset textarea').val('');
+  $('#upsertIsmForm fieldset button#btnUpsertIsm').val('');
 }
 
 function clearIsm(event) {
@@ -16,19 +16,21 @@ function openNewIsmForm(event) {
   handleLogin();
   hideModal(sourceSelectModal);
   clearIsmFormFields();
-  source = this.rel;
-  $('#upsertIsm #source').text(getSourceDisplayString(source));
+  sourceId = this.rel;
+  $('#upsertIsm #source').text(getSourceDisplayString(sourceId));
   $('#btnClearIsm').show();
-  showModal(formModal);
+  $('#btnUpsertIsm').text("Add Ism");
+  $('#btnShowBulkAddIsm').val(sourceId);
+  $('#upsertIsmForm fieldset button#btnUpsertIsm').val(sourceId);
+  showModal(upsertIsmFormModal);
   $('#inputNumber').focus();
-  $('#upsertIsm fieldset button#btnUpsertIsm').val(source);
 }
 
 function setUpdateIsmFormElementText() {
   $('#upsertIsmHeader').text("Update Ism");
   $('#btnUpsertIsm').text("Update Ism");
   $('#btnClearIsm').hide();
-  showModal(formModal);
+  showModal(upsertIsmFormModal);
   $('#inputNumber').focus();
 }
 
@@ -59,20 +61,20 @@ function populateIsmFields(event) {
 
   // generate tag string from array of tags
   joinedTags = '';
-  if (Array.isArray(thisIsmObject["tags[]"])) {
-    joinedTags = thisIsmObject["tags[]"].join();
+  if (Array.isArray(thisIsmObject.tags)) {
+    joinedTags = thisIsmObject.tags.join();
   } else {
-    joinedTags = thisIsmObject["tags[]"];
+    joinedTags = thisIsmObject.tags;
   }
 
   // Inject the current values into the appropriate fields
   // consider setting a div to sourceIsms.title instead of populating a field; we don't want to update the title here
-  $('#upsertIsm #sourceTitle').text(sourceIsms.title + ' (' + sourceIsms.author + ')');
-  $('#upsertIsm fieldset input#inputNumber').val(thisIsmObject.number);
-  $('#upsertIsm fieldset input#inputTags').val(joinedTags);
-  $('#upsertIsm fieldset textarea#inputQuote').val(thisIsmObject.quote);
-  $('#upsertIsm fieldset textarea#inputComments').val(thisIsmObject.comments);
-  $('#upsertIsm fieldset button#btnUpsertIsm').val(thisSource);
+  $('#upsertIsmForm #sourceTitle').text(sourceIsms.title + ' (' + sourceIsms.author + ')');
+  $('#upsertIsmForm fieldset input#inputNumber').val(thisIsmObject.number);
+  $('#upsertIsmForm fieldset input#inputTags').val(joinedTags);
+  $('#upsertIsmForm fieldset textarea#inputQuote').val(thisIsmObject.quote);
+  $('#upsertIsmForm fieldset textarea#inputComments').val(thisIsmObject.comments);
+  $('#upsertIsmForm fieldset button#btnUpsertIsm').val(thisSource);
 
   console.log('exiting populateIsmFields');
 }

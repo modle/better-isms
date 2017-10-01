@@ -1,23 +1,23 @@
-function addNewSource(event) {
+function upsertSource(event) {
   event.preventDefault();
-  console.log('entering addNewSource!');
+  console.log('entering upsertSource!');
   handleLogin();
   // Super basic validation - increase errorCount variable if any fields are blank
   var errorCount = 0;
-  $('#addSourceForm input').each(function(index, val) {
+  $('#upsertSourceForm input').each(function(index, val) {
     if (this.value === '') {
       errorCount++;
     }
   });
   if (errorCount > 0) {
     alert('Please fill in all required fields');
-    console.log('exiting addSource with return false');
+    console.log('exiting upsertSource with return false');
     return false;
   }
 
   var source = {}
-  source.title = $('#addSourceForm fieldset input#inputTitle').val();
-  source.author = $('#addSourceForm fieldset input#inputAuthor').val();
+  source.title = $('#upsertSourceForm fieldset input#inputTitle').val();
+  source.author = $('#upsertSourceForm fieldset input#inputAuthor').val();
 
   url = '/isms/addsource/'
   type = 'POST';
@@ -42,23 +42,23 @@ function addNewSource(event) {
       alert('Error: ' + response.msg);
     }
   });
-  hideModal(newSourceModal);
-  showNewSourceAddedToast(upsertedToastString);
-  console.log('exiting addNewSource');
+  hideModal(upsertSourceModal);
+  showSourceUpsertedToast(upsertedToastString);
+  console.log('exiting upsertSource');
 };
 
-function showNewSourceAddedToast(toastString) {
+function showSourceUpsertedToast(toastString) {
   $('#sourceUpsertedHeader').html(toastString);
   showModal(sourceUpsertedModal);
   hideModalAfterAWhile(sourceUpsertedModal);
 }
 
 function clearSourceFormFields() {
-  $('#addSourceForm fieldset input').val('');
+  $('#upsertSourceForm fieldset input').val('');
 }
 
 function deactivateSourceEditButton() {
-  $('#addOrUpdateIsm fieldset button#btnEditSource').val('');
+  $('#upsertIsm fieldset button#btnEditSource').val('');
   $('#btnEditSource').hide();
 }
 

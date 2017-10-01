@@ -51,18 +51,18 @@ block content
         br
         br
         br
-        button#newSource.submit-button Add New Source
+        button#upsertSource.submit-button Add New Source
         button.hideModals.submit-button Hide
     // SOURCE SELECT
 
-    // ADD SOURCE FORM
-    .modal#newSourceModal
+    // UPSERT SOURCE FORM
+    .modal#upsertSourceModal
       br
       br
       br
       br
       .modal-container
-        #addSourceForm
+        #upsertSourceForm
           .form-container-wrapper
             fieldset.form-container
               h1#sourceFormTitle Add new source
@@ -70,9 +70,9 @@ block content
               br
               input#inputAuthor(type='text', placeholder='author').form-field
               br
-              button#btnSubmitAddSource.submit-button Add Source
+              button#btnSubmitUpsertSource.submit-button Add Source
               button.hideModals.submit-button Hide
-    // /ADD SOURCE FORM
+    // /UPSERT SOURCE FORM
 
     // LOGIN FORM
     .modal#loginModal
@@ -94,7 +94,7 @@ block content
     // /LOGIN FORM
 
     button#newIsm.submit-button New Ism
-    button#newSource2.submit-button New Source
+    button#upsertSource2.submit-button New Source
     button#logout.submit-button Logout
     button#login.submit-button Login
     br
@@ -118,7 +118,7 @@ block content
       br
       br
       .modal-container
-        #addOrUpdateIsm
+        #upsertIsm
           .form-container-wrapper
             h1#source
             fieldset.form-container
@@ -134,7 +134,7 @@ block content
               br
               textarea#inputComments(type='textarea', placeholder='comments', rows=10, value='').form-field
               br
-              button#btnAddOrUpdateIsm.submit-button Add or Update Ism
+              button#btnUpsertIsm.submit-button Add Ism
               button#btnClearIsm.submit-button Clear
               button.hideModals.submit-button Hide
     // /ISM FORM

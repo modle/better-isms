@@ -1,8 +1,8 @@
 
 function clearIsmFormFields() {
-  $('#addOrUpdateIsm fieldset input').val('');
-  $('#addOrUpdateIsm fieldset textarea').val('');
-  $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val('');
+  $('#upsertIsm fieldset input').val('');
+  $('#upsertIsm fieldset textarea').val('');
+  $('#upsertIsm fieldset button#btnUpsertIsm').val('');
 }
 
 function clearIsm(event) {
@@ -17,16 +17,16 @@ function openNewIsmForm(event) {
   hideModal(sourceSelectModal);
   clearIsmFormFields();
   source = this.rel;
-  $('#addOrUpdateIsm #source').text(getSourceDisplayString(source));
+  $('#upsertIsm #source').text(getSourceDisplayString(source));
   $('#btnClearIsm').show();
   showModal(formModal);
   $('#inputNumber').focus();
-  $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val(source);
+  $('#upsertIsm fieldset button#btnUpsertIsm').val(source);
 }
 
 function setUpdateIsmFormElementText() {
-  $('#addOrUpdateIsmHeader').text("Update Ism");
-  $('#btnAddOrUpdateIsm').text("Update Ism");
+  $('#upsertIsmHeader').text("Update Ism");
+  $('#btnUpsertIsm').text("Update Ism");
   $('#btnClearIsm').hide();
   showModal(formModal);
   $('#inputNumber').focus();
@@ -67,12 +67,12 @@ function populateIsmFields(event) {
 
   // Inject the current values into the appropriate fields
   // consider setting a div to sourceIsms.title instead of populating a field; we don't want to update the title here
-  $('#addOrUpdateIsm #sourceTitle').text(sourceIsms.title + ' (' + sourceIsms.author + ')');
-  $('#addOrUpdateIsm fieldset input#inputNumber').val(thisIsmObject.number);
-  $('#addOrUpdateIsm fieldset input#inputTags').val(joinedTags);
-  $('#addOrUpdateIsm fieldset textarea#inputQuote').val(thisIsmObject.quote);
-  $('#addOrUpdateIsm fieldset textarea#inputComments').val(thisIsmObject.comments);
-  $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val(thisSource);
+  $('#upsertIsm #sourceTitle').text(sourceIsms.title + ' (' + sourceIsms.author + ')');
+  $('#upsertIsm fieldset input#inputNumber').val(thisIsmObject.number);
+  $('#upsertIsm fieldset input#inputTags').val(joinedTags);
+  $('#upsertIsm fieldset textarea#inputQuote').val(thisIsmObject.quote);
+  $('#upsertIsm fieldset textarea#inputComments').val(thisIsmObject.comments);
+  $('#upsertIsm fieldset button#btnUpsertIsm').val(thisSource);
 
   console.log('exiting populateIsmFields');
 }

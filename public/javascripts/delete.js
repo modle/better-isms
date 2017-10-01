@@ -18,8 +18,8 @@ function deleteIsm(event) {
       }
       generateContent();
       // clear the update fields if the id matches
-      if ($('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val() === thisSource) {
-        $('#addOrUpdateIsm fieldset input').val('');
+      if ($('#upsertIsm fieldset button#upsertIsm').val() === thisSource) {
+        $('#upsertIsm fieldset input').val('');
       }
       showModal(ismDeletedModal);
       hideModalAfterAWhile(ismDeletedModal);

@@ -1,35 +1,35 @@
 var optionalIsmFields = [];
 optionalIsmFields.push('inputComments');
 
-function addOrUpdateIsm(event) {
+function upsertIsm(event) {
   event.preventDefault();
   console.log('update or add ism clicked!');
   handleLogin();
   // Super basic validation - increase errorCount variable if any fields are blank
   var errorCount = 0;
-  $('#addOrUpdateIsm input').each(function(index, val) {
+  $('#upsertIsm input').each(function(index, val) {
     if (this.value === '' && !optionalIsmFields.includes(this.id)) {
       errorCount++;
     }
   });
-  $('#addOrUpdateIsm textarea').each(function(index, val) {
+  $('#upsertIsm textarea').each(function(index, val) {
     if (this.value === '' && !optionalIsmFields.includes(this.id)) {
       errorCount++;
     }
   });
   if (errorCount > 0) {
     alert('Please fill in all required fields');
-    console.log('exiting addOrUpdateIsm with return false');
+    console.log('exiting upsertIsm with return false');
     return false;
   }
 
   var ism = {}
-  ism.number = $('#addOrUpdateIsm fieldset input#inputNumber').val();
-  ism.tags = Array.from($('#addOrUpdateIsm fieldset input#inputTags').val().toLowerCase().split(/\s*,\s*/));
-  ism.quote = $('#addOrUpdateIsm fieldset textarea#inputQuote').val();
-  ism.comments = $('#addOrUpdateIsm fieldset textarea#inputComments').val();
+  ism.number = $('#upsertIsm fieldset input#inputNumber').val();
+  ism.tags = Array.from($('#upsertIsm fieldset input#inputTags').val().toLowerCase().split(/\s*,\s*/));
+  ism.quote = $('#upsertIsm fieldset textarea#inputQuote').val();
+  ism.comments = $('#upsertIsm fieldset textarea#inputComments').val();
 
-  var buttonValue = $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val();
+  var buttonValue = $('#upsertIsm fieldset button#btnUpsertIsm').val();
   if (buttonValue.includes(':')) {
     var type = 'PUT';
     ism._id = buttonValue.split(':')[1];
@@ -53,5 +53,5 @@ function addOrUpdateIsm(event) {
     }
   });
   hideModal(formModal);
-  console.log('exiting addOrUpdateIsm');
+  console.log('exiting upsertIsm');
 };

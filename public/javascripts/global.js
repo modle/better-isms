@@ -2,16 +2,16 @@ $(document).ready(function() {
 
   // Click Entry Point Definitions =============================================================
   // Add or Update Ism button click
-  $('#btnAddOrUpdateIsm').on('click', addOrUpdateIsm);
+  $('#btnUpsertIsm').on('click', upsertIsm);
 
   // New Ism button click
   $('#newIsm').on('click', promptSourceSelection);
 
   // New Source button click
-  $('#newSource').on('click', openNewSourceForm);
-  $('#newSource2').on('click', openNewSourceForm);
+  $('#upsertSource').on('click', openUpsertSourceForm);
+  $('#upsertSource2').on('click', openUpsertSourceForm);
 
-  $('#btnEditSource').on('click', openNewSourceForm);
+  $('#btnEditSource').on('click', openUpsertSourceForm);
 
   // Hide modals button click
   $('.hideModals').on('click', hideAllModals);
@@ -25,8 +25,8 @@ $(document).ready(function() {
   // Login submit button click
   $('#btnSubmitLogin').on('click', logUserIn);
 
-  // Add Source submit button click
-  $('#btnSubmitAddSource').on('click', addNewSource);
+  // Upsert Source submit button click
+  $('#btnSubmitUpsertSource').on('click', upsertSource);
 
   // Login submit button click
   $('#logout').on('click', logUserOut);
@@ -51,10 +51,10 @@ $(document).ready(function() {
 
 
   // Key Events =============================================================
-  $("#addOrUpdateIsm").keyup(function (event) {
+  $("#upsertIsm").keyup(function (event) {
     // enter or ctrl+s
     if (event.ctrlKey && event.keyCode == 83) {
-      $("#btnAddOrUpdateIsm").click();
+      $("#btnUpsertIsm").click();
       event.preventDefault();
     }
   });
@@ -89,7 +89,7 @@ $(document).ready(function() {
     var key = event.charCode ? event.charCode : event.keyCode ? event.keyCode : 0;
     if (key == 13) {
       event.preventDefault();
-      var inputs = $('#addOrUpdateIsm').find(':input:visible');
+      var inputs = $('#upsertIsm').find(':input:visible');
       var nextinput = 0;
       if (inputs.index(this) < (inputs.length - 1)) {
         nextinput = inputs.index(this) + 1;
@@ -135,21 +135,21 @@ function promptSourceSelection() {
   showModal(sourceSelectModal);
 }
 
-function openNewSourceForm(event) {
+function openUpsertSourceForm(event) {
   handleLogin();
-  showModal(newSourceModal);
+  showModal(upsertSourceModal);
   var sourceId = $(this).attr('value');
   console.log(sourceId);
   $('#sourceFormTitle').html("Add source")
-  $('#newSourceModal fieldset button#btnSubmitAddSource').val('');
-  $('#newSourceModal fieldset button#btnSubmitAddSource').html('Add');
+  $('#upsertSourceModal fieldset button#btnSubmitUpsertSource').val('');
+  $('#upsertSourceModal fieldset button#btnSubmitUpsertSource').html('Add');
 if (sourceId) {
     source = sourceCloudDict[sourceId];
     $('#sourceFormTitle').html("Update source")
-    $('#newSourceModal fieldset input#inputTitle').val(source['title']);
-    $('#newSourceModal fieldset input#inputAuthor').val(source['author']);
-    $('#newSourceModal fieldset button#btnSubmitAddSource').val(sourceId);
-    $('#newSourceModal fieldset button#btnSubmitAddSource').html('Update');
+    $('#upsertSourceModal fieldset input#inputTitle').val(source['title']);
+    $('#upsertSourceModal fieldset input#inputAuthor').val(source['author']);
+    $('#upsertSourceModal fieldset button#btnSubmitUpsertSource').val(sourceId);
+    $('#upsertSourceModal fieldset button#btnSubmitUpsertSource').html('Update');
   }
   $('#inputTitle').focus();
 }

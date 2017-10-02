@@ -1,0 +1,24 @@
+[{"number":"100", "quote":"Excuses are leaks in a boat. When you cover one, another pops up, and it's even bigger. It's hard to keep the boat repaired and get safely to shore if you have an excuse mindset."},{"number":"101", "quote": "Burn your excuses (literally write them down and burn the paper. Or just light a candle and throw the paper way, to burn them symbolically)"}]
+
+---
+- number: '100'
+  quote: Excuses are leaks in a boat. When you cover one, another pops up, and it's even bigger. It's hard to keep the boat repaired and get safely to shore if you
+    have an excuse mindset.
+- number: '101'
+  quote: Burn your excuses (literally write them down and burn the paper. Or just light a candle and throw the paper way, to burn them symbolically)
+
+
+[
+{"number":"100999","quote":"asdf"}
+,
+{"number":"100111","quote":"asdf"}
+]
+
+{"number":"222","quote":"asdf"}
+
+
+---
+- number: '1001'
+  quote: asdf
+- number: '101'
+  quote: asdfs

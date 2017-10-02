@@ -192,6 +192,9 @@ function addTheIsm(ism, req) {
   var collection = db.get('ismlist');
   var sourceToUpdate = req.params.id;
   ism._id = generateId();
+  if (!ism.comments) {
+    ism.comments = '';
+  }
   collection.update(
     { '_id' : sourceToUpdate },
     { $push: { 'isms' : ism } },

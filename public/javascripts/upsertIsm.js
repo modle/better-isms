@@ -82,19 +82,21 @@ function bulkUpsertIsms(event) {
     return;
   }
   var sourceId = $(this).attr('value');
-  var isms = $('#bulkAddIsmForm fieldset textarea#inputBulkIsms').val();
+  var content = {}
+  content['isms'] = $('#bulkAddIsmForm fieldset textarea#inputBulkIsms').val();
+  console.log(content);
   $.ajax({
     type: 'POST',
-    data: isms,
+    data: content,
     url: '/isms/bulkadd/' + sourceId,
     dataType: 'JSON'
   }).done(function( response ) {
-    // if (response.msg === '') {
-    //   generateContent(null);
-    // } else {
-    //   alert('Error: ' + response.msg);
-    // }
-    console.log('implement me');
+    if (response.msg === '') {
+      console.log('no problems here, jim');
+      generateContent(null);
+    } else {
+      alert('Error: ' + response.msg);
+    }
   });
   hideAllModals();
   console.log('exiting bulkUpsertIsms');

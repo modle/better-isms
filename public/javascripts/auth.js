@@ -7,7 +7,7 @@ function logUserOut() {
   console.log('user is logged out');
   hideButton('logout');
   showButton('login');
-  hideModal(formModal);
+  hideModal(upsertIsmFormModal);
   showModal(loggedOutModal);
   hideModalAfterAWhile(loggedOutModal);
 }

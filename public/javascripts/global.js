@@ -1,58 +1,39 @@
 $(document).ready(function() {
 
   // Click Entry Point Definitions =============================================================
-  // Add or Update Ism button click
-  $('#btnAddOrUpdateIsm').on('click', addOrUpdateIsm);
 
-  // New Ism button click
-  $('#newIsm').on('click', promptSourceSelection);
+  $('#login').on('click', promptUserToLogin);
+  $('#btnSubmitLogin').on('click', logUserIn);
+  $('#logout').on('click', logUserOut);
 
-  // New Source button click
-  $('#newSource').on('click', openNewSourceForm);
-  $('#newSource2').on('click', openNewSourceForm);
-
-  // Hide modals button click
-  $('.hideModals').on('click', hideAllModals);
+  $('#upsertSource').on('click', openUpsertSourceForm);
+  $('#upsertSource2').on('click', openUpsertSourceForm);
+  $('#btnSubmitUpsertSource').on('click', upsertSource);
+  $('#btnEditSource').on('click', openUpsertSourceForm);
 
   // Show new ism form on source select
   $('#sourceListDiv').on('click', 'a.linksource', openNewIsmForm);
-
-  // Show login form button click
-  $('#login').on('click', promptUserToLogin);
-
-  // Login submit button click
-  $('#btnSubmitLogin').on('click', logUserIn);
-
-  // Add Source submit button click
-  $('#btnSubmitAddSource').on('click', addNewSource);
-
-  // Login submit button click
-  $('#logout').on('click', logUserOut);
-
-  // Show all button click
-  $('#clearFilter').on('click', generateContent);
-
-  // Clear Ism button click
+  $('#newIsm').on('click', promptSourceSelection);
+  $('#btnShowBulkAddIsm').on('click', openBulkAddIsmForm);
+  $('#btnSubmitBulkAddIsm').on('click', bulkUpsertIsms);
+  $('#btnUpsertIsm').on('click', upsertIsm);
   $('#btnClearIsm').on('click', clearIsm);
 
-  // Update Ism link click
-  $('#ismList isms').on('click', 'a.linkupdateism', populateIsmFields);
+  $('.hideModals').on('click', hideAllModals);
+  $('#clearFilter').on('click', generateContent);
 
-  // Delete Ism link click
+  $('#ismList isms').on('click', 'a.linkupdateism', populateIsmFields);
   $('#ismList isms').on('click', 'a.linkdeleteism', deleteIsm);
 
-  // Tag cloud link click
   $('#tagCloud').on('click', 'a.linktagfilter', generateContent);
-
-  // Source cloud link click
   $('#sourceCloud').on('click', 'a.linksourcefilter', generateContent);
 
 
   // Key Events =============================================================
-  $("#addOrUpdateIsm").keyup(function (event) {
+  $('#upsertIsmForm').keyup(function (event) {
     // enter or ctrl+s
     if (event.ctrlKey && event.keyCode == 83) {
-      $("#btnAddOrUpdateIsm").click();
+      $('#btnUpsertIsm').click();
       event.preventDefault();
     }
   });
@@ -87,7 +68,7 @@ $(document).ready(function() {
     var key = event.charCode ? event.charCode : event.keyCode ? event.keyCode : 0;
     if (key == 13) {
       event.preventDefault();
-      var inputs = $('#addOrUpdateIsm').find(':input:visible');
+      var inputs = $('#upsertIsmForm').find(':input:visible');
       var nextinput = 0;
       if (inputs.index(this) < (inputs.length - 1)) {
         nextinput = inputs.index(this) + 1;
@@ -100,19 +81,11 @@ $(document).ready(function() {
     }
   });
 
-  // define the modals
-  modals = [
-    document.getElementById('formModal'),
-    document.getElementById('loginModal'),
-    document.getElementById('loggedOutModal'),
-    document.getElementById('ismDeletedModal'),
-    document.getElementById('sourceSelectModal'),
-    document.getElementById('newSourceModal')
-  ]
+  // get the modals
+  modals = document.getElementsByClassName('modal');
 
   // close the modals on initial page load
   hideAllModals();
-
 
   // generate the isms on initial page load if user is logged in
   hideButton('logout');
@@ -141,9 +114,22 @@ function promptSourceSelection() {
   showModal(sourceSelectModal);
 }
 
-function openNewSourceForm(event) {
+function openUpsertSourceForm(event) {
   handleLogin();
-  showModal(newSourceModal);
+  showModal(upsertSourceModal);
+  var sourceId = $(this).attr('value');
+  console.log(sourceId);
+  $('#sourceFormTitle').html('Add source')
+  $('#upsertSourceModal fieldset button#btnSubmitUpsertSource').val('');
+  $('#upsertSourceModal fieldset button#btnSubmitUpsertSource').html('Add');
+if (sourceId) {
+    source = sourceCloudDict[sourceId];
+    $('#sourceFormTitle').html("Update source")
+    $('#upsertSourceModal fieldset input#inputTitle').val(source['title']);
+    $('#upsertSourceModal fieldset input#inputAuthor').val(source['author']);
+    $('#upsertSourceModal fieldset button#btnSubmitUpsertSource').val(sourceId);
+    $('#upsertSourceModal fieldset button#btnSubmitUpsertSource').html('Update');
+  }
   $('#inputTitle').focus();
 }
 

@@ -1,8 +1,8 @@
 
 function clearIsmFormFields() {
-  $('#addOrUpdateIsm fieldset input').val('');
-  $('#addOrUpdateIsm fieldset textarea').val('');
-  $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val('');
+  $('#upsertIsmForm fieldset input').val('');
+  $('#upsertIsmForm fieldset textarea').val('');
+  $('#upsertIsmForm fieldset button#btnUpsertIsm').val('');
 }
 
 function clearIsm(event) {
@@ -16,21 +16,21 @@ function openNewIsmForm(event) {
   handleLogin();
   hideModal(sourceSelectModal);
   clearIsmFormFields();
-  source = this.rel;
-  sourceId = this.rel.split(':')[0];
-  sourceName = this.rel.split(':')[1];
-  $('#addOrUpdateIsm #sourceTitle').text(sourceName);
+  sourceId = this.rel;
+  $('#upsertIsm #source').text(getSourceDisplayString(sourceId));
   $('#btnClearIsm').show();
-  showModal(formModal);
+  $('#btnUpsertIsm').text("Add Ism");
+  $('#btnShowBulkAddIsm').val(sourceId);
+  $('#upsertIsmForm fieldset button#btnUpsertIsm').val(sourceId);
+  showModal(upsertIsmFormModal);
   $('#inputNumber').focus();
-  $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val(sourceId);
 }
 
 function setUpdateIsmFormElementText() {
-  $('#addOrUpdateIsmHeader').text("Update Ism");
-  $('#btnAddOrUpdateIsm').text("Update Ism");
+  $('#upsertIsmHeader').text("Update Ism");
+  $('#btnUpsertIsm').text("Update Ism");
   $('#btnClearIsm').hide();
-  showModal(formModal);
+  showModal(upsertIsmFormModal);
   $('#inputNumber').focus();
 }
 
@@ -61,20 +61,20 @@ function populateIsmFields(event) {
 
   // generate tag string from array of tags
   joinedTags = '';
-  if (Array.isArray(thisIsmObject["tags[]"])) {
-    joinedTags = thisIsmObject["tags[]"].join();
+  if (Array.isArray(thisIsmObject.tags)) {
+    joinedTags = thisIsmObject.tags.join();
   } else {
-    joinedTags = thisIsmObject["tags[]"];
+    joinedTags = thisIsmObject.tags;
   }
 
   // Inject the current values into the appropriate fields
   // consider setting a div to sourceIsms.title instead of populating a field; we don't want to update the title here
-  $('#addOrUpdateIsm #sourceTitle').text(sourceIsms.title + ' (' + sourceIsms.author + ')');
-  $('#addOrUpdateIsm fieldset input#inputNumber').val(thisIsmObject.number);
-  $('#addOrUpdateIsm fieldset input#inputTags').val(joinedTags);
-  $('#addOrUpdateIsm fieldset textarea#inputQuote').val(thisIsmObject.quote);
-  $('#addOrUpdateIsm fieldset textarea#inputComments').val(thisIsmObject.comments);
-  $('#addOrUpdateIsm fieldset button#btnAddOrUpdateIsm').val(thisSource);
+  $('#upsertIsmForm #sourceTitle').text(sourceIsms.title + ' (' + sourceIsms.author + ')');
+  $('#upsertIsmForm fieldset input#inputNumber').val(thisIsmObject.number);
+  $('#upsertIsmForm fieldset input#inputTags').val(joinedTags);
+  $('#upsertIsmForm fieldset textarea#inputQuote').val(thisIsmObject.quote);
+  $('#upsertIsmForm fieldset textarea#inputComments').val(thisIsmObject.comments);
+  $('#upsertIsmForm fieldset button#btnUpsertIsm').val(thisSource);
 
   console.log('exiting populateIsmFields');
 }

@@ -5,7 +5,7 @@ tagColors = ["mediumseagreen", "tomato", "violet", "orange", "slateblue"];
 
 function getNextTagColor() {
   currentColorIndex += 1;
-  if (currentColorIndex === tagColors.size) {
+  if (currentColorIndex == tagColors.length) {
     currentColorIndex = 0;
   }
   return tagColors[currentColorIndex];
@@ -23,7 +23,7 @@ function generateTagCloud() {
       '" style="font-size:' +
       size +
       'em">';
-    tagCloud += tag + "</a></span><span> | </span>";
+    tagCloud += tag + "</a></span><span> </span>";
   }
   return tagCloud;
 }

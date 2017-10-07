@@ -92,25 +92,17 @@ function manageGetSourceListCall() {
   });
 }
 
-function determineIsmQueryUrl(eventClass, rel) {
+function determineIsmQueryUrl() {
   url = "/isms/ismlist/";
-  filterString = "none";
-  deactivateSourceEditButton();
-  if (eventClass == "linktagfilter") {
-    url += "tag/" + rel;
-    filterString = "tag: " + rel;
-  } else if (eventClass == "linksourcefilter") {
-    url += "source/" + rel;
-    filterString = "source: " + getSourceDisplayString(rel);
-    activateSourceEditButton(rel);
+  if (filter) {
+    url += filter + "/" + filterId;
   }
-  $("#currentFilter").html(filterString);
   return url;
 }
 
-function prepClouds(eventClass) {
+function prepClouds() {
   updateClouds = false;
-  if (!eventClass) {
+  if (!filter) {
     tagCloudDict = {};
     sourceCloudList = [];
     sourceCloudIds = [];
@@ -118,17 +110,11 @@ function prepClouds(eventClass) {
   }
 }
 
-function generateContent(eventInfo) {
+function generateContent() {
   console.log("entering generateIsmDivs");
   handleLogin();
-  var eventClass;
-  var theRel;
-  if (eventInfo) {
-    eventClass = eventInfo.eventClass;
-    theRel = eventInfo.theRel;
-  }
-  url = determineIsmQueryUrl(eventClass, theRel);
-  prepClouds(eventClass);
+  url = determineIsmQueryUrl();
+  prepClouds();
   manageGetSourceListCall();
   manageGetIsmListCall(url);
   console.log("exiting generateIsmDivs");

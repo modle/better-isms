@@ -1,4 +1,5 @@
 var filter = "";
+var filterId = "";
 
 $(document).ready(function() {
   // Click Entry Point Definitions =============================================================
@@ -21,7 +22,7 @@ $(document).ready(function() {
   $("#btnClearIsm").on("click", clearIsm);
 
   $(".hideModals").on("click", hideAllModals);
-  $("#clearFilter").on("click", generateContent);
+  $("#clearFilter").on("click", clearFilter);
 
   $("#ismList isms").on("click", "a.linkupdateism", populateIsmFields);
   $("#ismList isms").on("click", "a.linkdeleteism", deleteIsm);
@@ -148,14 +149,24 @@ function clearAllForms() {
   $("fieldset textarea").val("");
 }
 
+function clearFilter(event) {
+  filter = "";
+  filterId = "";
+  generateContent();
+}
+
 function prepFilter(event) {
-  eventInfo = {};
-  eventInfo.eventClass = $(this).attr("class");
-  eventInfo.theRel = $(this).attr("rel");
-  if (eventInfo.eventClass == "linksourcefilter") {
+  deactivateSourceEditButton();
+  filterId = $(this).attr("rel");
+  eventClass = $(this).attr("class");
+  if (eventClass == "linksourcefilter") {
     filter = "source";
-  } else if (eventInfo.eventClass == "linktagfilter") {
+    filterString = "source: " + getSourceDisplayString(filterId);
+    activateSourceEditButton(filterId);
+  } else if (eventClass == "linktagfilter") {
     filter = "tag";
+    filterString = "tag: " + filterId;
   }
-  generateContent(eventInfo);
+  $("#currentFilter").html(filterString);
+  generateContent();
 }

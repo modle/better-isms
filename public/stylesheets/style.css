@@ -87,3 +87,7 @@ a {
 .slateblue {
   color: slateblue;
 }
+
+#btnEditSource {
+  display: none;
+}

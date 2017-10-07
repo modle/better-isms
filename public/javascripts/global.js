@@ -5,8 +5,8 @@ $(document).ready(function() {
   $("#btnSubmitLogin").on("click", logUserIn);
   $("#logout").on("click", logUserOut);
 
-  $("#upsertSource").on("click", openUpsertSourceForm);
-  $("#upsertSource2").on("click", openUpsertSourceForm);
+  $("#addSource").on("click", addSource);
+  $("#addSource2").on("click", addSource);
   $("#btnSubmitUpsertSource").on("click", upsertSource);
 
   // Show new ism form on source select

@@ -64,7 +64,13 @@ function clearSourceFormFields() {
   $("#upsertSourceForm fieldset input").val("");
 }
 
-function openUpsertSourceForm(event) {
+function addSource(event) {
+  filter = "";
+  filterId = "";
+  openUpsertSourceForm();
+}
+
+function openUpsertSourceForm() {
   handleLogin();
   showModal(upsertSourceModal);
   $("#sourceFormTitle").html("Add source");

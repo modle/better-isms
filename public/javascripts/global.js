@@ -152,18 +152,22 @@ function clearAllForms() {
 function clearFilter(event) {
   filter = "";
   filterId = "";
+  filterString = "";
+  $("#currentFilter").html(filterString);
+  deactivateSourceEditButton();
   generateContent();
 }
 
 function prepFilter(event) {
   deactivateSourceEditButton();
   filterId = $(this).attr("rel");
-  eventClass = $(this).attr("class");
-  if (eventClass == "linksourcefilter") {
+  eventClasses = $(this).attr("class");
+  filterString = "";
+  if (eventClasses == "linksourcefilter") {
     filter = "source";
     filterString = "source: " + getSourceDisplayString(filterId);
     activateSourceEditButton(filterId);
-  } else if (eventClass == "linktagfilter") {
+  } else if (eventClasses.includes("linktagfilter")) {
     filter = "tag";
     filterString = "tag: " + filterId;
   }

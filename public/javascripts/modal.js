@@ -1,7 +1,15 @@
+function hideModalAfterALongWhile(modal) {
+  hideModalWithDelay(modal, 6000);
+}
+
 function hideModalAfterAWhile(modal) {
+  hideModalWithDelay(modal, 3000);
+}
+
+function hideModalWithDelay(modal, timeInMs) {
   setTimeout(function() {
     hideModal(modal);
-  }, 3000);
+  }, timeInMs);
 }
 
 function hideModal(modal) {

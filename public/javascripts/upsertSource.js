@@ -27,13 +27,13 @@ function upsertSource(event) {
     url += sourceId;
     type = "PUT";
     upsertedToastString =
-      "Source " +
+      "Source<br>" +
       getSourceDisplayString(sourceId) +
-      " updated. New value: " +
+      " updated.<br><br>New value:<br>" +
       source.title +
       "(" +
       source.author +
-      ")";
+      ")<br><br>Clear filter or refresh page to update source cloud";
   }
 
   $.ajax({
@@ -57,7 +57,7 @@ function upsertSource(event) {
 function showSourceUpsertedToast(toastString) {
   $("#sourceUpsertedHeader").html(toastString);
   showModal(sourceUpsertedModal);
-  hideModalAfterAWhile(sourceUpsertedModal);
+  hideModalAfterALongWhile(sourceUpsertedModal);
 }
 
 function clearSourceFormFields() {

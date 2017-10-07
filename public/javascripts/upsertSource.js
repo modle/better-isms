@@ -21,7 +21,7 @@ function upsertSource(event) {
 
   url = "/isms/addsource/";
   type = "POST";
-  upsertedToastString = "Source added";
+  upsertedToastString = "";
   var sourceId = $(this).attr("value");
   if (sourceId) {
     url += sourceId;
@@ -55,6 +55,9 @@ function upsertSource(event) {
 }
 
 function showSourceUpsertedToast(toastString) {
+  if (!toastString) {
+    return;
+  }
   $("#sourceUpsertedHeader").html(toastString);
   showModal(sourceUpsertedModal);
   hideModalAfterALongWhile(sourceUpsertedModal);

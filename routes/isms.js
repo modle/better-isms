@@ -1,40 +1,43 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-var crypto = require('crypto-js');
-var YAML = require('yamljs');
+var crypto = require("crypto-js");
+var YAML = require("yamljs");
 
-
-router.get('/sourcelist', function(req, res) {
+router.get("/sourcelist", function(req, res) {
   var db = req.db;
-  var collection = db.get('ismlist');
-  collection.find({}, 'title author', function(e, docs) {
+  var collection = db.get("ismlist");
+  collection.find({}, "title author", function(e, docs) {
     res.json(docs);
   });
 });
 
-router.get('/ismlist', function(req, res) {
+router.get("/ismlist", function(req, res) {
   var db = req.db;
-  var collection = db.get('ismlist');
-  collection.find({},{},function(e, docs){
+  var collection = db.get("ismlist");
+  collection.find({}, {}, function(e, docs) {
     res.json(docs);
   });
 });
 
-router.get('/ismlist/source/:id', function(req, res) {
+router.get("/ismlist/source/:id", function(req, res) {
   var db = req.db;
-  var collection = db.get('ismlist');
-  collection.find({'_id': req.params.id}, {}, function(e, docs) {
+  var collection = db.get("ismlist");
+  collection.find({ _id: req.params.id }, {}, function(e, docs) {
     res.json(docs);
   });
 });
 
-router.get('/ismlist/tag/:id', function(req, res) {
+router.get("/ismlist/tag/:id", function(req, res) {
   var db = req.db;
-  var collection = db.get('ismlist');
-  collection.find({
-    'isms.tags': req.params.id}, {}, function(e, docs) {
+  var collection = db.get("ismlist");
+  collection.find(
+    {
+      "isms.tags": req.params.id
+    },
+    {},
+    function(e, docs) {
       for (doc of docs) {
-        trimmedIsms = []
+        trimmedIsms = [];
         for (ism of doc.isms) {
           if (ism.tags.includes(req.params.id)) {
             trimmedIsms.push(ism);
@@ -47,36 +50,29 @@ router.get('/ismlist/tag/:id', function(req, res) {
   );
 });
 
-
-router.post('/addsource', function(req, res) {
+router.post("/addsource", function(req, res) {
   var db = req.db;
-  var collection = db.get('ismlist');
+  var collection = db.get("ismlist");
   req.body.isms = [];
-  collection.insert(req.body,
+  collection.insert(req.body, function(err, result) {
+    res.send(err === null ? { msg: "" } : { msg: "error: " + err });
+  });
+});
+
+router.put("/addsource/:id", function(req, res) {
+  var db = req.db;
+  var collection = db.get("ismlist");
+  req.body.isms = [];
+  collection.update(
+    {
+      _id: req.params.id
+    },
+    { $set: { title: req.body.title, author: req.body.author } },
     function(err, result) {
-      res.send(
-        (err === null) ? { msg: '' } : { msg:'error: ' + err }
-      );
+      res.send(err === null ? { msg: "" } : { msg: "error: " + err });
     }
   );
 });
-
-router.put('/addsource/:id', function(req, res) {
-  var db = req.db;
-  var collection = db.get('ismlist');
-  req.body.isms = [];
-  collection.update({
-    '_id' : req.params.id
-  },
-  { $set: { "title" : req.body.title, "author" : req.body.author } },
-    function(err, result) {
-      res.send(
-        (err === null) ? { msg: '' } : { msg:'error: ' + err }
-      );
-    }
-  );
-});
-
 
 function generateId() {
   var wordArray = crypto.lib.WordArray.random(24);
@@ -86,23 +82,21 @@ function generateId() {
 
 function renameTagsElement(body) {
   // rename tags[] to tags
-  body.tags = body['tags[]'];
-  delete body['tags[]'];
+  body.tags = body["tags[]"];
+  delete body["tags[]"];
   return body;
 }
 
-router.post('/addism/:id', function(req, res) {
+router.post("/addism/:id", function(req, res) {
   var err = null;
   var body = req.body;
   body = renameTagsElement(body);
   try {
     addTheIsm(body, req);
   } catch (e) {
-    err = 'problem adding ism'
+    err = "problem adding ism";
   }
-  res.send(
-    (err === null) ? { msg: '' } : { msg:'error: ' + err }
-  );
+  res.send(err === null ? { msg: "" } : { msg: "error: " + err });
 });
 
 function convertToJson(body) {
@@ -111,7 +105,7 @@ function convertToJson(body) {
     if (o && typeof o === "object") {
       return o;
     }
-  } catch (e) { }
+  } catch (e) {}
   return false;
 }
 
@@ -121,10 +115,9 @@ function convertToYaml(body) {
     if (o && typeof o === "object") {
       return o;
     }
-  } catch (e) { }
+  } catch (e) {}
   return false;
 }
-
 
 function convertBodyToObject(body) {
   nativeObject = convertToYaml(body);
@@ -138,9 +131,8 @@ function convertBodyToObject(body) {
   return false;
 }
 
-
-requiredKeys = ['number', 'quote'];
-allKeys = ['tags', 'comment'].concat(requiredKeys);
+requiredKeys = ["number", "quote"];
+allKeys = ["tags", "comment"].concat(requiredKeys);
 
 function isValidTagsField(tags) {
   if (!Array.isArray(tags)) {
@@ -150,7 +142,7 @@ function isValidTagsField(tags) {
 }
 
 function hasValidFields(ism) {
-  keys = Array.from(Object.keys(ism))
+  keys = Array.from(Object.keys(ism));
   for (var field of keys) {
     if (!allKeys.includes(field)) {
       return false;
@@ -162,8 +154,8 @@ function hasValidFields(ism) {
     }
   }
   // validate the tags
-  if ('tags' in keys) {
-    if (!isValidTagsField(ism['tags'])) {
+  if ("tags" in keys) {
+    if (!isValidTagsField(ism["tags"])) {
       return false;
     }
   } else {
@@ -189,39 +181,36 @@ function isValidIsm(isms) {
 
 function addTheIsm(ism, req) {
   var db = req.db;
-  var collection = db.get('ismlist');
+  var collection = db.get("ismlist");
   var sourceToUpdate = req.params.id;
   ism._id = generateId();
   if (!ism.comments) {
-    ism.comments = '';
+    ism.comments = "";
   }
-  collection.update(
-    { '_id' : sourceToUpdate },
-    { $push: { 'isms' : ism } },
-    function(err) {
-      if (err !== null) {
-        throw 'problem adding ism';
-      }
+  collection.update({ _id: sourceToUpdate }, { $push: { isms: ism } }, function(
+    err
+  ) {
+    if (err !== null) {
+      throw "problem adding ism";
     }
-  );
+  });
 }
 
-router.post('/bulkadd/:id', function(req, res) {
-
+router.post("/bulkadd/:id", function(req, res) {
   var err = null;
   nativeObject = convertBodyToObject(req.body.isms);
   if (!nativeObject) {
-    err = 'invalid format';
+    err = "invalid format";
   }
   if (!isValidIsm(nativeObject)) {
-    err = 'invalid fields';
+    err = "invalid fields";
   }
   if (Array.isArray(nativeObject)) {
     for (entry of nativeObject) {
       try {
         addTheIsm(entry, req);
       } catch (e) {
-        err = 'problem adding ism'
+        err = "problem adding ism";
         break;
       }
     }
@@ -229,48 +218,43 @@ router.post('/bulkadd/:id', function(req, res) {
     try {
       addTheIsm(nativeObject, req);
     } catch (e) {
-      err = 'problem adding ism'
+      err = "problem adding ism";
     }
   }
-  res.send(
-    (err === null) ? { msg: '' } : { msg:'error: ' + err }
-  );
+  res.send(err === null ? { msg: "" } : { msg: "error: " + err });
 });
 
-router.put('/updateism/:id/:ismId', function(req, res) {
+router.put("/updateism/:id/:ismId", function(req, res) {
   var db = req.db;
-  var collection = db.get('ismlist');
+  var collection = db.get("ismlist");
   var sourceToUpdate = req.params.id;
   var ismToUpdate = req.params.ismId;
   var body = req.body;
   body = renameTagsElement(body);
-  collection.update({
-    '_id' : sourceToUpdate,
-    isms: { $elemMatch: { '_id': ismToUpdate } }
-  },
-  { $set: { "isms.$" : body } },
-  function(err) {
-    res.send(
-      (err === null) ? { msg: '' } : { msg:'error: ' + err }
-    );
-  });
-});
-
-router.delete('/deleteism/:id/:ismId', function(req, res) {
-  var db = req.db;
-  var collection = db.get('ismlist');
-  var sourceToUpdate = req.params.id;
-  var ismToUpdate = req.params.ismId;
   collection.update(
-    { '_id' : sourceToUpdate },
-    { $pull: { 'isms' : { '_id': ismToUpdate} } },
+    {
+      _id: sourceToUpdate,
+      isms: { $elemMatch: { _id: ismToUpdate } }
+    },
+    { $set: { "isms.$": body } },
     function(err) {
-      res.send(
-        (err === null) ? { msg: '' } : { msg:'error: ' + err }
-      );
+      res.send(err === null ? { msg: "" } : { msg: "error: " + err });
     }
   );
 });
 
+router.delete("/deleteism/:id/:ismId", function(req, res) {
+  var db = req.db;
+  var collection = db.get("ismlist");
+  var sourceToUpdate = req.params.id;
+  var ismToUpdate = req.params.ismId;
+  collection.update(
+    { _id: sourceToUpdate },
+    { $pull: { isms: { _id: ismToUpdate } } },
+    function(err) {
+      res.send(err === null ? { msg: "" } : { msg: "error: " + err });
+    }
+  );
+});
 
 module.exports = router;

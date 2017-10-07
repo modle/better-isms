@@ -1,22 +1,20 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 
-router.post('/', function(req, res) {
+router.post("/", function(req, res) {
   password = process.env.PASSWORD;
   username = process.env.USERNAME;
   var error = false;
-  var message = '';
+  var message = "";
   if (password != req.body.password) {
     error = true;
-    message = 'invalid password'
+    message = "invalid password";
   }
   if (username != req.body.username) {
     error = true;
-    message = 'invalid username'
+    message = "invalid username";
   }
-  res.send(
-    (error) ? { msg: message } : { msg: '' }
-  );
-})
+  res.send(error ? { msg: message } : { msg: "" });
+});
 
 module.exports = router;

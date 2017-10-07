@@ -4,100 +4,107 @@ function validateTheForm(formId, optionalFields) {
   if (!optionalFields) {
     optionalFields = [];
   }
-  $('#' + formId + ' input').each(function(index, val) {
-    if (this.value === '' && !optionalFields.includes(this.id)) {
+  $("#" + formId + " input").each(function(index, val) {
+    if (this.value === "" && !optionalFields.includes(this.id)) {
       errorCount++;
     }
   });
-  $('#' + formId + ' textarea').each(function(index, val) {
-    if (this.value === '' && !optionalFields.includes(this.id)) {
+  $("#" + formId + " textarea").each(function(index, val) {
+    if (this.value === "" && !optionalFields.includes(this.id)) {
       errorCount++;
     }
   });
   if (errorCount > 0) {
-    alert('Please fill in all required fields');
+    alert("Please fill in all required fields");
     return false;
   }
-  return true;  
+  return true;
 }
 
 function upsertIsm(event) {
   event.preventDefault();
-  console.log('entering upsertIsm');
-  var optionalIsmFields = ['inputComments'];  
-  if (!validateTheForm('upsertIsmForm', optionalIsmFields)) {
-    console.log('exiting upsertIsm before request');
+  console.log("entering upsertIsm");
+  var optionalIsmFields = ["inputComments"];
+  if (!validateTheForm("upsertIsmForm", optionalIsmFields)) {
+    console.log("exiting upsertIsm before request");
     return;
   }
 
-  var ism = {}
-  ism.number = $('#upsertIsmForm fieldset input#inputNumber').val();
-  ism.tags = Array.from($('#upsertIsmForm fieldset input#inputTags').val().toLowerCase().split(/\s*,\s*/));
-  ism.quote = $('#upsertIsmForm fieldset textarea#inputQuote').val();
-  ism.comments = $('#upsertIsmForm fieldset textarea#inputComments').val();
+  var ism = {};
+  ism.number = $("#upsertIsmForm fieldset input#inputNumber").val();
+  ism.tags = Array.from(
+    $("#upsertIsmForm fieldset input#inputTags")
+      .val()
+      .toLowerCase()
+      .split(/\s*,\s*/)
+  );
+  ism.quote = $("#upsertIsmForm fieldset textarea#inputQuote").val();
+  ism.comments = $("#upsertIsmForm fieldset textarea#inputComments").val();
 
-  var buttonValue = $('#upsertIsmForm fieldset button#btnUpsertIsm').val();
-  if (buttonValue.includes(':')) {
-    var type = 'PUT';
-    ism._id = buttonValue.split(':')[1];
-    url = '/isms/updateism/' + buttonValue.replace(":", "/");
+  var buttonValue = $("#upsertIsmForm fieldset button#btnUpsertIsm").val();
+  if (buttonValue.includes(":")) {
+    var type = "PUT";
+    ism._id = buttonValue.split(":")[1];
+    url = "/isms/updateism/" + buttonValue.replace(":", "/");
   } else {
-    var type = 'POST';
-    url = '/isms/addism/' + buttonValue;
+    var type = "POST";
+    url = "/isms/addism/" + buttonValue;
   }
-  console.log(type, ' to ', url)
+  console.log(type, " to ", url);
   $.ajax({
     type: type,
     data: ism,
     url: url,
-    dataType: 'JSON'
-  }).done(function( response ) {
-    if (response.msg === '') {
+    dataType: "JSON"
+  }).done(function(response) {
+    if (response.msg === "") {
       clearIsmFormFields();
       generateContent(null);
     } else {
-      alert('Error: ' + response.msg);
+      alert("Error: " + response.msg);
     }
   });
   hideModal(upsertIsmFormModal);
-  console.log('exiting upsertIsm');
-};
+  console.log("exiting upsertIsm");
+}
 
 function openBulkAddIsmForm(event) {
-  var sourceId = $(this).attr('value');
+  var sourceId = $(this).attr("value");
   hideAllModals();
-  bulkIsmPlaceholder = "Format: yaml or json. Structure: Array of JavaScript objects (dicts).";
-  bulkIsmPlaceholder += " Objects must contain 'number' and 'quote' fields, both strings. Field 'tags' is optional: list of strings.";
-  $('#inputBulkIsms').prop('placeholder', bulkIsmPlaceholder);
-  $('#btnSubmitBulkAddIsm').val(sourceId);
-  $('#bulkAddIsmSourceHeader').html(getSourceDisplayString(sourceId));
+  bulkIsmPlaceholder =
+    "Format: yaml or json. Structure: Array of JavaScript objects (dicts).";
+  bulkIsmPlaceholder +=
+    " Objects must contain 'number' and 'quote' fields, both strings. Field 'tags' is optional: list of strings.";
+  $("#inputBulkIsms").prop("placeholder", bulkIsmPlaceholder);
+  $("#btnSubmitBulkAddIsm").val(sourceId);
+  $("#bulkAddIsmSourceHeader").html(getSourceDisplayString(sourceId));
   showModal(bulkAddIsmModal);
 }
 
 function bulkUpsertIsms(event) {
   event.preventDefault();
-  console.log('entering bulkUpsertIsms');
-  if (!validateTheForm('bulkAddIsmForm')) {
-    console.log('exiting bulkUpsertIsms before request');
+  console.log("entering bulkUpsertIsms");
+  if (!validateTheForm("bulkAddIsmForm")) {
+    console.log("exiting bulkUpsertIsms before request");
     return;
   }
-  var sourceId = $(this).attr('value');
-  var content = {}
-  content['isms'] = $('#bulkAddIsmForm fieldset textarea#inputBulkIsms').val();
+  var sourceId = $(this).attr("value");
+  var content = {};
+  content["isms"] = $("#bulkAddIsmForm fieldset textarea#inputBulkIsms").val();
   console.log(content);
   $.ajax({
-    type: 'POST',
+    type: "POST",
     data: content,
-    url: '/isms/bulkadd/' + sourceId,
-    dataType: 'JSON'
-  }).done(function( response ) {
-    if (response.msg === '') {
-      console.log('no problems here, jim');
+    url: "/isms/bulkadd/" + sourceId,
+    dataType: "JSON"
+  }).done(function(response) {
+    if (response.msg === "") {
+      console.log("no problems here, jim");
       generateContent(null);
     } else {
-      alert('Error: ' + response.msg);
+      alert("Error: " + response.msg);
     }
   });
   hideAllModals();
-  console.log('exiting bulkUpsertIsms');
+  console.log("exiting bulkUpsertIsms");
 }

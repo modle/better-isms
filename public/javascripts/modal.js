@@ -1,6 +1,7 @@
-
 function hideModalAfterAWhile(modal) {
-  setTimeout(function(){ hideModal(modal); }, 3000);
+  setTimeout(function() {
+    hideModal(modal);
+  }, 3000);
 }
 
 function hideModal(modal) {
@@ -8,6 +9,6 @@ function hideModal(modal) {
 }
 
 function showModal(modal) {
-  console.log("showing modal: " + modal.id)
+  console.log("showing modal: " + modal.id);
   modal.style.display = "block";
 }

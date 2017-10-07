@@ -1,7 +1,13 @@
 .form-container {
   border: 1px solid #e9f3fb;
   background: #e9f3fb;
-  background: -webkit-gradient(linear, left top, left bottom, from(#e9f3fb), to(#e9f3fb));
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#e9f3fb),
+    to(#e9f3fb)
+  );
   background: -webkit-linear-gradient(top, #e9f3fb, #e9f3fb);
   background: -moz-linear-gradient(top, #e9f3fb, #e9f3fb);
   background: -ms-linear-gradient(top, #e9f3fb, #e9f3fb);
@@ -10,10 +16,13 @@
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
   border-radius: 8px;
-  -webkit-box-shadow: rgba(000,000,000,0.9) 0 1px 2px, inset rgba(255,255,255,0.4) 0 0px 0;
-  -moz-box-shadow: rgba(000,000,000,0.9) 0 1px 2px, inset rgba(255,255,255,0.4) 0 0px 0;
-  box-shadow: rgba(000,000,000,0.9) 0 1px 2px, inset rgba(255,255,255,0.4) 0 0px 0;
-  font-family: 'Helvetica Neue',Helvetica,sans-serif;
+  -webkit-box-shadow: rgba(000, 000, 000, 0.9) 0 1px 2px,
+    inset rgba(255, 255, 255, 0.4) 0 0px 0;
+  -moz-box-shadow: rgba(000, 000, 000, 0.9) 0 1px 2px,
+    inset rgba(255, 255, 255, 0.4) 0 0px 0;
+  box-shadow: rgba(000, 000, 000, 0.9) 0 1px 2px,
+    inset rgba(255, 255, 255, 0.4) 0 0px 0;
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
   text-decoration: none;
   /*min-width: 300px;*/
   /*max-width: 500px;*/
@@ -35,9 +44,12 @@
   -moz-border-radius: 4px;
   border-radius: 4px;
   color: #e9f3fb;
-  -webkit-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
-  -moz-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
-  box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(000,000,000,0.7) 0 0px 0px;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.4) 0 1px 0,
+    inset rgba(000, 000, 000, 0.7) 0 0px 0px;
+  -moz-box-shadow: rgba(255, 255, 255, 0.4) 0 1px 0,
+    inset rgba(000, 000, 000, 0.7) 0 0px 0px;
+  box-shadow: rgba(255, 255, 255, 0.4) 0 1px 0,
+    inset rgba(000, 000, 000, 0.7) 0 0px 0px;
   margin-bottom: 2em;
   width: 24em;
   font-size: 1.5em;
@@ -52,8 +64,8 @@
   text-shadow: #fdf2e4 0 1px 0;
   font-size: 1.5em;
   margin: 0 0 1em 0;
-  font-weight:bold;
-  text-align:center;
+  font-weight: bold;
+  text-align: center;
 }
 
 .form-container h1 {
@@ -78,7 +90,13 @@
 .submit-button {
   border: 1px solid #e9f3fb;
   background: #bbe0fa;
-  background: -webkit-gradient(linear, left top, left bottom, from(#83b2d6), to(#bbe0fa));
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#83b2d6),
+    to(#bbe0fa)
+  );
   background: -webkit-linear-gradient(top, #83b2d6, #bbe0fa);
   background: -moz-linear-gradient(top, #83b2d6, #bbe0fa);
   background: -ms-linear-gradient(top, #83b2d6, #bbe0fa);
@@ -87,13 +105,16 @@
   -webkit-border-radius: 8px;
   -moz-border-radius: 8px;
   border-radius: 8px;
-  -webkit-box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(255,255,255,0.4) 0 0px 0;
-  -moz-box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(255,255,255,0.4) 0 0px 0;
-  box-shadow: rgba(255,255,255,0.4) 0 0px 0, inset rgba(255,255,255,0.4) 0 0px 0;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.4) 0 0px 0,
+    inset rgba(255, 255, 255, 0.4) 0 0px 0;
+  -moz-box-shadow: rgba(255, 255, 255, 0.4) 0 0px 0,
+    inset rgba(255, 255, 255, 0.4) 0 0px 0;
+  box-shadow: rgba(255, 255, 255, 0.4) 0 0px 0,
+    inset rgba(255, 255, 255, 0.4) 0 0px 0;
   text-shadow: #e9f3fb 0 1px 0;
   color: #000000;
   font-family: helvetica, serif;
-  padding: .5em;
+  padding: 0.5em;
   font-size: 1.5em;
   text-decoration: none;
   vertical-align: middle;
@@ -103,7 +124,13 @@
   border: 1px solid #e9f3fb;
   text-shadow: #e9f3fb 0 1px 0;
   background: #91c5ed;
-  background: -webkit-gradient(linear, left top, left bottom, from(#4689bd), to(#91c5ed));
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#4689bd),
+    to(#91c5ed)
+  );
   background: -webkit-linear-gradient(top, #4689bd, #91c5ed);
   background: -moz-linear-gradient(top, #4689bd, #91c5ed);
   background: -ms-linear-gradient(top, #4689bd, #91c5ed);
@@ -116,7 +143,13 @@
   text-shadow: #e9f3fb 0 1px 0;
   border: 1px solid #e9f3fb;
   background: #4b94cc;
-  background: -webkit-gradient(linear, left top, left bottom, from(#00477d), to(#91c5ed));
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#00477d),
+    to(#91c5ed)
+  );
   background: -webkit-linear-gradient(top, #00477d, #4b94cc);
   background: -moz-linear-gradient(top, #00477d, #4b94cc);
   background: -ms-linear-gradient(top, #00477d, #4b94cc);
@@ -129,7 +162,7 @@
   .form-field {
     width: 90%;
     overflow: auto;
-    padding: .5em 0;
+    padding: 0.5em 0;
   }
   .form-container {
     width: 100%;

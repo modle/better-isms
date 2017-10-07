@@ -11,7 +11,6 @@ $(document).ready(function() {
   $("#upsertSource").on("click", openUpsertSourceForm);
   $("#upsertSource2").on("click", openUpsertSourceForm);
   $("#btnSubmitUpsertSource").on("click", upsertSource);
-  $("#btnEditSource").on("click", openUpsertSourceForm);
 
   // Show new ism form on source select
   $("#sourceListDiv").on("click", "a.linksource", openNewIsmForm);
@@ -119,17 +118,15 @@ function promptSourceSelection() {
 function openUpsertSourceForm(event) {
   handleLogin();
   showModal(upsertSourceModal);
-  var sourceId = $(this).attr("value");
-  console.log(sourceId);
   $("#sourceFormTitle").html("Add source");
   $("#upsertSourceModal fieldset button#btnSubmitUpsertSource").val("");
   $("#upsertSourceModal fieldset button#btnSubmitUpsertSource").html("Add");
-  if (sourceId) {
-    source = sourceCloudDict[sourceId];
+  if (filterId) {
+    source = sourceCloudDict[filterId];
     $("#sourceFormTitle").html("Update source");
     $("#upsertSourceModal fieldset input#inputTitle").val(source["title"]);
     $("#upsertSourceModal fieldset input#inputAuthor").val(source["author"]);
-    $("#upsertSourceModal fieldset button#btnSubmitUpsertSource").val(sourceId);
+    $("#upsertSourceModal fieldset button#btnSubmitUpsertSource").val(filterId);
     $("#upsertSourceModal fieldset button#btnSubmitUpsertSource").html(
       "Update"
     );
@@ -152,25 +149,16 @@ function clearAllForms() {
 function clearFilter(event) {
   filter = "";
   filterId = "";
-  filterString = "";
-  $("#currentFilter").html(filterString);
-  deactivateSourceEditButton();
   generateContent();
 }
 
 function prepFilter(event) {
-  deactivateSourceEditButton();
   filterId = $(this).attr("rel");
   eventClasses = $(this).attr("class");
-  filterString = "";
-  if (eventClasses == "linksourcefilter") {
+  if (eventClasses.includes("linksourcefilter")) {
     filter = "source";
-    filterString = "source: " + getSourceDisplayString(filterId);
-    activateSourceEditButton(filterId);
   } else if (eventClasses.includes("linktagfilter")) {
     filter = "tag";
-    filterString = "tag: " + filterId;
   }
-  $("#currentFilter").html(filterString);
   generateContent();
 }

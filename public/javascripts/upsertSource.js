@@ -63,13 +63,3 @@ function showSourceUpsertedToast(toastString) {
 function clearSourceFormFields() {
   $("#upsertSourceForm fieldset input").val("");
 }
-
-function deactivateSourceEditButton() {
-  $("#upsertIsmForm fieldset button#btnEditSource").val("");
-  $("#btnEditSource").hide();
-}
-
-function activateSourceEditButton(rel) {
-  $("button#btnEditSource").val(rel);
-  $("#btnEditSource").show();
-}

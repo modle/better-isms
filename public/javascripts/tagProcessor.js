@@ -11,6 +11,13 @@ function getNextTagColor() {
   return tagColors[currentColorIndex];
 }
 
+function highlightIfFiltered(id) {
+  if (id == filterId) {
+    return "highlighted";
+  }
+  return "";
+}
+
 function generateTagCloud() {
   var tagCloud = "";
   for (var tag of Array.from(Object.keys(tagCloudDict)).sort()) {
@@ -18,6 +25,8 @@ function generateTagCloud() {
     tagCloud +=
       '<span><a href="#" class="linktagfilter ' +
       getNextTagColor() +
+      " " +
+      highlightIfFiltered(tag) +
       '" rel="' +
       tag +
       '" style="font-size:' +

@@ -91,3 +91,8 @@ a {
 #btnEditSource {
   display: none;
 }
+
+.highlighted {
+  background-color: mediumseagreen;
+  color: white;
+}

@@ -35,6 +35,7 @@ function upsertIsm(event) {
   ism.tags = Array.from(
     $("#upsertIsmForm fieldset input#inputTags")
       .val()
+      .trim()
       .toLowerCase()
       .split(/\s*,\s*/)
   );

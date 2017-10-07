@@ -12,3 +12,10 @@ function showModal(modal) {
   console.log("showing modal: " + modal.id);
   modal.style.display = "block";
 }
+
+function hideAllModals() {
+  for (var modal of modals) {
+    hideModal(modal);
+  }
+  clearAllForms();
+}

@@ -52,3 +52,7 @@ function setSourceModalContent(sourceModalContent) {
 function clearSourceModalContent() {
   setSourceModalContent("");
 }
+
+function promptSourceSelection() {
+  showModal(sourceSelectModal);
+}

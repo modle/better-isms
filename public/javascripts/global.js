@@ -1,6 +1,3 @@
-var filter = "";
-var filterId = "";
-
 $(document).ready(function() {
   // Click Entry Point Definitions =============================================================
 
@@ -100,65 +97,3 @@ $(document).ready(function() {
     promptUserToLogin();
   }
 });
-
-// Functions =============================================================
-
-function hideButton(buttonClass) {
-  $("#" + buttonClass).hide();
-}
-
-function showButton(buttonClass) {
-  $("#" + buttonClass).show();
-}
-
-function promptSourceSelection() {
-  showModal(sourceSelectModal);
-}
-
-function openUpsertSourceForm(event) {
-  handleLogin();
-  showModal(upsertSourceModal);
-  $("#sourceFormTitle").html("Add source");
-  $("#upsertSourceModal fieldset button#btnSubmitUpsertSource").val("");
-  $("#upsertSourceModal fieldset button#btnSubmitUpsertSource").html("Add");
-  if (filterId) {
-    source = sourceCloudDict[filterId];
-    $("#sourceFormTitle").html("Update source");
-    $("#upsertSourceModal fieldset input#inputTitle").val(source["title"]);
-    $("#upsertSourceModal fieldset input#inputAuthor").val(source["author"]);
-    $("#upsertSourceModal fieldset button#btnSubmitUpsertSource").val(filterId);
-    $("#upsertSourceModal fieldset button#btnSubmitUpsertSource").html(
-      "Update"
-    );
-  }
-  $("#inputTitle").focus();
-}
-
-function hideAllModals() {
-  for (var modal of modals) {
-    hideModal(modal);
-  }
-  clearAllForms();
-}
-
-function clearAllForms() {
-  $("fieldset input").val("");
-  $("fieldset textarea").val("");
-}
-
-function clearFilter(event) {
-  filter = "";
-  filterId = "";
-  generateContent();
-}
-
-function prepFilter(event) {
-  filterId = $(this).attr("rel");
-  eventClasses = $(this).attr("class");
-  if (eventClasses.includes("linksourcefilter")) {
-    filter = "source";
-  } else if (eventClasses.includes("linktagfilter")) {
-    filter = "tag";
-  }
-  generateContent();
-}

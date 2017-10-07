@@ -118,12 +118,16 @@ function prepClouds(eventClass) {
   }
 }
 
-function generateContent(event) {
+function generateContent(eventInfo) {
   console.log("entering generateIsmDivs");
   handleLogin();
-  var eventClass = $(this).attr("class");
-  var rel = $(this).attr("rel");
-  url = determineIsmQueryUrl(eventClass, rel);
+  var eventClass;
+  var theRel;
+  if (eventInfo) {
+    eventClass = eventInfo.eventClass;
+    theRel = eventInfo.theRel;
+  }
+  url = determineIsmQueryUrl(eventClass, theRel);
   prepClouds(eventClass);
   manageGetSourceListCall();
   manageGetIsmListCall(url);

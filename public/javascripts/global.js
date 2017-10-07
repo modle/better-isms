@@ -1,3 +1,5 @@
+var filter = "";
+
 $(document).ready(function() {
   // Click Entry Point Definitions =============================================================
 
@@ -24,8 +26,8 @@ $(document).ready(function() {
   $("#ismList isms").on("click", "a.linkupdateism", populateIsmFields);
   $("#ismList isms").on("click", "a.linkdeleteism", deleteIsm);
 
-  $("#tagCloud").on("click", "a.linktagfilter", generateContent);
-  $("#sourceCloud").on("click", "a.linksourcefilter", generateContent);
+  $("#tagCloud").on("click", "a.linktagfilter", prepFilter);
+  $("#sourceCloud").on("click", "a.linksourcefilter", prepFilter);
 
   // Key Events =============================================================
   $("#upsertIsmForm").keyup(function(event) {
@@ -144,4 +146,16 @@ function hideAllModals() {
 function clearAllForms() {
   $("fieldset input").val("");
   $("fieldset textarea").val("");
+}
+
+function prepFilter(event) {
+  eventInfo = {};
+  eventInfo.eventClass = $(this).attr("class");
+  eventInfo.theRel = $(this).attr("rel");
+  if (eventInfo.eventClass == "linksourcefilter") {
+    filter = "source";
+  } else if (eventInfo.eventClass == "linktagfilter") {
+    filter = "tag";
+  }
+  generateContent(eventInfo);
 }

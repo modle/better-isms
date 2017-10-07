@@ -1,24 +1,11 @@
 var tagCloudDict = {};
 
-currentColorIndex = 0;
-tagColors = ["mediumseagreen", "tomato", "violet", "orange", "slateblue"];
-
-function getNextTagColor() {
-  currentColorIndex += 1;
-  if (currentColorIndex == tagColors.length) {
-    currentColorIndex = 0;
-  }
-  return tagColors[currentColorIndex];
-}
-
 function generateTagCloud() {
   var tagCloud = "";
   for (var tag of Array.from(Object.keys(tagCloudDict)).sort()) {
     var size = calculateTagSize(tag);
     tagCloud +=
-      '<span><a href="#" class="linktagfilter ' +
-      getNextTagColor() +
-      '" rel="' +
+      '<span><a href="#" class="linktagfilter" rel="' +
       tag +
       '" style="font-size:' +
       size +

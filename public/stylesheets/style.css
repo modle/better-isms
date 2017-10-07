@@ -3,19 +3,19 @@ body {
 }
 
 h2 {
-	margin: 0 0 .5em 0;
+  margin: 0 0 0.5em 0;
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
 }
 
 #wrapper {
-	position:relative;
+  position: relative;
 }
 
 #ismList {
-	margin: 0 0 2em 0;
+  margin: 0 0 2em 0;
 }
 
 .record {
@@ -25,15 +25,15 @@ a {
 
 .field {
   color: #222222;
-  margin: .2em;
-  padding: 0 .2em;
+  margin: 0.2em;
+  padding: 0 0.2em;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
 }
 
 .tag {
-  background: #E0E0D1;
+  background: #e0e0d1;
 }
 
 .source {
@@ -53,7 +53,9 @@ a {
   text-align: left;
 }
 
-.linksource, .linksourcefilter, .linktagfilter {
+.linksource,
+.linksourcefilter,
+.linktagfilter {
   font-size: 1.5em;
 }
 
@@ -64,4 +66,24 @@ a {
 }
 
 @media (max-device-width: 767px) {
+}
+
+.mediumseagreen {
+  color: mediumseagreen;
+}
+
+.tomato {
+  color: tomato;
+}
+
+.violet {
+  color: violet;
+}
+
+.orange {
+  color: orange;
+}
+
+.slateblue {
+  color: slateblue;
 }

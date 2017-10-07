@@ -1,17 +1,35 @@
 var tagCloudDict = {};
 
+currentColorIndex = 0;
+tagColors = ["mediumseagreen", "tomato", "violet", "orange", "slateblue"];
+
+function getNextTagColor() {
+  currentColorIndex += 1;
+  if (currentColorIndex === tagColors.size) {
+    currentColorIndex = 0;
+  }
+  return tagColors[currentColorIndex];
+}
+
 function generateTagCloud() {
-  var tagCloud = '';
+  var tagCloud = "";
   for (var tag of Array.from(Object.keys(tagCloudDict)).sort()) {
     var size = calculateTagSize(tag);
-    tagCloud += '<span><a href="#" class="linktagfilter" rel="' + tag + '" style="font-size:' + size + 'em">';
-    tagCloud += tag + '</a></span><span> </span>';
+    tagCloud +=
+      '<span><a href="#" class="linktagfilter ' +
+      getNextTagColor() +
+      '" rel="' +
+      tag +
+      '" style="font-size:' +
+      size +
+      'em">';
+    tagCloud += tag + "</a></span><span> | </span>";
   }
   return tagCloud;
 }
 
 function setTagCloud(tagCloud) {
-  $('#tagCloud').html(tagCloud);
+  $("#tagCloud").html(tagCloud);
 }
 
 function calculateTagSize(tag) {
@@ -26,17 +44,17 @@ function calculateTagSize(tag) {
   return finalEmSize;
 }
 function generateTagDivs(tags) {
-  tagDivs = ''
+  tagDivs = "";
   if (Array.isArray(tags)) {
     for (i = 0; i < tags.length; i++) {
-      tagDivs += '<span class="tag field">'
+      tagDivs += '<span class="tag field">';
       tagDivs += tags[i];
-      tagDivs += '</span>'
+      tagDivs += "</span>";
     }
   } else {
-    tagDivs += '<span class="tag field">'
+    tagDivs += '<span class="tag field">';
     tagDivs += tags;
-    tagDivs += '</span>'
+    tagDivs += "</span>";
   }
   return tagDivs;
 }
@@ -61,5 +79,5 @@ function addToTagDict(tag) {
 }
 
 function clearTagCloud() {
-  setTagCloud('');
+  setTagCloud("");
 }

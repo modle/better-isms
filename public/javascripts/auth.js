@@ -60,13 +60,13 @@ function logUserIn(event) {
     }).done(function(response) {
       if (response.msg === "") {
         setCookie("username", user.username, 365);
+        hideModal(loginModal);
+        generateContent("");
+        showButton("logout");
+        hideButton("login");
       } else {
         alert("Error: " + response.msg);
       }
-      hideModal(loginModal);
-      generateContent("");
-      showButton("logout");
-      hideButton("login");
     });
   } else {
     alert("Please fill in all fields");

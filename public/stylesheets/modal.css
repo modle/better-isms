@@ -1,7 +1,7 @@
 /* Modal Content */
 .modal-container {
   background-color: #fefefe;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
   /* animation bits */
   position: relative;
@@ -17,6 +17,7 @@
 .modal {
   text-align: center;
   position: absolute;
+  display: none;
 }
 
 .modal-toast {
@@ -25,13 +26,25 @@
 
 /* Add Animation */
 @-webkit-keyframes animatetop {
-  from {top: -25em; opacity: 0}
-  to {top: 0; opacity: 1}
+  from {
+    top: -25em;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
 }
 
 @keyframes animatetop {
-  from {top: -25em; opacity: 0}
-  to {top: 0; opacity: 1}
+  from {
+    top: -25em;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
 }
 
 @media (max-device-width: 767px) {

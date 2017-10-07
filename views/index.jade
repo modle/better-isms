@@ -135,15 +135,15 @@ block content
             h1#source
             button#btnShowBulkAddIsm.submit-button Bulk Add Instead
             fieldset.form-container
-              span *&nbsp;
-              input#inputNumber(type='text', placeholder='page number', value='').form-field
+              span required
               br
-              span *&nbsp;
-              input#inputTags(type='text', placeholder='tags', value='').form-field
+              input#inputNumber(type='number', placeholder='page number', value='').form-field
               br
-              span *&nbsp;
+              span required
               br
               textarea#inputQuote(type='textarea', placeholder='quote or note', rows=10, value='').form-field
+              br
+              input#inputTags(type='text', placeholder='tags', value='').form-field
               br
               textarea#inputComments(type='textarea', placeholder='comments', rows=10, value='').form-field
               br

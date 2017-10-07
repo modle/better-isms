@@ -187,6 +187,9 @@ function addTheIsm(ism, req) {
   if (!ism.comments) {
     ism.comments = "";
   }
+  if (!ism.tags) {
+    ism.tags = "tagme";
+  }
   collection.update({ _id: sourceToUpdate }, { $push: { isms: ism } }, function(
     err
   ) {

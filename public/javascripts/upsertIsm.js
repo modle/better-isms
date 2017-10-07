@@ -24,7 +24,7 @@ function validateTheForm(formId, optionalFields) {
 function upsertIsm(event) {
   event.preventDefault();
   console.log("entering upsertIsm");
-  var optionalIsmFields = ["inputComments"];
+  var optionalIsmFields = ["inputComments", "inputTags"];
   if (!validateTheForm("upsertIsmForm", optionalIsmFields)) {
     console.log("exiting upsertIsm before request");
     return;
@@ -51,7 +51,7 @@ function upsertIsm(event) {
     var type = "POST";
     url = "/isms/addism/" + buttonValue;
   }
-  console.log(type, " to ", url);
+  console.log(type, "to", url);
   $.ajax({
     type: type,
     data: ism,

@@ -4,6 +4,7 @@ $(document).ready(function() {
   $("#login").on("click", promptUserToLogin);
   $("#btnSubmitLogin").on("click", logUserIn);
   $("#logout").on("click", logUserOut);
+  $("#export").on("click", exportData);
 
   $("#addSource").on("click", addSource);
   $("#addSource2").on("click", addSource);
@@ -97,3 +98,19 @@ $(document).ready(function() {
     promptUserToLogin();
   }
 });
+
+
+function exportData() {
+  var txtFile = "test.txt";
+  var file = new File([""], txtFile);
+  var str = JSON.stringify(ismListData);
+  var dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(str);
+
+
+  var link = document.createElement("a");
+  link.setAttribute("href", dataUri);
+  link.setAttribute("download", "export.json");
+  document.body.appendChild(link); // Required for FF
+
+  link.click(); // This will download the data file named "my_data.csv".
+}

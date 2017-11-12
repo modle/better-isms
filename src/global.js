@@ -101,6 +101,7 @@ $(document).ready(function() {
 
 
 function exportData() {
+  handleLogin();
   var txtFile = "test.txt";
   var file = new File([""], txtFile);
   var str = JSON.stringify(ismListData);

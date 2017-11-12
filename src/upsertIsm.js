@@ -22,6 +22,7 @@ function validateTheForm(formId, optionalFields) {
 }
 
 function upsertIsm(event) {
+  handleLogin();
   event.preventDefault();
   console.log("entering upsertIsm");
   var optionalIsmFields = ["inputComments", "inputTags"];
@@ -70,6 +71,7 @@ function upsertIsm(event) {
 }
 
 function openBulkAddIsmForm(event) {
+  handleLogin();
   var sourceId = $(this).attr("value");
   hideAllModals();
   bulkIsmPlaceholder =
@@ -83,6 +85,7 @@ function openBulkAddIsmForm(event) {
 }
 
 function bulkUpsertIsms(event) {
+  handleLogin();
   event.preventDefault();
   console.log("entering bulkUpsertIsms");
   if (!validateTheForm("bulkAddIsmForm")) {

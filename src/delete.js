@@ -1,4 +1,5 @@
 function deleteIsm(event) {
+  handleLogin();
   event.preventDefault();
   console.log("delete ism clicked!");
 

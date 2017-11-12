@@ -10,19 +10,23 @@ app.use(bodyParser.urlencoded({ extended: false }));
 var cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
+var env = require('node-env-file');
+env(__dirname + '/.env');
+
 // set up the db
 var mongo = require('mongodb');
 var monk = require('monk');
 var db = monk(process.env.DATABASE_URL);
+
 // Make our db accessible to our router
 app.use(function(req,res,next){
     req.db = db;
     next();
 });
 
-// set up static file refs
 var path = require('path');
-app.use(express.static(path.join(__dirname, 'public')));
+// set up static file refs
+app.use(express.static(path.join(__dirname, 'src')));
 
 // set up logger
 var logger = require('morgan');

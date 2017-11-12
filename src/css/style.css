@@ -59,6 +59,10 @@ a {
   font-size: 1.5em;
 }
 
+.sourceCloudEntry {
+  margin: 5px 0;
+}
+
 @media (min-device-width: 768px) {
   body {
     padding: 2em;

@@ -13,9 +13,12 @@ function clearIsm(event) {
 
 function openNewIsmForm(event) {
   handleLogin();
-  hideModal(sourceSelectModal);
   clearIsmFormFields();
-  sourceId = this.rel;
+  if (filter !== "source") {
+    showModal(noSourceSelectedModal);
+    return;
+  }
+  sourceId = filterId;
   $("#upsertIsm #source").text(getSourceDisplayString(sourceId));
   $("#btnClearIsm").show();
   $("#btnUpsertIsm").text("Add Ism");

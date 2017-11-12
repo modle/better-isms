@@ -6,7 +6,7 @@ function logUserOut() {
   console.log("user is logged out");
   hideButton("logout");
   hideButton("export");
-  hideButton("addSource2");
+  hideButton("addSource");
   hideButton("newIsm");
   showButton("login");
   hideModal(upsertIsmFormModal);

@@ -28,21 +28,16 @@ block content
         button.hideModals.submit-button Hide
     // /ISM DELETED TOAST
 
-    // SOURCE SELECT
-    .modal#sourceSelectModal
+    // NO SOURCE SELECTED TOAST
+    .modal#noSourceSelectedModal
       br
       br
       br
       br
-      .modal-container.form-container
-        h1 Add to which source?
-        #sourceListDiv
-        br
-        br
-        br
-        button#addSource.submit-button Add New Source
+      .modal-container.modal-toast
+        h1 Please select a source
         button.hideModals.submit-button Hide
-    // SOURCE SELECT
+    // /NO SOURCE SELECTED TOAST
 
     // SOURCE UPSERTED TOAST
     .modal#sourceUpsertedModal
@@ -94,7 +89,7 @@ block content
     // /LOGIN FORM
 
     button#newIsm.submit-button New Ism
-    button#addSource2.submit-button New Source
+    button#addSource.submit-button New Source
     button#logout.submit-button Logout
     button#login.submit-button Login
     button#export.submit-button Export

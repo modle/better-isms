@@ -7,12 +7,10 @@ $(document).ready(function() {
   $("#export").on("click", exportData);
 
   $("#addSource").on("click", addSource);
-  $("#addSource2").on("click", addSource);
   $("#btnSubmitUpsertSource").on("click", upsertSource);
 
-  // Show new ism form on source select
   $("#sourceListDiv").on("click", "a.linksource", openNewIsmForm);
-  $("#newIsm").on("click", promptSourceSelection);
+  $("#newIsm").on("click", openNewIsmForm);
   $("#btnShowBulkAddIsm").on("click", openBulkAddIsmForm);
   $("#btnSubmitBulkAddIsm").on("click", bulkUpsertIsms);
   $("#btnUpsertIsm").on("click", upsertIsm);

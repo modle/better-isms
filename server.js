@@ -11,7 +11,11 @@ var cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
 var env = require('node-env-file');
-env(__dirname + '/.env');
+try {
+  env(__dirname + '/.env');
+} catch (e) {
+  // do nothing
+}
 
 // set up the db
 var mongo = require('mongodb');

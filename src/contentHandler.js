@@ -87,8 +87,6 @@ function manageGetSourceListCall() {
     });
     var sourceCloud = generateSourceCloud();
     setSourceCloud(sourceCloud);
-    var sourceModalContent = generateSourceModalContent();
-    setSourceModalContent(sourceModalContent);
   });
 }
 

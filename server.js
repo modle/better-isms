@@ -24,8 +24,8 @@ var db = monk(process.env.DATABASE_URL);
 
 // Make our db accessible to our router
 app.use(function(req,res,next){
-    req.db = db;
-    next();
+  req.db = db;
+  next();
 });
 
 var path = require('path');

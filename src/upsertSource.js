@@ -70,6 +70,7 @@ function clearSourceFormFields() {
 function addSource(event) {
   filter = "";
   filterId = "";
+  hideFooter();
   openUpsertSourceForm();
 }
 

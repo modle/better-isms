@@ -25,5 +25,6 @@ function hideAllModals() {
   for (var modal of modals) {
     hideModal(modal);
   }
+  showFooter();
   clearAllForms();
 }

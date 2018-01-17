@@ -24,6 +24,7 @@ function checkLoggedIn() {
 }
 
 function promptUserToLogin() {
+  hideFooter();
   showModal(loginModal);
   $("#inputUsername").focus();
 }

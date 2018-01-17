@@ -113,3 +113,15 @@ function exportData() {
 
   link.click(); // This will download the data file named "my_data.csv".
 }
+
+function hideFooter() {
+  var footer = document.getElementById("footer");
+  console.log(footer);
+  footer.style.display = "none";
+}
+
+function showFooter() {
+  var footer = document.getElementById("footer");
+  console.log(footer);
+  footer.style.display = "block";
+}

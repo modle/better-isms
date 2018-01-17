@@ -13,6 +13,7 @@ function clearIsm(event) {
 
 function openNewIsmForm(event) {
   handleLogin();
+  hideFooter();
   clearIsmFormFields();
   if (filter !== "source") {
     showModal(noSourceSelectedModal);

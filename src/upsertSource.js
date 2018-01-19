@@ -49,7 +49,7 @@ function upsertSource(event) {
       alert("Error: " + response.msg);
     }
   });
-  hideModal(upsertSourceModal);
+  hideAllModals();
   showSourceUpsertedToast(upsertedToastString);
   console.log("exiting upsertSource");
 }

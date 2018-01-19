@@ -1,15 +1,31 @@
+function showLoggedInButtons() {
+  showButton("logout");
+  showButton("export");
+  showButton("addSource");
+  showButton("newIsm");
+  showButton("toTop");
+  showButton("clearFilter");
+  hideButton("login");
+}
+
+function showLoggedOutButtons() {
+  hideButton("logout");
+  hideButton("export");
+  hideButton("addSource");
+  hideButton("newIsm");
+  hideButton("toTop");
+  hideButton("clearFilter");
+  showButton("login");
+}
+
 function logUserOut() {
   deleteCookie("username");
   clearIsmDivs();
   clearTagCloud();
   clearSourceCloud();
   console.log("user is logged out");
-  hideButton("logout");
-  hideButton("export");
-  hideButton("addSource");
-  hideButton("newIsm");
-  showButton("login");
-  hideModal(upsertIsmFormModal);
+  showLoggedOutButtons();
+  hideAllModals();
   showModal(loggedOutModal);
   hideModalAfterAWhile(loggedOutModal);
 }
@@ -64,10 +80,9 @@ function logUserIn(event) {
     }).done(function(response) {
       if (response.msg === "") {
         setCookie("username", user.username, 365);
-        hideModal(loginModal);
+        hideAllModals();
         generateContent("");
-        showButton("logout");
-        hideButton("login");
+        showLoggedInButtons();
       } else {
         alert("Error: " + response.msg);
       }

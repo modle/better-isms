@@ -66,7 +66,7 @@ function upsertIsm(event) {
       alert("Error: " + response.msg);
     }
   });
-  hideModal(upsertIsmFormModal);
+  hideAllModals();
   console.log("exiting upsertIsm");
 }
 

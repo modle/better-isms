@@ -46,9 +46,7 @@ $(document).ready(function() {
     }
     // esc
     if (event.keyCode == 27) {
-      for (var modal of modals) {
-        hideModal(modal);
-      }
+      hideAllModals();
       event.preventDefault();
     }
   });

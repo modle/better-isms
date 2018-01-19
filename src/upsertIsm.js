@@ -62,11 +62,11 @@ function upsertIsm(event) {
     if (response.msg === "") {
       clearIsmFormFields();
       generateContent(null);
+      hideAllModals();
     } else {
       alert("Error: " + response.msg);
     }
   });
-  hideAllModals();
   console.log("exiting upsertIsm");
 }
 

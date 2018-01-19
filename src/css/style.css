@@ -12,7 +12,7 @@ a {
 
 #wrapper {
   position: relative;
-  padding-bottom: 2em;
+  padding-bottom: 80px;
 }
 
 #ismList {
@@ -108,5 +108,5 @@ a {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 50px;
+  height: 80px;
 }

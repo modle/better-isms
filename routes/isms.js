@@ -132,7 +132,7 @@ function convertBodyToObject(body) {
 }
 
 requiredKeys = ["number", "quote"];
-allKeys = ["tags", "comment"].concat(requiredKeys);
+allKeys = ["tags", "comments"].concat(requiredKeys);
 
 function isValidTagsField(tags) {
   if (!Array.isArray(tags)) {
@@ -141,43 +141,60 @@ function isValidTagsField(tags) {
   return true;
 }
 
-function hasValidFields(ism) {
-  keys = Array.from(Object.keys(ism));
-  for (var field of keys) {
+function validateIsmFields(ism) {
+  var ismValidationResults = []
+  currentIsmKeys = Array.from(Object.keys(ism));
+  // check for invalid field names
+  for (field of currentIsmKeys) {
     if (!allKeys.includes(field)) {
-      return false;
+      ismValidationResults.push("\ninvalid field: " + field);
     }
   }
+  // validate required fields
   for (key of requiredKeys) {
-    if (!keys.includes(key)) {
-      return false;
+    if (!currentIsmKeys.includes(key)) {
+      ismValidationResults.push("\nrequired field missing: " + key);
     }
   }
   // validate the tags
-  if ("tags" in keys) {
+  if ("tags" in currentIsmKeys) {
     if (!isValidTagsField(ism["tags"])) {
-      return false;
+      ismValidationResults.push("\nismtags must be an array or a single item: " + ism["tags"]);
     }
   } else {
     ism.tags = "tagme";
   }
-  return true;
+  return ismValidationResults;
 }
 
-function isValidIsm(isms) {
-  if (Array.isArray(isms)) {
-    for (ism of isms) {
-      if (!hasValidFields(ism)) {
-        return false;
-      }
-    }
+function validateIsms(isms) {
+  var ismsArray = [];
+  if (!Array.isArray(isms)) {
+    ismsArray.push(isms);
   } else {
-    if (!hasValidFields(isms)) {
-      return false;
-    }
+    ismsArray = isms.concat();
   }
-  return true;
+  var allValidationResults = []
+  for (ism of ismsArray) {
+    allValidationResults.push(validateIsmFields(ism));
+  }
+  return allValidationResults;
 }
+
+router.post("/bulkadd/:id", function(req, res) {
+  var err;
+  nativeObject = convertBodyToObject(req.body.isms);
+  if (!nativeObject) {
+    err = "invalid format";
+  }
+  var validationErrors = validateIsms(nativeObject)
+  if (validationErrors.length > 0) {
+    err = "there are field errors: " + validationErrors.join() + "\n\nrequired fields: " + requiredKeys.join() + "\navailable fields: " + allKeys.join();
+  } else {
+    err = addAllIsms(nativeObject, req);
+  }
+  res.send(err ? { msg: err } : { msg: "" });
+});
 
 function addTheIsm(ism, req) {
   var db = req.db;
@@ -199,33 +216,26 @@ function addTheIsm(ism, req) {
   });
 }
 
-router.post("/bulkadd/:id", function(req, res) {
-  var err = null;
-  nativeObject = convertBodyToObject(req.body.isms);
-  if (!nativeObject) {
-    err = "invalid format";
-  }
-  if (!isValidIsm(nativeObject)) {
-    err = "invalid fields";
-  }
+function addAllIsms(nativeObject, req) {
   if (Array.isArray(nativeObject)) {
     for (entry of nativeObject) {
       try {
         addTheIsm(entry, req);
       } catch (e) {
-        err = "problem adding ism";
-        break;
+        return "problem adding ism";
       }
     }
   } else {
     try {
       addTheIsm(nativeObject, req);
     } catch (e) {
-      err = "problem adding ism";
+      return "problem adding ism";
     }
   }
-  res.send(err === null ? { msg: "" } : { msg: "error: " + err });
-});
+  return ""
+}
+
+
 
 router.put("/updateism/:id/:ismId", function(req, res) {
   var db = req.db;

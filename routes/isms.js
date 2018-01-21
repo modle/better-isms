@@ -54,12 +54,13 @@ router.post("/addsource", function(req, res) {
   var db = req.db;
   var collection = db.get("ismlist");
   req.body.isms = [];
+  req.body.added = Date.now();
   collection.insert(req.body, function(err, result) {
     res.send(err === null ? { msg: "" } : { msg: "error: " + err });
   });
 });
 
-router.put("/addsource/:id", function(req, res) {
+router.put("/updatesource/:id", function(req, res) {
   var db = req.db;
   var collection = db.get("ismlist");
   req.body.isms = [];

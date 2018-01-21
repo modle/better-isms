@@ -24,7 +24,7 @@ function upsertSource(event) {
   upsertedToastString = "";
   var sourceId = $(this).attr("value");
   if (sourceId) {
-    url += sourceId;
+    url = "/isms/updatesource/" + sourceId;
     type = "PUT";
     upsertedToastString =
       "Source<br>" +

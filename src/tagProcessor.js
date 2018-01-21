@@ -52,6 +52,7 @@ function calculateTagSize(tag) {
   var finalEmSize = tagSizeRatio + baseEmSize;
   return finalEmSize;
 }
+
 function generateTagDivs(tags) {
   tagDivs = "";
   if (Array.isArray(tags)) {

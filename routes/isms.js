@@ -159,7 +159,7 @@ function hasValidFields(ism) {
       return false;
     }
   } else {
-    ism.tags = [];
+    ism.tags = "tagme";
   }
   return true;
 }

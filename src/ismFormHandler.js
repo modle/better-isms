@@ -40,7 +40,7 @@ function setUpdateIsmFormElementText() {
 function populateIsmFields(event) {
   event.preventDefault();
   handleLogin();
-
+  hideFooter();
   setUpdateIsmFormElementText();
 
   // Retrieve sourceId and ismId from link rel attribute

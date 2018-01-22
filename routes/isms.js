@@ -6,7 +6,7 @@ var YAML = require("yamljs");
 router.get("/sourcelist", function(req, res) {
   var db = req.db;
   var collection = db.get("ismlist");
-  collection.find({}, "title author", function(e, docs) {
+  collection.find({}, "title author added", function(e, docs) {
     res.json(docs);
   });
 });

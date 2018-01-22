@@ -22,7 +22,7 @@ function addIsmDiv(source, details, tags) {
   var comments = details.comments === undefined ? "" : details.comments;
   divContent +=
     '<div class="record"><span class="source field">' +
-    getSourceDisplayString(source._id) +
+    getSourceDisplayStringFromDict(source._id) +
     "</span> | ";
   divContent += '<span class="num field">' + details.number + "</span> | ";
   divContent += generateTagDivs(tags) + " | ";
@@ -82,7 +82,7 @@ function manageGetSourceListCall() {
   }).done(function(response) {
     $.each(response, function() {
       if (updateClouds) {
-        sourceCloudDict[this._id] = { title: this.title, author: this.author };
+        sourceCloudDict[this._id] = { title: this.title, author: this.author, added: this.added };
       }
     });
     var sourceCloud = generateSourceCloud();

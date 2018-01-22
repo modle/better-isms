@@ -1,25 +1,35 @@
 var sourceCloudDict = {};
 
 function getSourceDisplayString(source) {
+  return " " + source["title"] + " (" + source["author"] + ")";
+}
+
+function getSourceDisplayStringFromDict(source) {
   sourceValue = sourceCloudDict[source];
   return " " + sourceValue["title"] + " (" + sourceValue["author"] + ")";
 }
 
 function generateSourceCloud() {
   var sourceCloud = "";
-  for (var source of Array.from(Object.keys(sourceCloudDict).sort())) {
+  var splitSources = Object.keys(sourceCloudDict).map(function(key) {
+    return [key, sourceCloudDict[key]];
+  });
+  splitSources.sort(function(first, second) {
+    return second[1]['added'] - first[1]['added'];
+  });
+  for (var source of splitSources) {
     sourceCloud +=
       '<div class="sourceCloudEntry"><a href="#" class="linksourcefilter ' +
-      highlightIfFiltered(source) +
+      highlightIfFiltered(source[0]) +
       '" rel="' +
-      source +
+      source[0] +
       '">' +
-      getSourceDisplayString(source) +
+      getSourceDisplayString(source[1]) +
       "</a>";
-    if (highlightIfFiltered(source)) {
+    if (highlightIfFiltered(source[0])) {
       sourceCloud +=
         '<button id="btnEditSource" class="submit-button" value="' +
-        source +
+        source[0] +
         '" style="display: inline-block;" onClick="openUpsertSourceForm()">Edit</button>';
     }
     sourceCloud += "</div>";

@@ -48,7 +48,7 @@ function calculateTagSize(tag) {
   var range = maxCount - minCount;
   var tagCount = tagCloudDict[tag];
   var tagSizeRatio = tagCount / range;
-  var baseEmSize = 1;
+  var baseEmSize = 1.5;
   var finalEmSize = tagSizeRatio + baseEmSize;
   return finalEmSize;
 }

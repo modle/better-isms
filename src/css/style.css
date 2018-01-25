@@ -70,9 +70,6 @@ a {
   }
 }
 
-@media (max-device-width: 767px) {
-}
-
 .mediumseagreen {
   color: mediumseagreen;
 }
@@ -109,4 +106,43 @@ a {
   left: 0;
   right: 0;
   height: 80px;
+}
+
+@media (min-width: 768px) {
+  body {
+    margin: auto;
+    width: 70%;
+  }
+
+  #sourceCloud {
+    position: absolute;
+    top: 1em;
+    left: 10px;
+    width: 365px;
+    overflow: hidden;
+  }
+
+  #ismList {
+    position: absolute;
+    top: 1em;
+    left: 376px;
+    width: 500px;
+    overflow: hidden;
+  }
+
+  #tagCloud {
+    padding-left: 2em;
+    position: absolute;
+    top: 1em;
+    left: 877px;
+    width: 400px;
+    overflow: hidden;
+  }
+
+  #footer {
+    margin: auto;
+    width: 70%;
+    text-align: center;
+  }
+
 }

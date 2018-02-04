@@ -15,10 +15,6 @@ a {
   padding-bottom: 80px;
 }
 
-#ismList {
-  margin: 0 0 2em 0;
-}
-
 .record {
   font-size: 1.5em;
   word-wrap: break-word;
@@ -36,7 +32,6 @@ a {
 .tag {
   background: #e0e0d1;
 }
-
 .source {
   background: #ffe6e6;
 }
@@ -108,41 +103,30 @@ a {
   height: 80px;
 }
 
+#tagCloud {
+  display: none;
+  flex-flow: wrap;
+  align-content: flex-start
+}
+
+#sourceCloud {
+  display: flex;
+  flex-flow: column;
+  align-content: flex-start
+}
+
 @media (min-width: 768px) {
-  body {
-    margin: auto;
-    width: 70%;
+  .clouds {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    margin: 5px 0;
   }
 
-  #sourceCloud {
-    position: absolute;
-    top: 1em;
-    left: 10px;
-    width: 365px;
-    overflow: hidden;
+  .cloud {
+    flex: 1;
+    border: 1px solid gray;
+    margin: 2px;
+    padding: 10px;
   }
-
-  #ismList {
-    position: absolute;
-    top: 1em;
-    left: 376px;
-    width: 500px;
-    overflow: hidden;
-  }
-
-  #tagCloud {
-    padding-left: 2em;
-    position: absolute;
-    top: 1em;
-    left: 877px;
-    width: 400px;
-    overflow: hidden;
-  }
-
-  #footer {
-    margin: auto;
-    width: 70%;
-    text-align: center;
-  }
-
 }

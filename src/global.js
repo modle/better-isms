@@ -23,7 +23,9 @@ $(document).ready(function() {
   $("#ismList isms").on("click", "a.linkdeleteism", deleteIsm);
 
   $("#tagCloud").on("click", "a.linktagfilter", prepFilter);
+  $("#toggleTags").on("click", toggleTags);
   $("#sourceCloud").on("click", "a.linksourcefilter", prepFilter);
+  $("#toggleSources").on("click", toggleSources);
 
   // Key Events =============================================================
   $("#upsertIsmForm").keyup(function(event) {
@@ -114,12 +116,28 @@ function exportData() {
 
 function hideFooter() {
   var footer = document.getElementById("footer");
-  console.log(footer);
   footer.style.display = "none";
 }
 
 function showFooter() {
   var footer = document.getElementById("footer");
-  console.log(footer);
   footer.style.display = "block";
+}
+
+function toggleTags() {
+  let tagDiv = document.getElementById("tagCloud");
+  if (tagDiv.style.display === "none" || !tagDiv.style.display) {
+    tagDiv.style.display = "flex";
+  } else {
+    tagDiv.style.display = "none";
+  }
+}
+
+function toggleSources() {
+  let sourceDiv = document.getElementById("sourceCloud");
+  if (sourceDiv.style.display === "flex" || !sourceDiv.style.display) {
+    sourceDiv.style.display = "none";
+  } else {
+    sourceDiv.style.display = "flex";
+  }
 }

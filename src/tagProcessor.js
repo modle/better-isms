@@ -23,7 +23,7 @@ function generateTagCloud() {
   for (var tag of Array.from(Object.keys(tagCloudDict)).sort()) {
     var size = calculateTagSize(tag);
     tagCloud +=
-      '<span><a href="#" class="linktagfilter ' +
+      '<span class="tagSpan"><a href="#" class="linktagfilter ' +
       getNextTagColor() +
       " " +
       highlightIfFiltered(tag) +
@@ -32,7 +32,7 @@ function generateTagCloud() {
       '" style="font-size:' +
       size +
       'em">';
-    tagCloud += tag + "</a></span><span> </span>";
+    tagCloud += tag + "</a></span><span>&nbsp;</span>";
   }
   return tagCloud;
 }

@@ -5,6 +5,9 @@ function showLoggedInButtons() {
   showButton("newIsm");
   showButton("toTop");
   showButton("clearFilter");
+  showButton("toggleSources");
+  showButton("toggleTags");
+  showButton("toBottom");
   hideButton("login");
 }
 
@@ -15,6 +18,9 @@ function showLoggedOutButtons() {
   hideButton("newIsm");
   hideButton("toTop");
   hideButton("clearFilter");
+  hideButton("toggleSources");
+  hideButton("toggleTags");
+  hideButton("toBottom");
   showButton("login");
 }
 

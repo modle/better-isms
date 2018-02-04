@@ -13,16 +13,19 @@ $(document).ready(function() {
   $("#btnShowBulkAddIsm").on("click", openBulkAddIsmForm);
   $("#btnSubmitBulkAddIsm").on("click", bulkUpsertIsms);
   $("#btnUpsertIsm").on("click", upsertIsm);
+  $("#saveAndNext").on("click", updateTagmeIsm);
   $("#moreFields").on("click", toggleOptionalFields);
 
   $(".hideModals").on("click", hideAllModals);
   $("#clearFilter").on("click", clearFilter);
+  $("#quitIsmUpdate").on("click", stopTagmeUpdate);
 
   $("#ismList isms").on("click", "a.linkeditism", populateIsmFields);
   $("#ismList isms").on("click", "a.linkdeleteism", deleteIsm);
 
   $("#tagCloud").on("click", "a.linktagfilter", prepFilter);
   $("#toggleTags").on("click", toggleTags);
+  $("#untagged").on("click", processUntagged);
   $("#sourceCloud").on("click", "a.linksourcefilter", prepFilter);
   $("#toggleSources").on("click", toggleSources);
 
@@ -151,4 +154,14 @@ function showElement(elementClass) {
 
 function setText(elementClass, text) {
   $("#" + elementClass).text(text);
+}
+
+function processUntagged() {
+  getTagmeIsms();
+}
+
+function stopTagmeUpdate() {
+  untaggedIsms = undefined;
+  hideAllModals();
+  clearFilter();
 }

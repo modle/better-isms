@@ -97,9 +97,8 @@ function populateIsmFields(event) {
 
   // Inject the current values into the appropriate fields
   // consider setting a div to sourceIsms.title instead of populating a field; we don't want to update the title here
-  $("#upsertIsmForm #sourceTitle").text(
-    sourceIsms.title + " (" + sourceIsms.author + ")"
-  );
+  $("#currentSource").text(sourceIsms.title + " (" + sourceIsms.author + ")");
+
   $("#upsertIsmForm fieldset input#inputNumber").val(thisIsmObject.number);
   $("#upsertIsmForm fieldset input#inputTags").val(joinedTags);
   $("#upsertIsmForm fieldset textarea#inputQuote").val(thisIsmObject.quote);
@@ -107,6 +106,6 @@ function populateIsmFields(event) {
     thisIsmObject.comments
   );
   $("#upsertIsmForm fieldset button#btnUpsertIsm").val(thisSource);
-
+  console.log(thisSource);
   console.log("exiting populateIsmFields");
 }

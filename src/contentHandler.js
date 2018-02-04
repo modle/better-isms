@@ -29,7 +29,7 @@ function addIsmDiv(source, details, tags) {
   divContent += '<span class="quote field">' + details.quote + "</span> | ";
   divContent += '<span class="comment field">' + comments + "</span> | ";
   divContent +=
-    '<a href="#" class="linkupdateism" rel="' +
+    '<a href="#" class="linkeditism" rel="' +
     source._id +
     ":" +
     details._id +

@@ -9,16 +9,16 @@ $(document).ready(function() {
   $("#addSource").on("click", addSource);
   $("#btnSubmitUpsertSource").on("click", upsertSource);
 
-  $("#sourceListDiv").on("click", "a.linksource", openNewIsmForm);
   $("#newIsm").on("click", openNewIsmForm);
   $("#btnShowBulkAddIsm").on("click", openBulkAddIsmForm);
   $("#btnSubmitBulkAddIsm").on("click", bulkUpsertIsms);
   $("#btnUpsertIsm").on("click", upsertIsm);
+  $("#moreFields").on("click", toggleOptionalFields);
 
   $(".hideModals").on("click", hideAllModals);
   $("#clearFilter").on("click", clearFilter);
 
-  $("#ismList isms").on("click", "a.linkupdateism", populateIsmFields);
+  $("#ismList isms").on("click", "a.linkeditism", populateIsmFields);
   $("#ismList isms").on("click", "a.linkdeleteism", deleteIsm);
 
   $("#tagCloud").on("click", "a.linktagfilter", prepFilter);
@@ -85,11 +85,11 @@ $(document).ready(function() {
   modals = document.getElementsByClassName("modal");
 
   // generate the isms on initial page load if user is logged in
-  hideButton("logout");
-  hideButton("login");
+  hideElement("logout");
+  hideElement("login");
   if (checkLoggedIn()) {
     generateContent("");
-    showButton("logout");
+    showElement("logout");
   } else {
     console.log("user is not logged in");
     promptUserToLogin();
@@ -139,4 +139,16 @@ function toggleSources() {
   } else {
     sourceDiv.style.display = "flex";
   }
+}
+
+function hideElement(elementClass) {
+  $("#" + elementClass).hide();
+}
+
+function showElement(elementClass) {
+  $("#" + elementClass).show();
+}
+
+function setText(elementClass, text) {
+  $("#" + elementClass).text(text);
 }

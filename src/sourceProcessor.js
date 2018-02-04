@@ -28,7 +28,7 @@ function generateSourceCloud() {
       "</a>";
     if (highlightIfFiltered(source[0])) {
       sourceCloud +=
-        '<button id="btnEditSource" class="submit-button" value="' +
+        ' <button id="btnEditSource" class="submit-button" value="' +
         source[0] +
         '" style="display: inline-block;" onClick="openUpsertSourceForm()">Edit</button>';
     }

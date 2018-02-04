@@ -4,18 +4,41 @@ function clearIsmFormFields() {
   $("#upsertIsmForm fieldset button#btnUpsertIsm").val("");
 }
 
+const showMoreFieldsText = 'Show More Fields';
+const showFewerFieldsText = 'Show Fewer Fields';
+function toggleOptionalFields() {
+  if ($('#moreFields').text() === showMoreFieldsText) {
+    showOptionalFields();
+  } else {
+    hideOptionalFields();
+  }
+}
+
+function showOptionalFields() {
+  showElement('moreFields');
+  setText('moreFields', showFewerFieldsText);
+  showElement('inputTags');
+  showElement('inputComments');
+}
+
+function hideOptionalFields() {
+  showElement('moreFields');
+  setText('moreFields', showMoreFieldsText);
+  hideElement('inputTags');
+  hideElement('inputComments');
+}
+
 function openNewIsmForm(event) {
   handleLogin();
   hideFooter();
+  hideOptionalFields();
   clearIsmFormFields();
   if (filter !== "source") {
     showModal(noSourceSelectedModal);
     return;
   }
   sourceId = filterId;
-  $("#upsertIsm #source").text(getSourceDisplayString(sourceId));
-  $("#btnClearIsm").show();
-  $("#btnUpsertIsm").text("Add Ism");
+  setText('btnUpsertIsm', 'Add Ism');
   $("#btnShowBulkAddIsm").val(sourceId);
   $("#upsertIsmForm fieldset button#btnUpsertIsm").val(sourceId);
   showModal(upsertIsmFormModal);
@@ -23,8 +46,9 @@ function openNewIsmForm(event) {
 }
 
 function setUpdateIsmFormElementText() {
-  $("#upsertIsmHeader").text("Update Ism");
-  $("#btnUpsertIsm").text("Update Ism");
+  let updateIsmText = 'Update Ism';
+  setText('upsertIsmHeader', updateIsmText);
+  setText('btnUpsertIsm', updateIsmText);
   $("#btnClearIsm").hide();
   showModal(upsertIsmFormModal);
   $("#inputNumber").focus();
@@ -66,6 +90,10 @@ function populateIsmFields(event) {
   } else {
     joinedTags = thisIsmObject.tags;
   }
+
+  hideElement('moreFields');
+  showElement('inputTags');
+  showElement('inputComments');
 
   // Inject the current values into the appropriate fields
   // consider setting a div to sourceIsms.title instead of populating a field; we don't want to update the title here

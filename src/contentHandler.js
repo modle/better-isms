@@ -105,7 +105,6 @@ function populateTagIsmForm() {
   console.log("exiting populateTagIsmForm");
 }
 
-
 function manageGetSourceListCall() {
   var url = "/isms/sourcelist/";
   $.ajax({

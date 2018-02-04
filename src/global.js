@@ -23,6 +23,7 @@ $(document).ready(function() {
 
   $("#tagCloud").on("click", "a.linktagfilter", prepFilter);
   $("#toggleTags").on("click", toggleTags);
+  $("#untagged").on("click", processUntagged);
   $("#sourceCloud").on("click", "a.linksourcefilter", prepFilter);
   $("#toggleSources").on("click", toggleSources);
 
@@ -151,4 +152,9 @@ function showElement(elementClass) {
 
 function setText(elementClass, text) {
   $("#" + elementClass).text(text);
+}
+
+function processUntagged() {
+  console.log('untagged time!');
+  getTagmeIsms();
 }

@@ -115,9 +115,9 @@ block content
       .modal-container
         #upsertIsmForm
           .form-container-wrapper
-            h1#source
-            button#btnShowBulkAddIsm.submit-button Bulk Add Instead
             fieldset.form-container
+              h1#currentSource
+              br
               span required
               br
               input#inputNumber(type='number', placeholder='page number', value='').form-field
@@ -125,7 +125,10 @@ block content
               span required
               br
               textarea#inputQuote(type='textarea', placeholder='quote or note', rows=10, value='').form-field
+              br
               button#moreFields.submit-button More
+              button#btnShowBulkAddIsm.submit-button Bulk Add Instead
+              br
               input#inputTags(type='text', placeholder='tags', value='').form-field
               br
               textarea#inputComments(type='textarea', placeholder='comments', rows=10, value='').form-field
@@ -133,6 +136,26 @@ block content
               button#btnUpsertIsm.submit-button Add Ism
               button.hideModals.submit-button Hide
     // /ISM FORM
+
+    // TAGME UPDATE FORM
+    .modal#tagmeUpdateFormModal
+      br
+      br
+      br
+      br
+      .modal-container
+        #updateTagmeForm
+          .form-container-wrapper
+            fieldset.form-container
+              h1#readonlySource
+              br
+              span#readonlyQuote
+              br
+              input#newTag(type='text', placeholder='tags').form-field
+              br
+              button#saveAndNext.submit-button Save & Next
+              button#Quit.submit-button Quit
+    // /TAGME UPDATE FORM
 
     .clouds
       // THE CLOUDS
@@ -159,6 +182,7 @@ block content
     button#clearFilter.submit-button(title='clear tag or source') Clear
     button#toggleSources.submit-button(title='toggle sources') Sources
     button#toggleTags.submit-button(title='toggle tags') Tags
+    button#untagged.submit-button(title='displays random ism with the tagme tag, for updating') Untagged
     button#export.submit-button Export
     button#logout.submit-button Logout
     button#login.submit-button Login

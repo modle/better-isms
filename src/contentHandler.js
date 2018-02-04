@@ -1,4 +1,5 @@
 var updateClouds = false;
+var untaggedIsms = undefined;
 
 function clearIsmDivs() {
   setIsmsList("");
@@ -72,6 +73,38 @@ function manageGetIsmListCall(url) {
     setTagCloud(tagCloud);
   });
 }
+
+function getTagmeIsms() {
+  $.ajax({
+    type: "GET",
+    url: '/isms/ismlist/tag/tagme',
+    dataType: "JSON"
+  }).done(function(response) {
+    untaggedIsms = response;
+    kickOffTagmeUpdateForm();
+  });
+}
+
+function kickOffTagmeUpdateForm() {
+  console.log(untaggedIsms);
+  populateTagIsmForm();
+  showModal(tagmeUpdateFormModal);
+}
+
+function populateTagIsmForm() {
+  console.log("entering populateTagIsmForm");
+
+  // get random source, then random ism from that source
+  let source = untaggedIsms[Math.floor(Math.random() * untaggedIsms.length)];
+  let ism = source.isms[Math.floor(Math.random() * source.isms.length)];
+
+  // Inject the current values into the appropriate fields
+  $("#readonlySource").text(source.title + ' (' + source.author + ')');
+  $("#readonlyQuote").text(ism.quote);
+  $("#updateTagmeForm fieldset button#saveAndNext").val(source._id + ':' + ism._id);
+  console.log("exiting populateTagIsmForm");
+}
+
 
 function manageGetSourceListCall() {
   var url = "/isms/sourcelist/";

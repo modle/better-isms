@@ -86,9 +86,10 @@ function getTagmeIsms() {
 }
 
 function kickOffTagmeUpdateForm() {
-  console.log(untaggedIsms);
-  populateTagIsmForm();
-  showModal(tagmeUpdateFormModal);
+  clearAllForms();
+  if(populateTagIsmForm()) {
+    showModal(tagmeUpdateFormModal);
+  }
 }
 
 function populateTagIsmForm() {
@@ -96,6 +97,12 @@ function populateTagIsmForm() {
 
   // get random source, then random ism from that source
   let source = untaggedIsms[Math.floor(Math.random() * untaggedIsms.length)];
+  if (!source) {
+    console.log('no tags to update, aborting');
+    showModal(noTagmeIsmsToast);
+    hideModalAfterAWhile(noTagmeIsmsToast);
+    return false;
+  }
   let ism = source.isms[Math.floor(Math.random() * source.isms.length)];
 
   // Inject the current values into the appropriate fields

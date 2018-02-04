@@ -157,52 +157,12 @@ function setText(elementClass, text) {
 }
 
 function processUntagged() {
-  console.log('untagged time!');
   getTagmeIsms();
 }
 
 function stopTagmeUpdate() {
   untaggedIsms = undefined;
   hideAllModals();
-}
-
-function updateTagmeIsm(event) {
-  let buttonValue = $("#updateTagmeForm fieldset button#saveAndNext").val();
-  let theSourceId = buttonValue.split(":")[0];
-  let theIsmId = buttonValue.split(":")[1];
-  let source = untaggedIsms.find(aSource => aSource._id === theSourceId);
-  let ism = source.isms.find(anIsm => anIsm._id === theIsmId);
-  ism.tags = Array.from(
-    $("#updateTagmeForm fieldset input#newTags")
-      .val()
-      .trim()
-      .toLowerCase()
-      .split(/\s*,\s*/)
-  );
-  let url = "/isms/updateism/" + buttonValue.replace(":", "/");
-  $.ajax({
-    type: "PUT",
-    data: ism,
-    url: url,
-    dataType: "JSON"
-  }).done(function(response) {
-    if (response.msg === "") {
-      removeIsmFromUntaggedList(theSourceId, theIsmId);
-      kickOffTagmeUpdateForm();
-    } else {
-      alert("Error: " + response.msg);
-    }
-  });
-}
-
-function removeIsmFromUntaggedList(sourceId, ismId) {
-  let sourceIndex = untaggedIsms.findIndex(aSource => aSource._id === sourceId);
-  let ismIndex = untaggedIsms[sourceIndex].isms.findIndex(anIsm => anIsm._id === ismId);
-  console.log(untaggedIsms);
-  // they're updating, but the splicing is not working; can't find with sourceIndex
-  // if (sourceIndex > -1 && ismIndex > -1) {
-  //   untaggedIsms[sourceIndex].tags.splice(ismIndex, 1);
-  //   console.log(theIsms);
-  // }
-  // console.log(untaggedIsms);
+  updateClouds = true;
+  generateContent();
 }

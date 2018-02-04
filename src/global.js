@@ -163,6 +163,5 @@ function processUntagged() {
 function stopTagmeUpdate() {
   untaggedIsms = undefined;
   hideAllModals();
-  updateClouds = true;
-  generateContent();
+  clearFilter();
 }

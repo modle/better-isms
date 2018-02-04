@@ -75,41 +75,51 @@ function manageGetIsmListCall(url) {
 }
 
 function getTagmeIsms() {
+  console.log("entering getTagmeIsms");
   $.ajax({
     type: "GET",
     url: '/isms/ismlist/tag/tagme',
     dataType: "JSON"
   }).done(function(response) {
     untaggedIsms = response;
+    console.log(untaggedIsms);
     kickOffTagmeUpdateForm();
   });
+  console.log("exiting getTagmeIsms");
 }
 
 function kickOffTagmeUpdateForm() {
+  console.log("entering kickOffTagmeUpdateForm");
   clearAllForms();
   if(populateTagIsmForm()) {
+    hideFooter();
     showModal(tagmeUpdateFormModal);
+    $("#newTags").focus();
   }
+  console.log("exiting kickOffTagmeUpdateForm");
 }
 
 function populateTagIsmForm() {
   console.log("entering populateTagIsmForm");
-
   // get random source, then random ism from that source
   let source = untaggedIsms[Math.floor(Math.random() * untaggedIsms.length)];
+  console.log(source);
   if (!source) {
-    console.log('no tags to update, aborting');
+    console.log('no more tags to update, aborting');
+    hideAllModals();
+    clearFilter();
     showModal(noTagmeIsmsToast);
     hideModalAfterAWhile(noTagmeIsmsToast);
     return false;
   }
   let ism = source.isms[Math.floor(Math.random() * source.isms.length)];
-
+  console.log(ism);
   // Inject the current values into the appropriate fields
-  $("#readonlySource").text(source.title + ' (' + source.author + ')');
-  $("#readonlyQuote").text(ism.quote);
+  $("#readonly-source").text(source.title + ' (' + source.author + ')');
+  $("#updateTagmeForm fieldset textarea#readonly-quote").val(ism.quote);
   $("#updateTagmeForm fieldset button#saveAndNext").val(source._id + ':' + ism._id);
   console.log("exiting populateTagIsmForm");
+  return true;
 }
 
 function manageGetSourceListCall() {

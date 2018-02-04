@@ -158,14 +158,14 @@ block content
         #updateTagmeForm
           .form-container-wrapper
             fieldset.form-container
-              h1#readonlySource
-              br
-              span#readonlyQuote
+              h2#readonly-source.readonly-field
               br
               input#newTags(type='text', placeholder='tags').form-field
               br
               button#saveAndNext.submit-button Save & Next
               button#quitIsmUpdate.submit-button Quit
+              br
+              textarea#readonly-quote(rows=10 readonly).readonly-field
     // /TAGME UPDATE FORM
 
     .clouds

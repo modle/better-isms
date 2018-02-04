@@ -146,12 +146,16 @@ function updateTagmeIsm(event) {
 
 function removeIsmFromUntaggedList(sourceId, ismId) {
   let sourceIndex = untaggedIsms.findIndex(aSource => aSource._id === sourceId);
-  if (sourceIndex > -1 && untaggedIsms[sourceIndex.isms.length] < 1) {
+  if (sourceIndex > -1 && untaggedIsms[sourceIndex].isms < 1) {
     untaggedIsms.splice(sourceIndex, 1);
     return;
   }
   let ismIndex = untaggedIsms[sourceIndex].isms.findIndex(anIsm => anIsm._id === ismId);
   if (ismIndex > -1) {
     untaggedIsms[sourceIndex].isms.splice(ismIndex, 1);
+  }
+  if (untaggedIsms[sourceIndex].isms < 1) {
+    untaggedIsms.splice(sourceIndex, 1);
+    return;
   }
 }

@@ -14,7 +14,6 @@ $(document).ready(function() {
   $("#btnShowBulkAddIsm").on("click", openBulkAddIsmForm);
   $("#btnSubmitBulkAddIsm").on("click", bulkUpsertIsms);
   $("#btnUpsertIsm").on("click", upsertIsm);
-  $("#btnClearIsm").on("click", clearIsm);
 
   $(".hideModals").on("click", hideAllModals);
   $("#clearFilter").on("click", clearFilter);

@@ -4,13 +4,6 @@ function clearIsmFormFields() {
   $("#upsertIsmForm fieldset button#btnUpsertIsm").val("");
 }
 
-function clearIsm(event) {
-  event.preventDefault();
-  console.log("clear ism clicked!");
-  clearIsmFormFields();
-  console.log("exiting clearIsm");
-}
-
 function openNewIsmForm(event) {
   handleLogin();
   hideFooter();

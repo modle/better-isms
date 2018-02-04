@@ -112,3 +112,50 @@ function bulkUpsertIsms(event) {
   hideAllModals();
   console.log("exiting bulkUpsertIsms");
 }
+
+function updateTagmeIsm(event) {
+  console.log("entering updateTagmeIsm");
+  let buttonValue = $("#updateTagmeForm fieldset button#saveAndNext").val();
+  let theSourceId = buttonValue.split(":")[0];
+  let theIsmId = buttonValue.split(":")[1];
+  let source = untaggedIsms.find(aSource => aSource._id === theSourceId);
+  let ism = source.isms.find(anIsm => anIsm._id === theIsmId);
+  ism.tags = Array.from(
+    $("#updateTagmeForm fieldset input#newTags")
+      .val()
+      .trim()
+      .toLowerCase()
+      .split(/\s*,\s*/)
+  );
+  let url = "/isms/updateism/" + buttonValue.replace(":", "/");
+  $.ajax({
+    type: "PUT",
+    data: ism,
+    url: url,
+    dataType: "JSON"
+  }).done(function(response) {
+    if (response.msg === "") {
+      removeIsmFromUntaggedList(theSourceId, theIsmId);
+      kickOffTagmeUpdateForm();
+    } else {
+      alert("Error: " + response.msg);
+    }
+  });
+  console.log("exiting updateTagmeIsm");
+}
+
+function removeIsmFromUntaggedList(sourceId, ismId) {
+  let sourceIndex = untaggedIsms.findIndex(aSource => aSource._id === sourceId);
+  if (sourceIndex > -1 && untaggedIsms[sourceIndex].isms < 1) {
+    untaggedIsms.splice(sourceIndex, 1);
+    return;
+  }
+  let ismIndex = untaggedIsms[sourceIndex].isms.findIndex(anIsm => anIsm._id === ismId);
+  if (ismIndex > -1) {
+    untaggedIsms[sourceIndex].isms.splice(ismIndex, 1);
+  }
+  if (untaggedIsms[sourceIndex].isms < 1) {
+    untaggedIsms.splice(sourceIndex, 1);
+    return;
+  }
+}

@@ -1,7 +1,7 @@
 var filter = "";
 var filterId = "";
 
-function clearFilter(event) {
+function clearFilter() {
   filter = "";
   filterId = "";
   generateContent();

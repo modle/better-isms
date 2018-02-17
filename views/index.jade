@@ -148,6 +148,26 @@ block content
               button.hideModals.submit-button Hide
     // /ISM FORM
 
+    // UNCOMMENTED UPDATE FORM
+    .modal#uncommentedUpdateFormModal
+      br
+      br
+      br
+      br
+      .modal-container
+        #updateUncommentedForm
+          .form-container-wrapper
+            fieldset.form-container
+              h2#readonly-source.readonly-field
+              br
+              textarea#newComments(type='textarea', placeholder='comments', rows=10, value='').form-field
+              br
+              button#saveAndNextUncommented.submit-button Save & Next
+              button#quitUncommentedUpdate.submit-button Quit
+              br
+              textarea#readonly-quote(rows=10 readonly).readonly-field
+    // /UNCOMMENTED UPDATE FORM
+
     // TAGME UPDATE FORM
     .modal#tagmeUpdateFormModal
       br
@@ -162,7 +182,7 @@ block content
               br
               input#newTags(type='text', placeholder='tags').form-field
               br
-              button#saveAndNext.submit-button Save & Next
+              button#saveAndNextTag.submit-button Save & Next
               button#quitIsmUpdate.submit-button Quit
               br
               textarea#readonly-quote(rows=10 readonly).readonly-field
@@ -194,6 +214,7 @@ block content
     button#toggleSources.submit-button(title='toggle sources') Sources
     button#toggleTags.submit-button(title='toggle tags') Tags
     button#untagged.submit-button(title='displays random ism with the tagme tag, for updating') Untagged
+    button#uncommented.submit-button(title='displays random ism with no comments, for updating') Uncommented
     button#export.submit-button Export
     button#logout.submit-button Logout
     button#login.submit-button Login

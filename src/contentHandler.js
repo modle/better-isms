@@ -1,5 +1,7 @@
+var cachedIsms = {};
 var updateClouds = false;
 var untaggedIsms = undefined;
+var uncommentedIsms = undefined;
 
 function clearIsmDivs() {
   setIsmsList("");
@@ -52,12 +54,13 @@ function setIsmsList(ismDivs) {
 
 function manageGetIsmListCall(url) {
   ismDivs = generateIsmHeaders();
+  cachedIsms = {}
   $.ajax({
     type: "GET",
     url: url,
     dataType: "JSON"
   }).done(function(response) {
-    ismListData = response;
+    cachedIsms = response;
     $.each(response, function() {
       var source = this;
       source.isms.forEach(function(ism) {
@@ -74,6 +77,81 @@ function manageGetIsmListCall(url) {
   });
 }
 
+function getIsmsWithoutComments() {
+  console.log("entering getIsmsWithoutComments");
+  console.log("logging cached isms");
+  console.log(cachedIsms[0]);
+  // FIXME this isn't copying; the references of the objects in the list are still the same; need a deep copy
+  // but it will work for now
+  uncommentedIsms = cachedIsms.slice();
+  // the arrays themselves are different objects, but the objects inside have the same references
+  console.log(uncommentedIsms === cachedIsms);
+  // remove isms with comments from uncommentedIsms
+  uncommentedIsms.map((source, sourceIndex) =>
+    source.isms.map((ism, ismIndex) =>
+      ism.comments === "" ? null : source.isms.splice(ismIndex, 1)
+    )
+  );
+  kickOffCommentUpdateForm();
+  console.log("exiting getIsmsWithoutComments");
+}
+
+function kickOffCommentUpdateForm() {
+  console.log("entering kickOffCommentUpdateForm");
+  clearAllForms();
+  if(populateCommentIsmForm()) {
+    hideFooter();
+    showModal(uncommentedUpdateFormModal);
+    $("#newComments").focus();
+  }
+  console.log("exiting kickOffCommentUpdateForm");
+}
+
+function populateCommentIsmForm() {
+  console.log("entering populateCommentIsmForm");
+  const formId = 'updateUncommentedForm';
+  const type = 'uncommented';
+  console.log("exiting populateCommentIsmForm");
+  return populateIsmForm(type, uncommentedIsms, formId);
+}
+
+function populateIsmForm(type, isms, formId) {
+  console.log("entering populateIsmForm");
+  // get random source, then random ism from that source
+  let source = getRandomSource(isms);
+  if (!source) {
+    terminateIsmUpdate(type);
+    return false;
+  }
+  let ism = getRandomIsm(source);
+  injectIsmIntoForm(source, ism, formId);
+  console.log("exiting populateIsmForm");
+  return true;
+}
+
+function injectIsmIntoForm(source, ism, form) {
+  $("#readonly-source").text(source.title + ' (' + source.author + ')');
+  $("#" + form + " fieldset textarea#readonly-quote").val(ism.quote);
+  $("#" + form + " fieldset button#saveAndNextTag").val(source._id + ':' + ism._id);
+}
+
+function terminateIsmUpdate(type) {
+  console.log('no more ' + type + ' to update, aborting');
+  hideAllModals();
+  clearFilter();
+  generateContent();
+  showModal(noTagmeIsmsToast);
+  hideModalAfterAWhile(noTagmeIsmsToast);
+}
+
+function getRandomSource(sources) {
+  return sources[Math.floor(Math.random() * sources.length)];
+}
+
+function getRandomIsm(source) {
+  return source.isms[Math.floor(Math.random() * source.isms.length)];
+}
+
 function getTagmeIsms() {
   console.log("entering getTagmeIsms");
   $.ajax({
@@ -82,7 +160,6 @@ function getTagmeIsms() {
     dataType: "JSON"
   }).done(function(response) {
     untaggedIsms = response;
-    console.log(untaggedIsms);
     kickOffTagmeUpdateForm();
   });
   console.log("exiting getTagmeIsms");
@@ -101,26 +178,10 @@ function kickOffTagmeUpdateForm() {
 
 function populateTagIsmForm() {
   console.log("entering populateTagIsmForm");
-  // get random source, then random ism from that source
-  let source = untaggedIsms[Math.floor(Math.random() * untaggedIsms.length)];
-  console.log(source);
-  if (!source) {
-    console.log('no more tags to update, aborting');
-    hideAllModals();
-    clearFilter();
-    generateContent();
-    showModal(noTagmeIsmsToast);
-    hideModalAfterAWhile(noTagmeIsmsToast);
-    return false;
-  }
-  let ism = source.isms[Math.floor(Math.random() * source.isms.length)];
-  console.log(ism);
-  // Inject the current values into the appropriate fields
-  $("#readonly-source").text(source.title + ' (' + source.author + ')');
-  $("#updateTagmeForm fieldset textarea#readonly-quote").val(ism.quote);
-  $("#updateTagmeForm fieldset button#saveAndNext").val(source._id + ':' + ism._id);
+  const formId = 'updateTagmeForm';
+  const type = 'tags';
   console.log("exiting populateTagIsmForm");
-  return true;
+  return populateIsmForm(type, untaggedIsms, formId);
 }
 
 function manageGetSourceListCall() {
@@ -161,9 +222,9 @@ function prepClouds() {
 function generateContent() {
   console.log("entering generateIsmDivs");
   handleLogin();
-  url = determineIsmQueryUrl();
   prepClouds();
   manageGetSourceListCall();
+  url = determineIsmQueryUrl();
   manageGetIsmListCall(url);
   console.log("exiting generateIsmDivs");
 }

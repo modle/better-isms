@@ -113,13 +113,24 @@ function bulkUpsertIsms(event) {
   console.log("exiting bulkUpsertIsms");
 }
 
+function updateUncommentedIsm(event) {
+  console.log("entering updateUncommentedIsm");
+  // TODO implement me
+  // The only difference between this and updateUncommentedIsm is that instead of
+  // getting tags from the form and adding them to the ism, we use the current tags
+  // and we get the comments from the form instead of using the current comments
+  console.log("exiting updateUncommentedIsm");
+}
+
 function updateTagmeIsm(event) {
   console.log("entering updateTagmeIsm");
-  let buttonValue = $("#updateTagmeForm fieldset button#saveAndNext").val();
+  let buttonValue = $("#updateTagmeForm fieldset button#saveAndNextTag").val();
+  console.log(buttonValue);
   let theSourceId = buttonValue.split(":")[0];
   let theIsmId = buttonValue.split(":")[1];
   let source = untaggedIsms.find(aSource => aSource._id === theSourceId);
   let ism = source.isms.find(anIsm => anIsm._id === theIsmId);
+  // TODO pull ism.tags out into a function
   ism.tags = Array.from(
     $("#updateTagmeForm fieldset input#newTags")
       .val()
@@ -144,18 +155,25 @@ function updateTagmeIsm(event) {
   console.log("exiting updateTagmeIsm");
 }
 
+
 function removeIsmFromUntaggedList(sourceId, ismId) {
+  // TODO does oneEntry make sense for all uses of it? It's working.
+  const oneEntry = 1;
   let sourceIndex = untaggedIsms.findIndex(aSource => aSource._id === sourceId);
-  if (sourceIndex > -1 && untaggedIsms[sourceIndex].isms < 1) {
-    untaggedIsms.splice(sourceIndex, 1);
+  // what is happening here?
+  // if this is the only one left, remove it and return
+  if (sourceIndex > -1 && untaggedIsms[sourceIndex].isms.length === oneEntry) {
+    untaggedIsms.splice(sourceIndex, oneEntry);
     return;
   }
   let ismIndex = untaggedIsms[sourceIndex].isms.findIndex(anIsm => anIsm._id === ismId);
   if (ismIndex > -1) {
-    untaggedIsms[sourceIndex].isms.splice(ismIndex, 1);
+    untaggedIsms[sourceIndex].isms.splice(ismIndex, oneEntry);
   }
-  if (untaggedIsms[sourceIndex].isms < 1) {
-    untaggedIsms.splice(sourceIndex, 1);
+  // TODO this is the same as the above code, only we're not checking sourceIndex; refactor
+  // remove source if it no longer has isms to update
+  if (untaggedIsms[sourceIndex].isms.length < oneEntry) {
+    untaggedIsms.splice(sourceIndex, oneEntry);
     return;
   }
 }

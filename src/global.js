@@ -13,7 +13,7 @@ $(document).ready(function() {
   $("#btnShowBulkAddIsm").on("click", openBulkAddIsmForm);
   $("#btnSubmitBulkAddIsm").on("click", bulkUpsertIsms);
   $("#btnUpsertIsm").on("click", upsertIsm);
-  $("#saveAndNext").on("click", updateTagmeIsm);
+  $("#saveAndNextComment").on("click", updateUncommentedIsm);
   $("#moreFields").on("click", toggleOptionalFields);
 
   $(".hideModals").on("click", hideAllModals);
@@ -23,9 +23,14 @@ $(document).ready(function() {
   $("#ismList isms").on("click", "a.linkeditism", populateIsmFields);
   $("#ismList isms").on("click", "a.linkdeleteism", deleteIsm);
 
+  $("#untagged").on("click", processUntagged);
+  $("#saveAndNextTag").on("click", updateTagmeIsm);
+
+  $("#uncommented").on("click", processUncommented);
+  $("#saveAndNextComment").on("click", updateUncommentedIsm);
+
   $("#tagCloud").on("click", "a.linktagfilter", prepFilter);
   $("#toggleTags").on("click", toggleTags);
-  $("#untagged").on("click", processUntagged);
   $("#sourceCloud").on("click", "a.linksourcefilter", prepFilter);
   $("#toggleSources").on("click", toggleSources);
 
@@ -104,9 +109,8 @@ function exportData() {
   handleLogin();
   var txtFile = "test.txt";
   var file = new File([""], txtFile);
-  var str = JSON.stringify(ismListData);
+  var str = JSON.stringify(cachedIsms);
   var dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(str);
-
 
   var link = document.createElement("a");
   link.setAttribute("href", dataUri);
@@ -158,6 +162,10 @@ function setText(elementClass, text) {
 
 function processUntagged() {
   getTagmeIsms();
+}
+
+function processUncommented() {
+  getIsmsWithoutComments();
 }
 
 function stopTagmeUpdate() {

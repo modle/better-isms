@@ -1,26 +1,30 @@
 function showLoggedInButtons() {
-  showElement("logout");
-  showElement("export");
-  showElement("addSource");
   showElement("newIsm");
+  showElement("addSource");
   showElement("toTop");
+  showElement("toBottom");
   showElement("clearFilter");
   showElement("toggleSources");
   showElement("toggleTags");
-  showElement("toBottom");
+  showElement("untagged");
+  showElement("uncommented");
+  showElement("export");
+  showElement("logout");
   hideElement("login");
 }
 
 function showLoggedOutButtons() {
-  hideElement("logout");
-  hideElement("export");
-  hideElement("addSource");
   hideElement("newIsm");
+  hideElement("addSource");
   hideElement("toTop");
-  hideElement("clearFilter");
+  hideElement("toBottom");
   hideElement("toggleSources");
   hideElement("toggleTags");
-  hideElement("toBottom");
+  hideElement("untagged");
+  hideElement("uncommented");
+  hideElement("clearFilter");
+  hideElement("export");
+  hideElement("logout");
   showElement("login");
 }
 

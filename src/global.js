@@ -164,4 +164,5 @@ function stopTagmeUpdate() {
   untaggedIsms = undefined;
   hideAllModals();
   clearFilter();
+  generateContent();
 }

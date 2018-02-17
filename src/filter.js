@@ -2,11 +2,7 @@ var filterType = "";
 var filterId = "";
 
 function clearFilter() {
-<<<<<<< HEAD
-  filter = "";
-=======
   filterType = "";
->>>>>>> master
   filterId = "";
 }
 

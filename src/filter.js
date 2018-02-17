@@ -1,19 +1,22 @@
-var filter = "";
+var filterType = "";
 var filterId = "";
 
 function clearFilter() {
+<<<<<<< HEAD
   filter = "";
+=======
+  filterType = "";
+>>>>>>> master
   filterId = "";
-  generateContent();
 }
 
 function prepFilter(event) {
   filterId = $(this).attr("rel");
   eventClasses = $(this).attr("class");
   if (eventClasses.includes("linksourcefilter")) {
-    filter = "source";
+    filterType = "source";
   } else if (eventClasses.includes("linktagfilter")) {
-    filter = "tag";
+    filterType = "tag";
   }
   generateContent();
 }

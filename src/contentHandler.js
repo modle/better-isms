@@ -108,6 +108,7 @@ function populateTagIsmForm() {
     console.log('no more tags to update, aborting');
     hideAllModals();
     clearFilter();
+    generateContent();
     showModal(noTagmeIsmsToast);
     hideModalAfterAWhile(noTagmeIsmsToast);
     return false;
@@ -141,15 +142,15 @@ function manageGetSourceListCall() {
 
 function determineIsmQueryUrl() {
   url = "/isms/ismlist/";
-  if (filter) {
-    url += filter + "/" + filterId;
+  if (filterType) {
+    url += filterType + "/" + filterId;
   }
   return url;
 }
 
 function prepClouds() {
   updateClouds = false;
-  if (!filter) {
+  if (!filterType) {
     tagCloudDict = {};
     sourceCloudList = [];
     sourceCloudIds = [];

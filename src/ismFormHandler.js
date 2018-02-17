@@ -33,7 +33,7 @@ function openNewIsmForm(event) {
   hideFooter();
   hideOptionalFields();
   clearIsmFormFields();
-  if (filter !== "source") {
+  if (filterType !== "source") {
     showModal(noSourceSelectedModal);
     return;
   }

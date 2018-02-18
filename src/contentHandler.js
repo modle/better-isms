@@ -1,20 +1,11 @@
-// TODO: change this to a globals dict
-// var globals = {};
+// TODO: Add these to the global dict
 // globals.cachedIsms = {};
 // globals.updateClouds = false;
-// globals.targetIsms = undefined;
-// globals.currentlyUpdating = undefined;
 var cachedIsms = {};
 var updateClouds = false;
-var targetIsms = undefined;
-var currentlyUpdating = undefined;
 
 function clearIsmDivs() {
   setIsmsList("");
-}
-
-function resetUpdateTracker() {
-  currentlyUpdating = undefined;
 }
 
 function generateIsmHeaders() {
@@ -64,7 +55,6 @@ function setIsmsList(ismDivs) {
 
 function manageGetIsmListCall(url) {
   ismDivs = generateIsmHeaders();
-  cachedIsms = {}
   $.ajax({
     type: "GET",
     url: url,
@@ -89,8 +79,7 @@ function manageGetIsmListCall(url) {
 
 function getIsmsWithoutComments() {
   console.log("entering getIsmsWithoutComments");
-  targetIsms = cachedIsms.filter( source => source.isms.length > 0 );
-  kickOffCommentUpdateForm();
+  globals.targetIsms = cachedIsms.filter( source => source.isms.length > 0 );
   console.log("exiting getIsmsWithoutComments");
 }
 
@@ -105,10 +94,10 @@ function kickOffUpdateForm(type) {
 function kickOffCommentUpdateForm() {
   console.log("entering kickOffCommentUpdateForm");
   clearAllForms();
-  if(populateCommentIsmForm() && targetIsms.length > 0) {
+  if(populateCommentIsmForm() && globals.targetIsms.length > 0) {
     hideFooter();
     showModal(uncommentedUpdateFormModal);
-    currentlyUpdating = 'uncommented';
+    globals.currentlyUpdating = 'uncommented';
     $("#newComments").focus();
   }
   console.log("exiting kickOffCommentUpdateForm");
@@ -125,7 +114,7 @@ function populateCommentIsmForm() {
 function populateIsmForm(type, formId) {
   console.log("entering populateIsmForm");
   // get random source, then random ism from that source
-  let source = getRandomSource(targetIsms);
+  let source = getRandomSource(globals.targetIsms);
   if (!source) {
     terminateIsmUpdate(type);
     return false;
@@ -136,9 +125,9 @@ function populateIsmForm(type, formId) {
   }
   if (type === 'uncommented' && ism.comments !== '') {
     console.log('ism already commented: ', ism.comments, "; ism is: ", ism);
-    let sourceIndex = targetIsms.findIndex(aSource => aSource._id === source._id);
-    let ismIndex = targetIsms[sourceIndex].isms.findIndex(anIsm => anIsm._id === ism._id);
-    targetIsms[sourceIndex].isms.splice(ismIndex, 1);
+    let sourceIndex = globals.targetIsms.findIndex(aSource => aSource._id === source._id);
+    let ismIndex = globals.targetIsms[sourceIndex].isms.findIndex(anIsm => anIsm._id === ism._id);
+    globals.targetIsms[sourceIndex].isms.splice(ismIndex, 1);
     removeSourceIfIsmsIsEmpty(sourceIndex);
     populateCommentIsmForm();
     return true;
@@ -175,13 +164,18 @@ function injectIsmIntoForm(type, source, ism, form) {
 
 function getTagmeIsms() {
   console.log("entering getTagmeIsms");
+  // TODO decide whether a call is needed here
+  // on one hand, using mongo to do the filtering for us makes this really simple
+  // on the other, we have to make a call to the DB, when we could just Array.filter the cachedIsms
+  // the way we handle the uncommented isms; but this means we would have to remove already-tagged
+  // isms as we come to them, rather than knowing the list we're using has all untagged isms
   $.ajax({
     type: "GET",
     url: '/isms/ismlist/tag/tagme',
     dataType: "JSON"
   }).done(function(response) {
-    targetIsms = response;
-    kickOffTagmeUpdateForm();
+    globals.targetIsms = response;
+    kickOffUpdateForm('untagged');
   });
   console.log("exiting getTagmeIsms");
 }
@@ -192,7 +186,7 @@ function kickOffTagmeUpdateForm() {
   if(populateTagIsmForm()) {
     hideFooter();
     showModal(tagmeUpdateFormModal);
-    currentlyUpdating = 'untagged';
+    globals.currentlyUpdating = 'untagged';
     $("#newTags").focus();
   }
   console.log("exiting kickOffTagmeUpdateForm");

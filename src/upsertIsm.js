@@ -64,9 +64,12 @@ function upsertIsm(event) {
   console.log("exiting upsertIsm");
 }
 
-function buildTags(tagString) {
+function buildTags(tags) {
+  if (Array.isArray(tags)) {
+    return tags;
+  }
   return Array.from(
-    tagString
+    tags
     .trim()
     .toLowerCase()
     .split(/\s*,\s*/)
@@ -117,7 +120,7 @@ function bulkUpsertIsms(event) {
 }
 
 function updateIsmSingleField(event) {
-  console.log("entering updateTagmeIsm");
+  console.log("entering updateIsmSingleField");
   let ids = getIdsFromButton();
   let ism = getIsm(ids);
   let url = "/isms/updateism/" + ids.sourceId + "/" + ids.ismId;
@@ -135,14 +138,14 @@ function updateIsmSingleField(event) {
       resetUpdateTracker();
     }
   });
-  console.log("exiting updateTagmeIsm");
+  console.log("exiting updateIsmSingleField");
 }
 
 function getIdsFromButton() {
   let buttonValues = [];
-  if (currentlyUpdating === 'uncommented') {
+  if (globals.currentlyUpdating === 'uncommented') {
     buttonValues = $("#updateUncommentedForm fieldset button#save-and-next-uncommented").val().split(":");
-  } else if (currentlyUpdating === 'untagged') {
+  } else if (globals.currentlyUpdating === 'untagged') {
     buttonValues = $("#updateTagmeForm fieldset button#save-and-next-untagged").val().split(":");
   }
   let theSourceId = buttonValues[0];
@@ -153,9 +156,9 @@ function getIdsFromButton() {
 
 function getIsm(ids) {
   let ism = getIsmFromSource(ids);
-  if (currentlyUpdating === 'untagged') {
+  if (globals.currentlyUpdating === 'untagged') {
     ism.tags = getTagsFromForm();
-  } else if (currentlyUpdating === 'uncommented') {
+  } else if (globals.currentlyUpdating === 'uncommented') {
     ism.comments = getCommentFromForm();
     // this is needed because the post expects an array, but the object stores a string for single tags
     ism.tags = buildTags(ism.tags);
@@ -164,7 +167,7 @@ function getIsm(ids) {
 }
 
 function getIsmFromSource(ids) {
-  let source = targetIsms.find(aSource => aSource._id === ids.sourceId);
+  let source = globals.targetIsms.find(aSource => aSource._id === ids.sourceId);
   return source.isms.find(anIsm => anIsm._id === ids.ismId);
 }
 
@@ -177,17 +180,17 @@ function getCommentFromForm() {
 }
 
 function removeIsmFromList(sourceId, ismId) {
-  let sourceIndex = targetIsms.findIndex(aSource => aSource._id === sourceId);
-  let ismIndex = targetIsms[sourceIndex].isms.findIndex(anIsm => anIsm._id === ismId);
+  let sourceIndex = globals.targetIsms.findIndex(aSource => aSource._id === sourceId);
+  let ismIndex = globals.targetIsms[sourceIndex].isms.findIndex(anIsm => anIsm._id === ismId);
   if (ismIndex > -1) {
-    targetIsms[sourceIndex].isms.splice(ismIndex, 1);
+    globals.targetIsms[sourceIndex].isms.splice(ismIndex, 1);
   }
   removeSourceIfIsmsIsEmpty(sourceIndex);
 }
 
 function removeSourceIfIsmsIsEmpty(sourceIndex) {
-  if (targetIsms[sourceIndex].isms.length < 1) {
-    targetIsms.splice(sourceIndex, 1);
+  if (globals.targetIsms[sourceIndex].isms.length < 1) {
+    globals.targetIsms.splice(sourceIndex, 1);
     return;
   }
 }

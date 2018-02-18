@@ -1,3 +1,8 @@
+
+var globals = {};
+globals.targetIsms = undefined;
+globals.currentlyUpdating = undefined;
+
 $(document).ready(function() {
   // Click Entry Point Definitions =============================================================
 
@@ -104,6 +109,9 @@ $(document).ready(function() {
   }
 });
 
+function resetUpdateTracker() {
+  globals.currentlyUpdating = undefined;
+}
 
 function exportData() {
   handleLogin();
@@ -166,10 +174,11 @@ function processUntagged() {
 
 function processUncommented() {
   getIsmsWithoutComments();
+  kickOffUpdateForm('uncommented');
 }
 
 function stopUpdate() {
-  targetIsms = undefined;
+  globals.targetIsms = undefined;
   hideAllModals();
   clearFilterAndReload()
 }

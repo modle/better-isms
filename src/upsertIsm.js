@@ -148,10 +148,10 @@ function getIdsFromButton() {
   } else if (globals.currentlyUpdating === 'untagged') {
     buttonValues = $("#updateTagmeForm fieldset button#save-and-next-untagged").val().split(":");
   }
-  let theSourceId = buttonValues[0];
-  let theIsmId = buttonValues[1];
-  let theType = buttonValues[2];
-  return {ismId: theIsmId, sourceId: theSourceId, type: theType};
+  if (buttonValues.length != 3) {
+    throw 'Save button has incorrect number of elements. Expected sourceId,ismId,type, got ' + buttonValues;
+  }
+  return {sourceId: buttonValues[0], ismId: buttonValues[1], type: buttonValues[2]};
 }
 
 function getIsm(ids) {

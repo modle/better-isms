@@ -22,8 +22,8 @@ function showLoggedInButtons() {
 }
 
 function showLoggedOutButtons() {
-  hideElements(loggedInElements);
   showElements(loggedOutElements);
+  hideElements(loggedInElements);
 }
 
 function logUserOut() {

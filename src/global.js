@@ -2,6 +2,7 @@
 var globals = {};
 globals.targetIsms = undefined;
 globals.currentlyUpdating = undefined;
+globals.cachedIsms = {};
 
 $(document).ready(function() {
   // Click Entry Point Definitions =============================================================
@@ -117,7 +118,7 @@ function exportData() {
   handleLogin();
   var txtFile = "test.txt";
   var file = new File([""], txtFile);
-  var str = JSON.stringify(cachedIsms);
+  var str = JSON.stringify(globals.cachedIsms);
   var dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(str);
 
   var link = document.createElement("a");

@@ -1,7 +1,3 @@
-// TODO: Add these to the global dict
-// globals.cachedIsms = {};
-// globals.updateClouds = false;
-var cachedIsms = {};
 var updateClouds = false;
 
 function clearIsmDivs() {
@@ -60,7 +56,7 @@ function manageGetIsmListCall(url) {
     url: url,
     dataType: "JSON"
   }).done(function(response) {
-    cachedIsms = response;
+    globals.cachedIsms = response;
     $.each(response, function() {
       var source = this;
       source.isms.forEach(function(ism) {
@@ -79,7 +75,7 @@ function manageGetIsmListCall(url) {
 
 function getIsmsWithoutComments() {
   console.log("entering getIsmsWithoutComments");
-  globals.targetIsms = cachedIsms.filter( source => source.isms.length > 0 );
+  globals.targetIsms = globals.cachedIsms.filter( source => source.isms.length > 0 );
   console.log("exiting getIsmsWithoutComments");
 }
 

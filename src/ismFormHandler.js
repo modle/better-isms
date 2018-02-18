@@ -66,12 +66,12 @@ function populateIsmFields(event) {
   var thisIsmId = thisSource.split(":")[1];
 
   // Get Index of source object based on source id value
-  var sourceArrayIndex = cachedIsms
+  var sourceArrayIndex = globals.cachedIsms
     .map(function(arrayItem) {
       return arrayItem._id;
     })
     .indexOf(thisSourceId);
-  sourceIsms = cachedIsms[sourceArrayIndex];
+  sourceIsms = globals.cachedIsms[sourceArrayIndex];
 
   // Get Index of isms within source object based on ism id value
   var myIsmArrayIndex = sourceIsms.isms
@@ -81,7 +81,7 @@ function populateIsmFields(event) {
     .indexOf(thisIsmId);
 
   // Get our Ism Object
-  var thisIsmObject = cachedIsms[sourceArrayIndex].isms[myIsmArrayIndex];
+  var thisIsmObject = globals.cachedIsms[sourceArrayIndex].isms[myIsmArrayIndex];
 
   // generate tag string from array of tags
   joinedTags = "";

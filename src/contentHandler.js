@@ -224,7 +224,7 @@ function determineIsmQueryUrl() {
 function prepClouds() {
   updateClouds = false;
   if (!globals.filterType) {
-    tagCloudDict = {};
+    globals.tagCloudDict = {};
     sourceCloudList = [];
     sourceCloudIds = [];
     updateClouds = true;

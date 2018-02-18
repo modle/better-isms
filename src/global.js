@@ -6,6 +6,7 @@ globals.cachedIsms = {};
 globals.filterType = "";
 globals.filterId = "";
 globals.sourceCloudDict = {};
+globals.tagCloudDict = {};
 
 $(document).ready(function() {
   // Click Entry Point Definitions =============================================================

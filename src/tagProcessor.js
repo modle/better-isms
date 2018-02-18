@@ -1,5 +1,3 @@
-var tagCloudDict = {};
-
 currentColorIndex = 0;
 tagColors = ["mediumseagreen", "tomato", "violet", "orange", "slateblue"];
 
@@ -20,7 +18,7 @@ function highlightIfFiltered(id) {
 
 function generateTagCloud() {
   var tagCloud = "";
-  for (var tag of Array.from(Object.keys(tagCloudDict)).sort()) {
+  for (var tag of Array.from(Object.keys(globals.tagCloudDict)).sort()) {
     var size = calculateTagSize(tag);
     tagCloud +=
       '<span class="tagSpan"><a href="#" class="linktagfilter ' +
@@ -42,11 +40,11 @@ function setTagCloud(tagCloud) {
 }
 
 function calculateTagSize(tag) {
-  var tagArray = Array.from(Object.values(tagCloudDict));
+  var tagArray = Array.from(Object.values(globals.tagCloudDict));
   var maxCount = Math.max.apply(null, tagArray);
   var minCount = Math.min.apply(null, tagArray);
   var range = maxCount - minCount;
-  var tagCount = tagCloudDict[tag];
+  var tagCount = globals.tagCloudDict[tag];
   var tagSizeRatio = tagCount / range;
   var baseEmSize = 1.5;
   var finalEmSize = tagSizeRatio + baseEmSize;
@@ -81,10 +79,10 @@ function addToTags(tags) {
 
 function addToTagDict(tag) {
   lowerCasedTag = tag.toLowerCase();
-  if (lowerCasedTag in tagCloudDict) {
-    tagCloudDict[lowerCasedTag] += 1;
+  if (lowerCasedTag in globals.tagCloudDict) {
+    globals.tagCloudDict[lowerCasedTag] += 1;
   } else {
-    tagCloudDict[lowerCasedTag] = 1;
+    globals.tagCloudDict[lowerCasedTag] = 1;
   }
 }
 

@@ -1,12 +1,12 @@
-
-var globals = {};
-globals.targetIsms = undefined;
-globals.currentlyUpdating = undefined;
-globals.cachedIsms = {};
-globals.filterType = "";
-globals.filterId = "";
-globals.sourceCloudDict = {};
-globals.tagCloudDict = {};
+var globals = {
+  targetIsms: undefined,
+  currentlyUpdating: undefined,
+  cachedIsms: {},
+  filterType: "",
+  filterId: "",
+  sourceCloudDict: {},
+  tagCloudDict: {},
+};
 
 $(document).ready(function() {
   // Click Entry Point Definitions =============================================================

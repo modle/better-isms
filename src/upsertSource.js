@@ -80,7 +80,7 @@ function openUpsertSourceForm() {
   $("#upsertSourceModal fieldset button#btnSubmitUpsertSource").val("");
   $("#upsertSourceModal fieldset button#btnSubmitUpsertSource").html("Add");
   if (globals.filterId) {
-    source = sourceCloudDict[globals.filterId];
+    source = globals.sourceCloudDict[globals.filterId];
     $("#sourceFormTitle").html("Update source");
     $("#upsertSourceModal fieldset input#inputTitle").val(source["title"]);
     $("#upsertSourceModal fieldset input#inputAuthor").val(source["author"]);

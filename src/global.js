@@ -5,6 +5,7 @@ globals.currentlyUpdating = undefined;
 globals.cachedIsms = {};
 globals.filterType = "";
 globals.filterId = "";
+globals.sourceCloudDict = {};
 
 $(document).ready(function() {
   // Click Entry Point Definitions =============================================================

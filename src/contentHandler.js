@@ -205,7 +205,7 @@ function manageGetSourceListCall() {
   }).done(function(response) {
     $.each(response, function() {
       if (updateClouds) {
-        sourceCloudDict[this._id] = { title: this.title, author: this.author, added: this.added };
+        globals.sourceCloudDict[this._id] = { title: this.title, author: this.author, added: this.added };
       }
     });
     var sourceCloud = generateSourceCloud();

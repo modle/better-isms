@@ -1,18 +1,16 @@
-var sourceCloudDict = {};
-
 function getSourceDisplayString(source) {
   return " " + source["title"] + " (" + source["author"] + ")";
 }
 
 function getSourceDisplayStringFromDict(source) {
-  sourceValue = sourceCloudDict[source];
+  sourceValue = globals.sourceCloudDict[source];
   return " " + sourceValue["title"] + " (" + sourceValue["author"] + ")";
 }
 
 function generateSourceCloud() {
   var sourceCloud = "";
-  var splitSources = Object.keys(sourceCloudDict).map(function(key) {
-    return [key, sourceCloudDict[key]];
+  var splitSources = Object.keys(globals.sourceCloudDict).map(function(key) {
+    return [key, globals.sourceCloudDict[key]];
   });
   splitSources.sort(function(first, second) {
     return second[1]['added'] - first[1]['added'];

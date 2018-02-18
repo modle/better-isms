@@ -33,13 +33,7 @@ function upsertIsm(event) {
 
   var ism = {};
   ism.number = $("#upsertIsmForm fieldset input#inputNumber").val();
-  ism.tags = Array.from(
-    $("#upsertIsmForm fieldset input#inputTags")
-      .val()
-      .trim()
-      .toLowerCase()
-      .split(/\s*,\s*/)
-  );
+  ism.tags = buildTags($("#upsertIsmForm fieldset input#inputTags").val());
   ism.quote = $("#upsertIsmForm fieldset textarea#inputQuote").val();
   ism.comments = $("#upsertIsmForm fieldset textarea#inputComments").val();
 
@@ -68,6 +62,15 @@ function upsertIsm(event) {
     }
   });
   console.log("exiting upsertIsm");
+}
+
+function buildTags(tagString) {
+  return Array.from(
+    tagString
+    .trim()
+    .toLowerCase()
+    .split(/\s*,\s*/)
+  );
 }
 
 function openBulkAddIsmForm(event) {
@@ -113,32 +116,11 @@ function bulkUpsertIsms(event) {
   console.log("exiting bulkUpsertIsms");
 }
 
-function updateUncommentedIsm(event) {
-  console.log("entering updateUncommentedIsm");
-  // TODO implement me
-  // The only difference between this and updateUncommentedIsm is that instead of
-  // getting tags from the form and adding them to the ism, we use the current tags
-  // and we get the comments from the form instead of using the current comments
-  console.log("exiting updateUncommentedIsm");
-}
-
-function updateTagmeIsm(event) {
+function updateIsmSingleField(event) {
   console.log("entering updateTagmeIsm");
-  let buttonValue = $("#updateTagmeForm fieldset button#saveAndNextTag").val();
-  console.log(buttonValue);
-  let theSourceId = buttonValue.split(":")[0];
-  let theIsmId = buttonValue.split(":")[1];
-  let source = untaggedIsms.find(aSource => aSource._id === theSourceId);
-  let ism = source.isms.find(anIsm => anIsm._id === theIsmId);
-  // TODO pull ism.tags out into a function
-  ism.tags = Array.from(
-    $("#updateTagmeForm fieldset input#newTags")
-      .val()
-      .trim()
-      .toLowerCase()
-      .split(/\s*,\s*/)
-  );
-  let url = "/isms/updateism/" + buttonValue.replace(":", "/");
+  let ids = getIdsFromButton();
+  let ism = getIsm(ids);
+  let url = "/isms/updateism/" + ids.sourceId + "/" + ids.ismId;
   $.ajax({
     type: "PUT",
     data: ism,
@@ -146,34 +128,66 @@ function updateTagmeIsm(event) {
     dataType: "JSON"
   }).done(function(response) {
     if (response.msg === "") {
-      removeIsmFromUntaggedList(theSourceId, theIsmId);
-      kickOffTagmeUpdateForm();
+      removeIsmFromList(ids.sourceId, ids.ismId);
+      kickOffUpdateForm(ids.type);
     } else {
       alert("Error: " + response.msg);
+      resetUpdateTracker();
     }
   });
   console.log("exiting updateTagmeIsm");
 }
 
+function getIdsFromButton() {
+  let buttonValues = [];
+  if (currentlyUpdating === 'uncommented') {
+    buttonValues = $("#updateUncommentedForm fieldset button#save-and-next-uncommented").val().split(":");
+  } else if (currentlyUpdating === 'untagged') {
+    buttonValues = $("#updateTagmeForm fieldset button#save-and-next-untagged").val().split(":");
+  }
+  let theSourceId = buttonValues[0];
+  let theIsmId = buttonValues[1];
+  let theType = buttonValues[2];
+  return {ismId: theIsmId, sourceId: theSourceId, type: theType};
+}
 
-function removeIsmFromUntaggedList(sourceId, ismId) {
-  // TODO does oneEntry make sense for all uses of it? It's working.
-  const oneEntry = 1;
-  let sourceIndex = untaggedIsms.findIndex(aSource => aSource._id === sourceId);
-  // what is happening here?
-  // if this is the only one left, remove it and return
-  if (sourceIndex > -1 && untaggedIsms[sourceIndex].isms.length === oneEntry) {
-    untaggedIsms.splice(sourceIndex, oneEntry);
-    return;
+function getIsm(ids) {
+  let ism = getIsmFromSource(ids);
+  if (currentlyUpdating === 'untagged') {
+    ism.tags = getTagsFromForm();
+  } else if (currentlyUpdating === 'uncommented') {
+    ism.comments = getCommentFromForm();
+    // this is needed because the post expects an array, but the object stores a string for single tags
+    ism.tags = buildTags(ism.tags);
   }
-  let ismIndex = untaggedIsms[sourceIndex].isms.findIndex(anIsm => anIsm._id === ismId);
+  return ism;
+}
+
+function getIsmFromSource(ids) {
+  let source = targetIsms.find(aSource => aSource._id === ids.sourceId);
+  return source.isms.find(anIsm => anIsm._id === ids.ismId);
+}
+
+function getTagsFromForm() {
+  return buildTags($("#updateTagmeForm fieldset input#newTags").val());
+}
+
+function getCommentFromForm() {
+  return $("#updateUncommentedForm fieldset textarea#newComments").val();
+}
+
+function removeIsmFromList(sourceId, ismId) {
+  let sourceIndex = targetIsms.findIndex(aSource => aSource._id === sourceId);
+  let ismIndex = targetIsms[sourceIndex].isms.findIndex(anIsm => anIsm._id === ismId);
   if (ismIndex > -1) {
-    untaggedIsms[sourceIndex].isms.splice(ismIndex, oneEntry);
+    targetIsms[sourceIndex].isms.splice(ismIndex, 1);
   }
-  // TODO this is the same as the above code, only we're not checking sourceIndex; refactor
-  // remove source if it no longer has isms to update
-  if (untaggedIsms[sourceIndex].isms.length < oneEntry) {
-    untaggedIsms.splice(sourceIndex, oneEntry);
+  removeSourceIfIsmsIsEmpty(sourceIndex);
+}
+
+function removeSourceIfIsmsIsEmpty(sourceIndex) {
+  if (targetIsms[sourceIndex].isms.length < 1) {
+    targetIsms.splice(sourceIndex, 1);
     return;
   }
 }

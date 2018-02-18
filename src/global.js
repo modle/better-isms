@@ -13,21 +13,21 @@ $(document).ready(function() {
   $("#btnShowBulkAddIsm").on("click", openBulkAddIsmForm);
   $("#btnSubmitBulkAddIsm").on("click", bulkUpsertIsms);
   $("#btnUpsertIsm").on("click", upsertIsm);
-  $("#saveAndNextComment").on("click", updateUncommentedIsm);
   $("#moreFields").on("click", toggleOptionalFields);
 
   $(".hideModals").on("click", hideAllModals);
-  $("#clearFilter").on("click", clearFilter);
-  $("#quitIsmUpdate").on("click", stopTagmeUpdate);
+  $("#clearFilter").on("click", clearFilterAndReload);
+  $("#quitIsmUpdateComment").on("click", stopUpdate);
+  $("#quitIsmUpdateTag").on("click", stopUpdate);
 
   $("#ismList isms").on("click", "a.linkeditism", populateIsmFields);
   $("#ismList isms").on("click", "a.linkdeleteism", deleteIsm);
 
   $("#untagged").on("click", processUntagged);
-  $("#saveAndNextTag").on("click", updateTagmeIsm);
-
+  $("#save-and-next-untagged").on("click", updateIsmSingleField);
   $("#uncommented").on("click", processUncommented);
-  $("#saveAndNextComment").on("click", updateUncommentedIsm);
+  $("#save-and-next-uncommented").on("click", updateIsmSingleField);
+
 
   $("#tagCloud").on("click", "a.linktagfilter", prepFilter);
   $("#toggleTags").on("click", toggleTags);
@@ -168,9 +168,13 @@ function processUncommented() {
   getIsmsWithoutComments();
 }
 
-function stopTagmeUpdate() {
-  untaggedIsms = undefined;
+function stopUpdate() {
+  targetIsms = undefined;
   hideAllModals();
+  clearFilterAndReload()
+}
+
+function clearFilterAndReload() {
   clearFilter();
   generateContent();
 }

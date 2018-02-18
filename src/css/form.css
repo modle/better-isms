@@ -187,4 +187,7 @@
     padding: 2em 0;
     overflow: hidden;
   }
+  .submit-button {
+    font-size: 1.3em;
+  }
 }

@@ -29,13 +29,13 @@ block content
     // /ISM DELETED TOAST
 
     // NO TAGS TO UPDATE TOAST
-    .modal#noTagmeIsmsToast
+    .modal#noIsmsToUpdateToast
       br
       br
       br
       br
       .modal-container.modal-toast
-        h1 No tags are set to tagme, not updating
+        h1 No isms to update
         button.hideModals.submit-button Hide
     // /NO TAGS TO UPDATE TOAST
 
@@ -140,9 +140,9 @@ block content
               button#moreFields.submit-button More
               button#btnShowBulkAddIsm.submit-button Bulk Add Instead
               br
-              input#inputTags(type='text', placeholder='tags', value='').form-field
+              input#inputTags(type='text', placeholder='comma-separated tag list', value='').form-field
               br
-              textarea#inputComments(type='textarea', placeholder='comments', rows=10, value='').form-field
+              textarea#inputComments(type='textarea', placeholder='your comments', rows=10, value='').form-field
               br
               button#btnUpsertIsm.submit-button Add Ism
               button.hideModals.submit-button Hide
@@ -162,8 +162,8 @@ block content
               br
               textarea#newComments(type='textarea', placeholder='comments', rows=10, value='').form-field
               br
-              button#saveAndNextUncommented.submit-button Save & Next
-              button#quitUncommentedUpdate.submit-button Quit
+              button#save-and-next-uncommented.submit-button Save & Next
+              button#quitIsmUpdateComment.submit-button Quit
               br
               textarea#readonly-quote(rows=10 readonly).readonly-field
     // /UNCOMMENTED UPDATE FORM
@@ -182,8 +182,8 @@ block content
               br
               input#newTags(type='text', placeholder='tags').form-field
               br
-              button#saveAndNextTag.submit-button Save & Next
-              button#quitIsmUpdate.submit-button Quit
+              button#save-and-next-untagged.submit-button Save & Next
+              button#quitIsmUpdateTag.submit-button Quit
               br
               textarea#readonly-quote(rows=10 readonly).readonly-field
     // /TAGME UPDATE FORM

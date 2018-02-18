@@ -106,6 +106,5 @@ function populateIsmFields(event) {
     thisIsmObject.comments
   );
   $("#upsertIsmForm fieldset button#btnUpsertIsm").val(thisSource);
-  console.log(thisSource);
   console.log("exiting populateIsmFields");
 }

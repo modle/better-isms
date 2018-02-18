@@ -215,15 +215,15 @@ function manageGetSourceListCall() {
 
 function determineIsmQueryUrl() {
   url = "/isms/ismlist/";
-  if (filterType) {
-    url += filterType + "/" + filterId;
+  if (globals.filterType) {
+    url += globals.filterType + "/" + globals.filterId;
   }
   return url;
 }
 
 function prepClouds() {
   updateClouds = false;
-  if (!filterType) {
+  if (!globals.filterType) {
     tagCloudDict = {};
     sourceCloudList = [];
     sourceCloudIds = [];

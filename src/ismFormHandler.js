@@ -33,11 +33,11 @@ function openNewIsmForm(event) {
   hideFooter();
   hideOptionalFields();
   clearIsmFormFields();
-  if (filterType !== "source") {
+  if (globals.filterType !== "source") {
     showModal(noSourceSelectedModal);
     return;
   }
-  sourceId = filterId;
+  sourceId = globals.filterId;
   setText('btnUpsertIsm', 'Add Ism');
   $("#btnShowBulkAddIsm").val(sourceId);
   $("#upsertIsmForm fieldset button#btnUpsertIsm").val(sourceId);

@@ -1,18 +1,10 @@
-var filterType = "";
-var filterId = "";
-
-function clearFilter() {
-  filterType = "";
-  filterId = "";
-}
-
 function prepFilter(event) {
-  filterId = $(this).attr("rel");
+  globals.filterId = $(this).attr("rel");
   eventClasses = $(this).attr("class");
   if (eventClasses.includes("linksourcefilter")) {
-    filterType = "source";
+    globals.filterType = "source";
   } else if (eventClasses.includes("linktagfilter")) {
-    filterType = "tag";
+    globals.filterType = "tag";
   }
   generateContent();
 }

@@ -3,6 +3,8 @@ var globals = {};
 globals.targetIsms = undefined;
 globals.currentlyUpdating = undefined;
 globals.cachedIsms = {};
+globals.filterType = "";
+globals.filterId = "";
 
 $(document).ready(function() {
   // Click Entry Point Definitions =============================================================
@@ -112,6 +114,11 @@ $(document).ready(function() {
 
 function resetUpdateTracker() {
   globals.currentlyUpdating = undefined;
+}
+
+function clearFilter() {
+  globals.filterType = "";
+  globals.filterId = "";
 }
 
 function exportData() {

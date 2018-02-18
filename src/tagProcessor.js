@@ -12,7 +12,7 @@ function getNextTagColor() {
 }
 
 function highlightIfFiltered(id) {
-  if (id == filterId) {
+  if (id == globals.filterId) {
     return "highlighted";
   }
   return "";

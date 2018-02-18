@@ -166,8 +166,20 @@ function toggleSources() {
   }
 }
 
+function hideElements(elements) {
+  for (var element of elements) {
+    hideElement(element);
+  }
+}
+
 function hideElement(elementClass) {
   $("#" + elementClass).hide();
+}
+
+function showElements(elements) {
+  for (var element of elements) {
+    showElement(element);
+  }
 }
 
 function showElement(elementClass) {

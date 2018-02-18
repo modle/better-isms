@@ -1,31 +1,29 @@
+const loggedInElements = [
+  "newIsm",
+  "addSource",
+  "toTop",
+  "toBottom",
+  "clearFilter",
+  "toggleSources",
+  "toggleTags",
+  "untagged",
+  "uncommented",
+  "export",
+  "logout"  
+];
+
+const loggedOutElements = [
+  "login"
+];
+
 function showLoggedInButtons() {
-  showElement("newIsm");
-  showElement("addSource");
-  showElement("toTop");
-  showElement("toBottom");
-  showElement("clearFilter");
-  showElement("toggleSources");
-  showElement("toggleTags");
-  showElement("untagged");
-  showElement("uncommented");
-  showElement("export");
-  showElement("logout");
-  hideElement("login");
+  showElements(loggedInElements);
+  hideElements(loggedOutElements);
 }
 
 function showLoggedOutButtons() {
-  hideElement("newIsm");
-  hideElement("addSource");
-  hideElement("toTop");
-  hideElement("toBottom");
-  hideElement("toggleSources");
-  hideElement("toggleTags");
-  hideElement("untagged");
-  hideElement("uncommented");
-  hideElement("clearFilter");
-  hideElement("export");
-  hideElement("logout");
-  showElement("login");
+  hideElements(loggedInElements);
+  showElements(loggedOutElements);
 }
 
 function logUserOut() {

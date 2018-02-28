@@ -38,9 +38,9 @@
          {
             "number":"77",
             "quote":"Well, here we are, Mr. Pilgrim, trapped in the amber of this moment. There is no why.",
-            "comments":"",
-            "tags":"meaning",
-            "_id":"5e88e4584c56912569c55f6b"
+            "comments":"The present is largely beyond our control, and the present is always now; we are forever trapped in it.",
+            "_id":"5e88e4584c56912569c55f6b",
+            "tags":"meaning"
          }
       ]
    },
@@ -52,7 +52,7 @@
          {
             "number":"0",
             "quote":"Technology encourages us to maintain the addiction of wanting more.",
-            "comments":"",
+            "comments":"We're constantly exposed to information and advertisements that intentionally target our base human emotions to get us to spend money.",
             "_id":"bd28915bccaee89dd2aeb5de",
             "tags":"addiction"
          }
@@ -76,6 +76,21 @@
          }
       ],
       "added":1516893488396
+   },
+   {
+      "_id":"5a8b3d8f5439210400b6d779",
+      "title":"Clean Code",
+      "author":"Robert C. Martin",
+      "isms":[
+         {
+            "number":"0",
+            "quote":"The first half and the last chapter (heuristics) are more useful than the rest, but overall it does a good job of hammering home the importance of naming and keeping things well-defined, small, and at the correct level of abstraction.",
+            "comments":"brain vomit reviews",
+            "_id":"b174b837d4df1b432ccce782",
+            "tags":"review"
+         }
+      ],
+      "added":1519074703715
    },
    {
       "_id":"598d34f20e1fbaff516a25c0",
@@ -163,7 +178,7 @@
          {
             "number":"2",
             "quote":"Toast was a pointless invention from the dark ages. Toast was an implement of torture that caused all those subjected to it to regurgitate in verbal form the sins and crimes of their past lives. Toast was a ritual item devoured by fetishists in the belief that it would enhance their kinetic and sexual powers. Toast cannot be explained by any rational means. Toast is me. I am toast.\n",
-            "comments":"",
+            "comments":"Makes me think of the curse of knowledge. Why would you even have to explain what toast is? It's the same for anything we have internalized and feel should be obvious to others. The character here is explaining it to beings who have no concept of what life was like before the apocalpyse.",
             "_id":"d36a53b76f50954a957201b2",
             "tags":"language"
          }
@@ -686,19 +701,19 @@
       "added":1518379114227
    },
    {
-      "_id":"5a879ccf01fd580400e3c1d2",
-      "title":"The Ultimate Guide to Video Game Writing and Design",
-      "author":"Flint Dille",
+      "_id":"5a8b3c975439210400b6d778",
+      "title":"Moonwalking With Einstein",
+      "author":"Joshua Foer",
       "isms":[
          {
             "number":"0",
-            "quote":"Sometimes the act of creating is more important than what is created.",
-            "comments":"",
-            "tags":"tagme",
-            "_id":"92089aaf45a40502cc1d21fb"
+            "quote":"A wide shotgun blast of the neuroscience, psychology, and philosophy of memory, with a few detailed deep dives; enough interesting anecdotes to keep the pace strong.",
+            "comments":"brain vomit reviews",
+            "_id":"619de39b50220b7a6b885a59",
+            "tags":"review"
          }
       ],
-      "added":1518836943676
+      "added":1519074455296
    },
    {
       "_id":"59d19b25936eec040099a80e",
@@ -1953,12 +1968,12 @@
          {
             "number":"220",
             "quote":"Abilities wither under criticism; they blossom under encouragement. ",
-            "comments":"",
+            "comments":"I just need to find more opportunities to encourage and keep a tighter grip on my knee-jerk criticism.",
+            "_id":"5cc939565679171cab28fd26",
             "tags":[
                "criticism",
                "encouragement"
-            ],
-            "_id":"5cc939565679171cab28fd26"
+            ]
          },
          {
             "number":"222",
@@ -2436,7 +2451,7 @@
          {
             "number":"30",
             "quote":"Rudeness to children counts as rudeness. ",
-            "comments":"",
+            "comments":"This one is hard for us as parents. Sometimes they just do completely ridiculous things, or resist stubbornly. It's not their fault. They respond to being attacked verbally and emotionally just like anyone else would: they either shut down, cry, or rage.",
             "_id":"a97e1dffc1d1c2ad4f9f1971",
             "tags":"behavior"
          },
@@ -2582,7 +2597,7 @@
          {
             "number":"15",
             "quote":"Many irreversible decisions must be made on the basis of incomplete information, and once we act, we forfeit the option of waiting until new information comes along. Not acting has value. The more uncertain the outcome, the greater may be the value of procrastination.",
-            "comments":"",
+            "comments":"I can too easily take this to extremes. Sometimes I'm proven right, and by avoiding a task, eventually it is no longer important. But at what cost? Attention, emotions like anxiety and guilt, distaste from my teammates if they knew my attitude.",
             "_id":"3e5aa11eb3cdbad2cc329d76",
             "tags":[
                "action",
@@ -3359,6 +3374,13 @@
             "comments":"",
             "_id":"39792011a2c1e97653e0c958",
             "tags":"gaming"
+         },
+         {
+            "number":"0",
+            "quote":"This book has good messages and good ideas, and I gleaned some useful insight into why I feel what I feel about games. However, the middle to late sections didn't really land with me, and most of the solutions proposed and implemented are either now defunct or changed completely. I would be interested in reading followup coverage of the topic to see any long-term studies and impacts of the implementations mentioned in this book.\n\nThere was a heavy emphasis on social engineering and interaction and how we can use both to leverage the gaming community into solving real world problems. The focus almost seemed to be around how we can coerce people who play video games for fun into working for free without realizing they are doing work. My cynical side says there will always be someone there to turn that free work into a profit and corrupt any goal of leveraging this creative bandwidth in the first place.",
+            "comments":"brain vomit reviews",
+            "_id":"4c3de0503efb80ee60dbe9e4",
+            "tags":"review"
          }
       ]
    },
@@ -3956,7 +3978,7 @@
          {
             "number":"166",
             "quote":"My first response to criticism is never profound relief that I have someone in my life who will be honest with me and help me do the very best work of which I am capable. No, my first thought is, \"Well. I'm sorry, but I can't be friends with you anymore, because you have too many problems. And you have a bad personality. And a bad character.\"",
-            "comments":"",
+            "comments":"It's important not to have a knee-jerk defensive response to criticism. Keep an open mind, be the beginner, try to see their viewpoint. They're probably just trying to help, and if they're not, well, you can't do anything about that. Just assume the best in people when they give you feedback if you want feedback in the future. If you defend and rage, they will lock you out.",
             "_id":"b029b8db503b4a755f5dde94",
             "tags":"criticism"
          },
@@ -4704,8 +4726,11 @@
             "number":"0",
             "quote":"Simplicity: the design must be simple, both in implementation and interface. It is more important for the interface to be simple than the implementation.",
             "comments":"",
-            "tags":"tagme",
-            "_id":"4d0d08e5aa62a0b1c5a5fec5"
+            "_id":"4d0d08e5aa62a0b1c5a5fec5",
+            "tags":[
+               "design",
+               "simplicity"
+            ]
          },
          {
             "number":"0",
@@ -4766,9 +4791,9 @@
          {
             "number":"0",
             "quote":"The idealism of money is often different than the idealism of system design.",
-            "comments":"",
-            "tags":"tagme",
-            "_id":"5ace1957469c8252444b1e17"
+            "comments":"The software we want to make is too expensive unless we are disciplined.",
+            "_id":"5ace1957469c8252444b1e17",
+            "tags":"tagme"
          }
       ],
       "added":1518629848093
@@ -4787,6 +4812,156 @@
          }
       ],
       "added":1518636577800
+   },
+   {
+      "_id":"5a8b3e145439210400b6d77a",
+      "title":"The Subtle Art of Not Giving a F*ck",
+      "author":"Mark Manson",
+      "isms":[
+         {
+            "number":"0",
+            "quote":"Great read. The relationship advice was unexpected, but not unappreciated.",
+            "comments":"brain vomit reviews",
+            "_id":"6448463ca27e676b2c7debb9",
+            "tags":"review"
+         }
+      ],
+      "added":1519074836148
+   },
+   {
+      "_id":"5a934cbf98e5820400f54490",
+      "title":"To Sell Is Human",
+      "author":"Daniel Pink",
+      "isms":[
+         {
+            "number":"0",
+            "quote":"[Selling isn't always about sales. At its core, it is] persuading, convincing, and influencing others to give up something in exchange for what we've got.",
+            "comments":"",
+            "_id":"44b296319b4a4b4954a63274",
+            "tags":"tagme"
+         },
+         {
+            "number":"0",
+            "quote":"In any effort to move others, we confront an ocean of rejection.",
+            "comments":"This is probably my biggest hurdle. My life's question. How do I smooth that over. I know now why people resist. It's because the brain wants to do as little work learning as possible. It recognizes a pattern, files it away, and uses it for the same problem whenever it can. Changing that pattern takes real effort and the brain will mostly just find ways to resist changing.",
+            "_id":"5fc6d32eb3b43dc4576bd650",
+            "tags":"tagme"
+         }
+      ],
+      "added":1519602879971
+   },
+   {
+      "_id":"5a879ccf01fd580400e3c1d2",
+      "title":"The Ultimate Guide to Video Game Writing and Design",
+      "author":"Flint Dille",
+      "isms":[
+         {
+            "number":"0",
+            "quote":"Sometimes the act of creating is more important than what is created.",
+            "comments":"We can't get to that gem unless we spew out all of the slag in the way first. Most of what we create will be less than good. But we have to get the less than good down to see the stuff that really shines.",
+            "_id":"92089aaf45a40502cc1d21fb",
+            "tags":"tagme"
+         },
+         {
+            "number":"17",
+            "quote":"Games are about empowerment, and creating a situation in which the narrative conceit of the game puts the player in a subservient role is not a winning formula.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"532fa5e2c12bd37d98fa3fbf"
+         },
+         {
+            "number":"17",
+            "quote":"You should always be aware of how many times the hero is being nagged, or ordered, or bossed around in the game.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"60ca483d5c57c122c492218e"
+         },
+         {
+            "number":"0",
+            "quote":"Copy all the action items",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"3646d964bc40eada67fe8d37"
+         },
+         {
+            "number":"25",
+            "quote":"Words matter, and dialogue should be used to give the player direction. Prioritize their actions wherever possible.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"9c661e71d0b6338eba20ee14"
+         },
+         {
+            "number":"26",
+            "quote":"Types of conflict.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"976238f45caff691a0485255"
+         },
+         {
+            "number":"0",
+            "quote":"Fragmented and not very interesting in itself. Would be a useful resource during development of specific portions of the story. As it is, it is probably too much information all at once for a beginner (unless you're really devoting a lot of time to it and the action items within). There are too many other tasks to accomplish, and a lot of this would probably be forgotten before it could be put to use. The best approach is to note interesting references in each section and refer to the book as a resource later in the process. This is actually slightly humorous, because as I wrote that this was probably more information than I needed, the book goes on to talk about player expectations: \"Avoid long expository speech like a wise old wizard who tells us lots of interesting things that we never get to see.\" Although, ultimately, maybe chapter 2 is just exceptionally dry and this review is unfair. We shall have to wait and see.",
+            "comments":"brain vomit reviews",
+            "_id":"4300f59a940ebe4346915043",
+            "tags":"review"
+         },
+         {
+            "number":"32",
+            "quote":"Don't tell what you can show. Don't show what you can play. Backstory is only important if it has direct relevance to the narrative.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"a021a65a90a9f7dc49ff3e53"
+         },
+         {
+            "number":"36",
+            "quote":"(paraphrased) Someone who anticipates questions or expectations and develop a strategy for answering them has become a storyteller.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"3317693eb4e0af20ccee25cb"
+         },
+         {
+            "number":"37",
+            "quote":"We're in a medium that demands a lot of repetition, and our job as dramatists is to conceal this fact. We do this by writing alts. 20 different ways of saying the same thing, so we have a variation to use in each place that thing is needed to be said.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"5fd07a42a8adcde1617f09c0"
+         },
+         {
+            "number":"38",
+            "quote":"If you are going to have backstory, it should only exist to propel your story and your characters.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"3accde68a2d0d9cd4523bac1"
+         },
+         {
+            "number":"40",
+            "quote":"Game success should never feel like the cessation of frustration. We want the player to feel victorious, not relieved. We are in the entertainment business, not the frustration business.",
+            "comments":"",
+            "_id":"b3da1aff5e6c1e65c551381a",
+            "tags":"tagme"
+         },
+         {
+            "number":"42",
+            "quote":"The fifth time you hear the same wisecrack form the same character, the game feels stale.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"8f9950bc556e5e88b8422f45"
+         },
+         {
+            "number":"44",
+            "quote":"Sometimes you can create interesting characters by simply avoiding cliches.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"9e6cc1575cb3d589ab97dbc7"
+         },
+         {
+            "number":"47",
+            "quote":"When you play a criminal in Grand Theft Auto is that because you want to be a criminal or is it because you think it would be kind of fun to be something wildly different than what you are?",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"49ea66fcc2e497aca33efa18"
+         }
+      ],
+      "added":1518836943676
    },
    {
       "_id":"5a87a97b96554f0400c322d7",
@@ -4841,102 +5016,194 @@
             "comments":"",
             "tags":"tagme",
             "_id":"372112099c45a74f9ffe7697"
+         },
+         {
+            "number":"23",
+            "quote":"Reputation is everything. You want to build a reputation as a generous person, bringing something wonderful to your audiences, not as a tedious self-promoter. The key principle is to remember that the speaker's job is to give to the audience, not take from them. ",
+            "comments":"",
+            "_id":"b773acad2e150e31c856d2f3",
+            "tags":"tagme"
+         },
+         {
+            "number":"28",
+            "quote":"Inspiration has to be earned. Someone is inspiring not because they look at you with big eyes and ask you to find it in your heart to believe in their dream, but because they have a dream worth getting excited about. ",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"befb1970c26cac4db108daed"
+         },
+         {
+            "number":"31",
+            "quote":"A throughline should be encapsulated in no more than fifteen words, and those fifteen words need to provide robust content.",
+            "comments":"This is like the lead mentioned in made to stick. Don't bury the lead.",
+            "tags":[
+               "throughline",
+               "lead"
+            ],
+            "_id":"a15ec7b0526777e6ce0c3f86"
+         },
+         {
+            "number":"32",
+            "quote":"What is it that you want your audience to have an unambiguous understanding of after you're done?",
+            "comments":"Barry Schwartz quote",
+            "_id":"b9a5a2c850bd0a40412c6f1b",
+            "tags":"tagme"
+         },
+         {
+            "number":"33",
+            "quote":"When your audience knows where you're headed, it's much easier for them to follow.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"422d8590cf656a49b3dd60b5"
+         },
+         {
+            "number":"34",
+            "quote":"You can only gift an idea to minds that are ready to receive that type of idea.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"baf60a86cf04c327ae222ac4"
+         },
+         {
+            "number":"35",
+            "quote":"Overstuffed equals underexplained. Don't try to summarize important concepts just to fit them into the timeframe.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"9f3fd5c0c268be80a9183794"
+         },
+         {
+            "number":"36",
+            "quote":"\"Great writing is all about the power of the deleted word.\" - Richard Bach. The secret of successful talks often lies in what is left out, too. Leave space and say less.",
+            "comments":"",
+            "_id":"9e5323d19abe2163a14dea98",
+            "tags":"tagme"
+         },
+         {
+            "number":"39",
+            "quote":"What aspect of me should I focus on for a little more depth? (2 minute speech introducing myself)",
+            "comments":"",
+            "_id":"c61ad81cceaba697d4c399d9",
+            "tags":"tagme"
+         },
+         {
+            "number":"42",
+            "quote":"Throughline checklist.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"4eb1025b3f18b21bb9ede79c"
+         },
+         {
+            "number":"43",
+            "quote":"If you speak to a demographic, you will not sound like you are speaking to a human being.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"38856ca84ce7e4f8bc4b1d7a"
+         },
+         {
+            "number":"47",
+            "quote":"Knowledge can't be pushed into a brain. It has to be pulled in. ",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"6e6d2454cf1ba2dd4ef13796"
+         },
+         {
+            "number":"47",
+            "quote":"People have evolved weapons to protect against dangerous knowledge polluting the worldview they depend on: skepticism, mistrust, dislike, boredom, incomprehension. ",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"6a2989a55ea1dd6651458bd6"
+         },
+         {
+            "number":"50",
+            "quote":"At the start of a talk, before you speak, make eye contact with a couple people, smile, then begin. ",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"6a1a337453e64f48b6152475"
+         },
+         {
+            "number":"53",
+            "quote":"Is sharing done in service of the work or is it a way to work through our own stuff? The former is powerful, the latter damages the confidence people have in us. Don't share parts yourself that you haven't yet worked through. A story is only ready to share when the presenter's healing and growth is not dependent on the audience's response to it.",
+            "comments":"",
+            "_id":"6ba1006f37a50b9e34ce3f8f",
+            "tags":"tagme"
+         },
+         {
+            "number":"54",
+            "quote":"Laughter blows open someone's defenses, and suddenly you have a chance to truly communicate with them.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"c41afbf95f9548add39f2d25"
+         },
+         {
+            "number":"55",
+            "quote":"Humor is a skilled art, and not everyone can do it. Ineffective humor is worse than no humor at all. What you're looking for instead are hilarious-but-true stories that are directly relevant to your topic or are an endearing, humorous use of language. ",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"c8a22149c082ee3f4f97feee"
+         },
+         {
+            "number":"57",
+            "quote":"Be yourself. The worst talks are the ones where someone is trying to be someone they aren't. If you are generally goofy, then be goofy. If you are emotional, then be emotional. The one exception to that is if you are arrogant and self-centered. Then you should definitely pretend to be someone else. ",
+            "comments":"Salman Khan",
+            "tags":"tagme",
+            "_id":"680f8c192b5b7e053c3bb37c"
+         },
+         {
+            "number":"58",
+            "quote":"Ego emerges in a lot of ways: name-dropping, stories that seem designed only to show off, boasting about your company or your company's achievements, making the talk all about you rather than an idea others can use",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"2e7faf0c90d3832c9898b38c"
+         },
+         {
+            "number":"59",
+            "quote":"Stories are instant generators of interest, empathy, emotion, and intrigue. They can brilliantly establish the context of a talk and make people care about a topic. ",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"47ec508260728e75c0766b2f"
+         },
+         {
+            "number":"61",
+            "quote":"The test for authenticity is whether you would tell this story to a group of old friends. You're a human. Your listeners are human. Think of them as friends. And just reach out.",
+            "comments":"",
+            "_id":"961c786a41f1f7cdce420750",
+            "tags":"tagme"
+         },
+         {
+            "number":"65",
+            "quote":"Stories expand people's ability to imagine and dream and understand the minds of others.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"34bf8a4a4d77d93cc5854193"
+         },
+         {
+            "number":"67",
+            "quote":"If you're going to tell a story, make sure you know __why__ you're telling it, and try to edit out all the details that are not needed to make your point, while still leaving enough in for people to vividly imagine what happened.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"a34f9471989de52ba04a5be9"
+         },
+         {
+            "number":"67",
+            "quote":"A good personal story without a wraparound of an idea is an opportunity missed.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"cb9a74626c6e10deb5498487"
+         },
+         {
+            "number":"69",
+            "quote":"Don't pin your happiness on the future. \"If we can't feel content here, today, now, on our journeys, amidst the mess and the striving that we all inhabit, the open loops, the half-finished to-do lists, the could-do-better-next-times, then we might never feel it.\" Ben Saunders",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"9b3e042ac9869cf8d3c2d3e7"
+         },
+         {
+            "number":"75",
+            "quote":"Gaining or losing something has far less impact, intensity, and duration than people expect them to have. If it happened over three months ago, with only a few exceptions, it has no impact whatsoever on your happiness. This is because humans have a system of (largely nonconscious) cognitive processes that help them change their views of the world so they can feel better about the worlds in which they find themselves.",
+            "comments":"Maybe this is broken for me. Or maybe not. When I start dwelling on past negative experiences or pining to repeat lost positive experiences, what I'm doing is apparently simulating those experiences and synthesizing those same emotions without actually experiencing them.",
+            "_id":"547585e33e32890e6b7a7772",
+            "tags":"tagme"
          }
       ],
       "added":1518840187861
-   },
-   {
-      "_id":"5a87a5c396554f0400c322d6",
-      "title":"The Kobold Guide to Board Game Design",
-      "author":"Mike Selinker",
-      "isms":[
-         {
-            "number":"2",
-            "quote":"A compelling game mechanic only makes sense in context. Transplant that mechanic into another game, and there is no guarantee that it will work. You can't just throw a bunch of random watch pieces together and expect them to tell time. You must have a plan.",
-            "comments":"",
-            "_id":"d09efcfd2d080760cf613bab",
-            "tags":"tagme"
-         },
-         {
-            "number":"3",
-            "quote":"People buy watches to express who they are, even if who they are is summed up as \"I bought a cheap watch because I don't care to express who I am through my choice of watch.\"",
-            "comments":"",
-            "tags":"tagme",
-            "_id":"91536f9c36ef8efcca86141c"
-         },
-         {
-            "number":"4",
-            "quote":"You can't learn to create a new game by smashing an old game and measuring the pieces.",
-            "comments":"",
-            "tags":"tagme",
-            "_id":"92705a6a3b13457c5d2896f0"
-         },
-         {
-            "number":"4",
-            "quote":"If you're a gamer who wants to be a game designer, you have to re-learn how to think. Let yourself be passionate. Don't second-guess every idea. Be a child.",
-            "comments":"",
-            "tags":"tagme",
-            "_id":"336733725180f176a927372a"
-         },
-         {
-            "number":"7",
-            "quote":"People who wish to design games should play games. Lots of them. Don't make the decision to showcase your personal design talent at the cost of the game's quality by developing it in a vacuum. ",
-            "comments":"",
-            "_id":"b69e5c50d4a2d2c4638862af",
-            "tags":"tagme"
-         },
-         {
-            "number":"8",
-            "quote":"If you don't like a game that is popular, you should take responsibility for figuring out why people like it. ",
-            "comments":"",
-            "tags":"tagme",
-            "_id":"3c26b8cfaf774c8aa5838c6f"
-         },
-         {
-            "number":"8",
-            "quote":"Just because it may look like nothing is original doesn't validate the conclusion that all designs are unoriginal. ",
-            "comments":"",
-            "tags":"tagme",
-            "_id":"cadde5b66ab2c9fcd1c156d6"
-         },
-         {
-            "number":"9",
-            "quote":"A designer should take the responsibility for making sure that every significant departure from the norm is worth the player's time to learn. ",
-            "comments":"",
-            "tags":"tagme",
-            "_id":"d3498a01bb4c1f30c54b6e0c"
-         }
-      ],
-      "added":1518839235098
-   },
-   {
-      "_id":"5a87ade696554f0400c322d8",
-      "title":"A Theory of Fun for Game Design",
-      "author":"Raph Koster",
-      "isms":[
-         {
-            "number":"22",
-            "quote":"Thinking is mostly memory, pattern-matching against past experiences. ",
-            "comments":"",
-            "tags":"tagme",
-            "_id":"b492ff99577be3106c230a04"
-         },
-         {
-            "number":"18",
-            "quote":"The brain is actively hiding the real world from us. Seeing what is actually there with our conscious mind is really hard to do, and most people never learn how to do it. ",
-            "comments":"",
-            "tags":"tagme",
-            "_id":"2cff630f5d6a2de5a8cfaaa5"
-         },
-         {
-            "number":"22",
-            "quote":"The essence of much of art is forcing us to see things as they are rather than as we assume them to be. ",
-            "comments":"",
-            "tags":"tagme",
-            "_id":"6c26be36afeb6c094977b899"
-         }
-      ],
-      "added":1518841318076
    },
    {
       "_id":"5a6740b80cbdbb040034d246",
@@ -5140,7 +5407,7 @@
          {
             "number":"18",
             "quote":"It's easy to buy a cookbook filled with instructions to follow, but really hard to find a chef book.",
-            "comments":"",
+            "comments":"There is a huge difference between being the one creating the instructions and the one following the instructions. The former is art, the latter is not.",
             "_id":"5b515e30c2ca6a4968e86c09",
             "tags":"instructions"
          },
@@ -6231,5 +6498,655 @@
          }
       ],
       "added":1516716216722
+   },
+   {
+      "_id":"5a87ade696554f0400c322d8",
+      "title":"A Theory of Fun for Game Design",
+      "author":"Raph Koster",
+      "isms":[
+         {
+            "number":"22",
+            "quote":"Thinking is mostly memory, pattern-matching against past experiences. ",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"b492ff99577be3106c230a04"
+         },
+         {
+            "number":"18",
+            "quote":"The brain is actively hiding the real world from us. Seeing what is actually there with our conscious mind is really hard to do, and most people never learn how to do it. ",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"2cff630f5d6a2de5a8cfaaa5"
+         },
+         {
+            "number":"22",
+            "quote":"The essence of much of art is forcing us to see things as they are rather than as we assume them to be. ",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"6c26be36afeb6c094977b899"
+         },
+         {
+            "number":"24",
+            "quote":"Noise is any pattern we don't understand. There's really next to nothing in the visible universe that is patternless. If we perceive something as noise, it's most likely a failure in ourselves, not a failure in the universe. ",
+            "comments":"",
+            "_id":"40979d7b51cb5a1c57521b99",
+            "tags":"tagme"
+         },
+         {
+            "number":"28",
+            "quote":"Talks about the three levels of learning: conscious thought (logic, analysis, data), chunking (building approximations of reality), muscle memory (which is really autonomic nervous system reactions).",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"4afd2ee63cfb4f61bd1bbc7d"
+         },
+         {
+            "number":"34",
+            "quote":"The only real difference between games and reality is that the stakes are lower with games. ",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"95eb28c5c96301e397c4f2cf"
+         },
+         {
+            "number":"36",
+            "quote":"Games are a formal system, already abstracted and iconic, and ready for our brains to absorb without having to turn messy reality into patterns first. ",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"c0e208d1b0ee898f35b7b084"
+         },
+         {
+            "number":"36",
+            "quote":"The map is not the territory.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"c7e4aab849feea8ec63fba8b"
+         },
+         {
+            "number":"36",
+            "quote":"Books can't do as good a job at teaching as games can, because you cannot practice a pattern and run permutations on it with a book, and have the book respond with feedback. ",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"5440723b617825589280dc08"
+         },
+         {
+            "number":"38",
+            "quote":"The house the cheese the rat the cat the dog chased caught ate lay in was built by Jack. ",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"d1a81d85c673a8d3aa90ecbe"
+         },
+         {
+            "number":"38",
+            "quote":"If you keep playing games, you'll eventually grok wide swaths of their possibility space. In this sense, they are disposable, and boredom is inevitable. ",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"2ee7dce7b7e71392c9d4b9bc"
+         },
+         {
+            "number":"42",
+            "quote":"Boredom is the opposite of learning. When a game stops teaching us, we feel bored. Boredom is the brain casting about for new information. It is the feeling we get when there are no new visible patterns to absorb. This includes patterns that go over our heads.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"50e3103552fb05a461d5de63"
+         },
+         {
+            "number":"42",
+            "quote":"Games have to navigate between the Scylla and Charybdis of deprivation and overload, of excessive order and excessive chaos, of silence and noise.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"962509a29762d0a6ab696196"
+         },
+         {
+            "number":"46",
+            "quote":"The definition of a good game is one that teaches everything it has to offer before the player stops playing.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"62d8c1dc38a82a84315ced2a"
+         },
+         {
+            "number":"46",
+            "quote":"Games are teachers. Fun is just another word for learning. Games teach you how aspects of reality work, how to understand yourself, how to understand the actions of others, and how to imagine. Learning is boring to so many people because the method of transmission is wrong.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"ae38b889cc6e593254fb58b3"
+         },
+         {
+            "number":"48",
+            "quote":"We learn through stories; we become who we are through stories.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"a7911654a9e0b0902d36eac3"
+         },
+         {
+            "number":"50",
+            "quote":"As we grow up, we don't actually put away the notion of \"having fun.\" We just migrate it to other contexts. There are games all around us, we just don't call them that.",
+            "comments":"",
+            "_id":"b3f15dd491b1afceb8c0afab",
+            "tags":"tagme"
+         },
+         {
+            "number":"50",
+            "quote":"A reward structure alone does not a good game make.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"ccd96a38a427f047a0ccd3b8"
+         },
+         {
+            "number":"56",
+            "quote":"Exploring a possibility space is the only way to learn about it. Most games repeatedly throw evolving spaces at you so that you can explore the recurrence of symbols within them. A modern video game will give you tools to navigate a complicated space, and when you finish, the game will give you another space, and another, and another.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"cd453dbad2481f999d1f393e"
+         },
+         {
+            "number":"60",
+            "quote":"Many of the things we have fun doing are in fact training us to be better cavemen.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"5fcb5fb292662b5cc29ab01e"
+         },
+         {
+            "number":"62",
+            "quote":"Farming simulator games are really just games about running a business, and not about learning how to actually grow food.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"4b2f8c1bb34bf91b39661032"
+         },
+         {
+            "number":"62",
+            "quote":"Most games revolve around skill sets like resource allocation, force projection, and territory control.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"b22950636f1c2a0ad2626c28"
+         },
+         {
+            "number":"64",
+            "quote":"Games do very well at action verbs: controlling, projecting, surrounding, matching, remembering, counting, and so on.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"97a9120f504f167454085c62"
+         },
+         {
+            "number":"66",
+            "quote":"It's worth asking ourselves what skills are more commonly needed today. Games should be evolving toward teaching us those skills.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"a873b4f8429ec7d2b2de8d44"
+         },
+         {
+            "number":"68",
+            "quote":"Humans are tribal creatures. We not only fall readily into groups run by outsize personalities, but we'll often subsume our better judgment in doing so.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"4ea40551a2d08fa59fde4ecf"
+         },
+         {
+            "number":"72",
+            "quote":"Why are the most popular games the ones that teach obsolete skills (judging trajectory, recognizing danger patterns, running fast and hitting things), while the more sophisticated ones that teach subtler skills tend to reach smaller markets? Because it's easier, and allows us to stay in the unconscious thought/autonomic nervous system reaction mode, and avoid logical, conscious thought.",
+            "comments":"",
+            "_id":"bd97ba6aa9789adfd10c7e2d",
+            "tags":"tagme"
+         },
+         {
+            "number":"76",
+            "quote":"Games typically look different because of their __content__ not their underlying lessons.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"303272d02c00deef55cc5678"
+         },
+         {
+            "number":"78",
+            "quote":"Take a stagnated genre, like 2D shooters (centipede, robotron, defender, galaga) and find a new dimension to add to the gameplay.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"2fedecc34680eb36cb66b924"
+         },
+         {
+            "number":"80",
+            "quote":"The fiction of word problems in math trains us to see past the story to the underlying math problem, and trains us to recognize real-world situations where that math problem might be lurking. A game is similar: you don't see the abstraction directly; there is misdirection; there are metaphors. Games and word problems train us to ignore the fiction wrapping the pattern.",
+            "comments":"",
+            "_id":"9e00b77fa45b3186c46ff8b6",
+            "tags":"tagme"
+         },
+         {
+            "number":"84",
+            "quote":"Non-gamers decrying games as too violent. But Deathrace does not teach you to run over pedestrians any more than Pac-Man teaches you to eat dots and be scared of ghosts. This is because gamers' brains see past the dressings and metaphors to the real lesson being taught by the game; they ignore the context. The context may be reprehensible, or not the best setting or staging for the game, but it's also not what the game is really about.",
+            "comments":"Monster hunter is no longer awesome because it's about hunting monsters. Now I play it because of the feedback loops (I can impact the world), the clear path of growth of my character (Do XYZ quests and you'll be stronger), the amassing of wealth (this mostly means gear and items). It's about these evolutionary lessons, not the pretty monsters.",
+            "_id":"b4392efe4b4854a665e21b5d",
+            "tags":"tagme"
+         },
+         {
+            "number":"86",
+            "quote":"Instead of dressing up a complex abstraction, we just sprinkle game obstacles throughout a mediocre narrative, forcing the player to perform certain actions to see more of the novel. This can be entertaining, and reach a larger audience of 'non-\n or casual gamers', but it overshadows and diminishes the learning we get from game systems. The stories for power-centric games (shooters) are generally power fantasies, which is pretty juvenile.",
+            "comments":"",
+            "_id":"2bb027196f6f84c93596f584",
+            "tags":"tagme"
+         },
+         {
+            "number":"88",
+            "quote":"Games are not stories, though players can create stories from them.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"b7691462b39453826cd05b67"
+         },
+         {
+            "number":"88",
+            "quote":"Stories are one of humanity's chief teaching tools. Play is the other. Lecturing runs a distant third.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"5c93978eca89514dc9464a1c"
+         },
+         {
+            "number":"90",
+            "quote":"The eight types of fun per game designer Marc LeBlanc: sense-pleasure, make-believe, drama, obstacle, social framework, discovery, self-discovery and expression, and surrender.",
+            "comments":"",
+            "_id":"629a5f4b66aeb91468546d8b",
+            "tags":"tagme"
+         },
+         {
+            "number":"92",
+            "quote":"Positive emotions surrounding interpersonal interactions: schadenfreude, fiero, naches, kvell.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"68fa2be1332470f0c1c55fbf"
+         },
+         {
+            "number":"94",
+            "quote":"Doing things for fun that don't help us grow is aesthetic appreciation. Delight, awe, mystery, harmony. Like fun, it's about patterns, but the different is that aesthetics is about __recognizing__ patterns, not learning new ones. For example: delight is when we recognize a pattern but are surprised by it, like the Statue of Liberty at the end of the Plant of the Apes.",
+            "comments":"",
+            "_id":"ae0b58f2999c44fb65d05351",
+            "tags":"tagme"
+         },
+         {
+            "number":"96",
+            "quote":"Fun is contextual. The reasons why we are engaging in an activity matter a lot. School is not fun because we take it seriously. It's not practice, and the conseqeunces (your grades, social status) are real.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"4ef9d9983ff59ec3a90e74bd"
+         },
+         {
+            "number":"96",
+            "quote":"A shark only gets feedback for eating. Monkeys get feedback for helping others (naches and kvell), pushing the boundaries of their knowledge (fun), and strengthening their social networks and building communities and families that work together to improve everyone's lot (grooming, pairing, and feeding others).",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"d39fbc72c2a49e14479d171b"
+         },
+         {
+            "number":"98",
+            "quote":"As we succeed in mastering patterns thrown at us, the brain gives us little jolts of pleasure. But if the flow of new patterns slows, then we won't get the jolts, and we'll start to feel boredom. If the flow of new patterns increases beyond our ability to resolve them, we won't get the jolts either because we're not making progress.",
+            "comments":"",
+            "tags":"flow",
+            "_id":"903dfa52a068dea4af548ada"
+         },
+         {
+            "number":"98",
+            "quote":"Most of the cases where we typically cite flow relate to exercising mastery, not learning. Fun happens when we bump into and over the top edge of flow, and sometimes we need a little help (from such as the game system).",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"9e24ef30ae74d89d5799af6b"
+         },
+         {
+            "number":"100",
+            "quote":"Games are deliberate practice machines.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"6b9187683882e225646aba3a"
+         },
+         {
+            "number":"100",
+            "quote":"Games as meditation (the repetitive behavior bit, which in meditation is a focus, mantra, or breathing pattern).",
+            "comments":"",
+            "_id":"378bd82c64bad2d630661f57",
+            "tags":"tagme"
+         },
+         {
+            "number":"100",
+            "quote":"Fun is about learning in a context where there is no pressure from consequence.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"9098edf669ae0afaaa011cbc"
+         },
+         {
+            "number":"102",
+            "quote":"Seven forms of intelligence: Linguistic, Musical, Logical-mathematical, Interpersonal, Bodily-kinesthetic, Intrapersonal, Spatial.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"b2583a80a2ae243234203fc4"
+         },
+         {
+            "number":"102",
+            "quote":"Not all people like all games equally because people are intelligent in different ways, and will tend to gravitate toward problems they think they have a chance at solving.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"d4b229a169142df8c695c436"
+         },
+         {
+            "number":"104",
+            "quote":"The variation between individuals of either sex is greater than the difference between the sexes, but the differences are real. However, many of these differences are disappearing over time, which suggests that they are cultural rather than biological.",
+            "comments":"",
+            "_id":"62972f14981575292f00727a",
+            "tags":"tagme"
+         },
+         {
+            "number":"104",
+            "quote":"Research shows that if people who have trouble with spatial rotation tests are given a video game that encourages them to practice rotation objects and matching particular configurations in 3D, not only will they master the spatial perception necessary, but the results will be permanent.",
+            "comments":"",
+            "_id":"2b690be499108eb767b059a7",
+            "tags":"tagme"
+         },
+         {
+            "number":"253",
+            "quote":"\"Centipede (78): One of the most charming shoot-'em-ups ever made, Centipede was notable for its extension of several key concepts from earlier games. It permitted full planar movement within a restricted area at the bottom of the screen, allowing enemies to inhabit the space behind the player. It made use of the same sort of barriers that space invaders had, only it characterized them as mushrooms and spread them across the entire screen. It had a wide assortment of enemies, some of which marched down the screen and some of which were dive-bombers. Finally, the control mechanism was a trackball, which gave players control over acceleration rather than just linear movement speed, employed by joystick-controlled shooters.\"",
+            "comments":"from the notes section",
+            "_id":"b818e5cdaad4302a9f2d247f",
+            "tags":"tagme"
+         },
+         {
+            "number":"104",
+            "quote":"Simon Baron-Cohen concluded that there are \"systematizing brains\" and \"empathizing brains\". Extreme systematizing brains are autistic and ones just slightly less so are Asperger's. Males are more likely to fall into these categories.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"ca30f04950e173df65f97593"
+         },
+         {
+            "number":"106",
+            "quote":"The difficulty ramp is almost certain to be wrong for many people, and the basic premises are likely to be uninteresting or too difficult for large segments of the population.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"56ec86e8b205e6fc4529634d"
+         },
+         {
+            "number":"110",
+            "quote":"If people are to achieve their maximum potential, they need to do the hard work of playing games they don't get, the games that don't appeal to their natures. Taking these on may serve as the nurture part of the equation, counterbalancing the brains that they were born with or culturally trained to have.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"6356637e616ddad34342d65b"
+         },
+         {
+            "number":"114",
+            "quote":"Once players look at a game and ascertain the pattern and the ultimate goal, they'll try to find the optimal path to getting there. This includes cheating, which isn't wrong, and is actually a sign of lateral thinking, also known as cunning, and is a skill that makes them more likely to survive. Knowing how to exploit a game and successfully doing so is a sign that the player fully groks the game.",
+            "comments":"When children lie, and especially when they lie well, they are exhibiting their understanding of the social dynamic, communication, and psychology of a situation.",
+            "_id":"681fda154d5ae9d72bd960c4",
+            "tags":[
+               "lying",
+               "cheating",
+               "survival"
+            ]
+         },
+         {
+            "number":"116",
+            "quote":"Loophole: game system allows it, not violating the magic circle. Cheating: external techniques, hacking, modding, etc. Both can be considered poor form as they both allow the player to circumvent the skill or lesson the game is trying to convey.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"bb6d646c4294d45ecb2985d0"
+         },
+         {
+            "number":"118",
+            "quote":"Humans like things that significantly reduce the odds of unpredictable things happening to them. But we also dislike tedium, so we allow unpredictable things inside the confines of predictable boxes, like games or TV shows or books. The purpose of games is to package up the unpredictable and the learning experience into a space and time where there is no risk.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"9fdd53a15d3dade5caf82233"
+         },
+         {
+            "number":"120",
+            "quote":"Games teach us things so that we can minimize risk and know what choices to make. Phrased another way, the destiny of games is to become boring, not to be fun. Those of us who want games to be fun are fighting a losing battle against the human brain because fun is a process and routine is its destination.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"c87b5c35aa058a864b774255"
+         },
+         {
+            "number":"122",
+            "quote":"Successful games tend to incorporate the following elements: preparation, a sense of space, a solid core mechanic, a range of challenges, a range of abilities required to solve the encounter, skill required in using the abilities. They also: have a variable feedback system, deal with the Mastery Problem (bottom-feeding too easy encounters must not be too rewarding, but inexperienced players will be unable to get the most out of the game), and failure must have a cost greater than just the opportunity cost.",
+            "comments":"",
+            "_id":"a986b6156f6697a16dc42898",
+            "tags":"tagme"
+         },
+         {
+            "number":"126",
+            "quote":"Competition/head-to-head games are the easiest way to constantly provide a new flow of challenges and content.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"6d402e22ce7ede1547420d42"
+         },
+         {
+            "number":"126",
+            "quote":"Mastery problem: competitive game-playing tends to squeeze out the people who most need to learn the skills it provides, because they aren't up to the competition and are eliminated in their first match. So people tend to prefer games that take no skill. Not requiring skill from a player should be considered a cardinal sin in game design. It also can't require too much skill, since players are always trying to reduce the difficulty of a task, and the easiest way to do that is to not play.",
+            "comments":"",
+            "_id":"2cfe8a3049ca128a461a2c91",
+            "tags":"tagme"
+         },
+         {
+            "number":"128",
+            "quote":"The glory of learning and its fundamental problem: once you learn something, it's over. You don't get to learn it again.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"9f7c3c5a2e38314063a06f26"
+         }
+      ],
+      "added":1518841318076
+   },
+   {
+      "_id":"5a87a5c396554f0400c322d6",
+      "title":"The Kobold Guide to Board Game Design",
+      "author":"Mike Selinker",
+      "isms":[
+         {
+            "number":"2",
+            "quote":"A compelling game mechanic only makes sense in context. Transplant that mechanic into another game, and there is no guarantee that it will work. You can't just throw a bunch of random watch pieces together and expect them to tell time. You must have a plan.",
+            "comments":"",
+            "_id":"d09efcfd2d080760cf613bab",
+            "tags":"tagme"
+         },
+         {
+            "number":"3",
+            "quote":"People buy watches to express who they are, even if who they are is summed up as \"I bought a cheap watch because I don't care to express who I am through my choice of watch.\"",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"91536f9c36ef8efcca86141c"
+         },
+         {
+            "number":"4",
+            "quote":"You can't learn to create a new game by smashing an old game and measuring the pieces.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"92705a6a3b13457c5d2896f0"
+         },
+         {
+            "number":"4",
+            "quote":"If you're a gamer who wants to be a game designer, you have to re-learn how to think. Let yourself be passionate. Don't second-guess every idea. Be a child.",
+            "comments":"Your inner voice will tell you your idea is bad or won't work for a million reasons. Tell it to shut the hell up.",
+            "_id":"336733725180f176a927372a",
+            "tags":"tagme"
+         },
+         {
+            "number":"7",
+            "quote":"People who wish to design games should play games. Lots of them. Don't make the decision to showcase your personal design talent at the cost of the game's quality by developing it in a vacuum. ",
+            "comments":"",
+            "_id":"b69e5c50d4a2d2c4638862af",
+            "tags":"tagme"
+         },
+         {
+            "number":"8",
+            "quote":"If you don't like a game that is popular, you should take responsibility for figuring out why people like it. ",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"3c26b8cfaf774c8aa5838c6f"
+         },
+         {
+            "number":"8",
+            "quote":"Just because it may look like nothing is original doesn't validate the conclusion that all designs are unoriginal. ",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"cadde5b66ab2c9fcd1c156d6"
+         },
+         {
+            "number":"9",
+            "quote":"A designer should take the responsibility for making sure that every significant departure from the norm is worth the player's time to learn. ",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"d3498a01bb4c1f30c54b6e0c"
+         },
+         {
+            "number":"11",
+            "quote":"We remember things about the world in the form of dramas writ small, writ large, or writ in-between. The player experiences gameplay as the story of what he did.",
+            "comments":"",
+            "_id":"5765152e3ac86c3a57fc5a5c",
+            "tags":"tagme"
+         },
+         {
+            "number":"13",
+            "quote":"There's little that makes an audience crankier than when their expectations about the kinds of things that are supposed to be happening at this point in the story aren't being met.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"98c97b09a69a55452fb8873b"
+         },
+         {
+            "number":"15",
+            "quote":"In the very best games, there will many opportunities for different players to trade what looks to all of them like the leading position. A game that at any point looks like a foregone conclusion isn't fun.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"49ff16dc4abe4afca9750238"
+         },
+         {
+            "number":"16",
+            "quote":"A player's successes and failures in the second act should obviously be the massive determining factor in whether he's the third act's frontrunner for victory. If that's not the case, the game is poorly designed.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"a0c8a1fe983b51935da2b748"
+         },
+         {
+            "number":"20",
+            "quote":"A game without mechanics isn't a game. It's a story. Or possibly a thought experiment. A game without a metaphor isn't a game. It's a math problem. Maybe a puzzle. Or a toy.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"b96015ab58f3f5e74b4c6af5"
+         },
+         {
+            "number":"20",
+            "quote":"A good set of mechanics can be used in conjunction with all sorts of metaphors.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"d248be746f36e14e3c8cbd1b"
+         },
+         {
+            "number":"21",
+            "quote":"[Game name] is a [category of] game in which [the players or their avatars] [do or compete for something] by [using tools the game provides them].",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"adc8f8b2beb4f38632505316"
+         },
+         {
+            "number":"22",
+            "quote":"Any part of the game that fails to support the game and make it better--whether metaphor or mechanic--should be cut. It doesn't matter how enamored you might be of a particular mechanic or a clever bit of story. If it doesn't fit, let it go.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"56d357afb53f7d06c61cad30"
+         },
+         {
+            "number":"22",
+            "quote":"One of the best things about an idea is that it doesn't spoil if you leave it out. It has an infinite shelf life. You can always use it somewhere else later, in a project that suits it better than the one you're working on at the moment.",
+            "comments":"I feel like this is what I do with my endless lists of things and project ideas. Even if I don't finish something, as long as it's not bugging me, it can sit there forever. I'll get to it someday.",
+            "_id":"46bc0754b5b9c64ab6b54ce2",
+            "tags":"tagme"
+         },
+         {
+            "number":"24",
+            "quote":"Think about how many things in your life you share with others because of your own limitations. Don't imagine your game design is free from those.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"cbf4b298382c5e8835210fe0"
+         },
+         {
+            "number":"28",
+            "quote":"If you can't see why a publisher would want to publish your game as is, it's probably because they don't. But they still might want it, and you still might like the results.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"566d38c2920cf8d36b91ba96"
+         },
+         {
+            "number":"37",
+            "quote":"If you can put words to the idea and make sense of those words later on, you still may find that the idea wasn't as brilliant as you thought it was when you got out of bed at 3 a.m. to write it down because it seemed brilliant and you didn't want to forget it. Then again, it might just be that great idea you otherwise would have lost.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"6084f1ff4ccd38259d02bc85"
+         },
+         {
+            "number":"37",
+            "quote":"The most important member of your target audience is yourself. You have to be willing to play your own games ad nauseum if you are going to succeed, and you'll be miserable if the games you invent are not truly games you enjoy playing yourself.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"6b7bf30f3f7fbc01c68891a4"
+         },
+         {
+            "number":"38",
+            "quote":"Trying to write rules down is a great way to show you the holes in your design.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"a3c8865a5a496c8ccf683698"
+         },
+         {
+            "number":"39",
+            "quote":"If someone says \"Let's play again\" immediately after losing a game you designed, it's fun enough.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"c9e789574d4eb0cc3c0ef779"
+         },
+         {
+            "number":"40",
+            "quote":"At every state, ask yourself \"Is this element really working, and what happens if I get rid of it?\"",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"46583c99a33acbe3d235ecd8"
+         },
+         {
+            "number":"42",
+            "quote":"Rules shouldn't explain a game; they should only confirm what the rest of the game tells you. ",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"a3d998da480004ca94608b07"
+         },
+         {
+            "number":"43",
+            "quote":"A game is an interactive mathematical system (mechanics and rules), made concrete (pieces and graphics), used to tell a story (theme).",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"2e228300d18016f3d3ed92d5"
+         },
+         {
+            "number":"45",
+            "quote":"An elegant, easy-to-understand concept or mechanic that accomplishes 95% of what you want is much better than a clunky, obtuse mechanic that gets you 100%.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"6bc9c8b6343061cdd1c2e1cc"
+         },
+         {
+            "number":"44",
+            "quote":"Make your design as clean as possible, meaning all the mechanics are related and necessary.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"ac73cff8529fa7104e8b2d1f"
+         },
+         {
+            "number":"45",
+            "quote":"Don't fall in love with a fringe element of your game.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"bf90a94553f20155303c1e10"
+         },
+         {
+            "number":"46",
+            "quote":"A bunch of notes on intuitive game piece design.",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"cd45a2e76d907ceb692a18f6"
+         },
+         {
+            "number":"52",
+            "quote":"If a player is losing but has no chance to gain ground, it will take away from the experience. ",
+            "comments":"",
+            "tags":"tagme",
+            "_id":"51c6949a2eced761c7396f0b"
+         }
+      ],
+      "added":1518839235098
    }
 ]

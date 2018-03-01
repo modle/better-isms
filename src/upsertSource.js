@@ -44,7 +44,7 @@ function upsertSource(event) {
   }).done(function(response) {
     if (response.msg === "") {
       clearSourceFormFields();
-      generateContent(null);
+      content.generate(null);
     } else {
       alert("Error: " + response.msg);
     }

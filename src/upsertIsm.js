@@ -55,7 +55,7 @@ function upsertIsm(event) {
   }).done(function(response) {
     if (response.msg === "") {
       clearIsmFormFields();
-      generateContent(null);
+      content.generate(null);
       hideAllModals();
     } else {
       alert("Error: " + response.msg);
@@ -110,7 +110,7 @@ function bulkUpsertIsms(event) {
   }).done(function(response) {
     if (response.msg === "") {
       console.log("no problems here, jim");
-      generateContent(null);
+      content.generate(null);
     } else {
       alert("Error: " + response.msg);
     }
@@ -132,7 +132,7 @@ function updateIsmSingleField(event) {
   }).done(function(response) {
     if (response.msg === "") {
       removeIsmFromList(ids.sourceId, ids.ismId);
-      kickOffUpdateForm(ids.type);
+      content.kickOffUpdateForm(ids.type);
     } else {
       alert("Error: " + response.msg);
       resetUpdateTracker();

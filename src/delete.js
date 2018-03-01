@@ -20,7 +20,7 @@ function deleteIsm(event) {
       } else {
         alert("Error: " + response.msg);
       }
-      generateContent();
+      content.generate();
       // clear the update fields if the id matches
       if ($("#upsertIsmForm fieldset button#upsertIsm").val() === thisSource) {
         $("#upsertIsmForm fieldset input").val("");

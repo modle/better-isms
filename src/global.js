@@ -106,7 +106,7 @@ $(document).ready(function() {
   hideElement("logout");
   hideElement("login");
   if (auth.checkLoggedIn()) {
-    generateContent("");
+    content.generate("");
     showElement("logout");
   } else {
     console.log("user is not logged in");
@@ -191,12 +191,12 @@ function setText(elementClass, text) {
 }
 
 function processUntagged() {
-  getTagmeIsms();
+  content.getTagmeIsms();
 }
 
 function processUncommented() {
-  getIsmsWithoutComments();
-  kickOffUpdateForm('uncommented');
+  content.getIsmsWithoutComments();
+  content.kickOffUpdateForm('uncommented');
 }
 
 function stopUpdate() {
@@ -207,5 +207,5 @@ function stopUpdate() {
 
 function clearFilterAndReload() {
   clearFilter();
-  generateContent();
+  content.generate();
 }

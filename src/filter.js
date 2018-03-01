@@ -6,5 +6,5 @@ function prepFilter(event) {
   } else if (eventClasses.includes("linktagfilter")) {
     globals.filterType = "tag";
   }
-  generateContent();
+  content.generate();
 }

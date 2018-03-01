@@ -26,7 +26,7 @@ var auth = {
   },
   logUserOut : function() {
     deleteCookie("username");
-    clearIsmDivs();
+    content.clearIsmDivs();
     clearTagCloud();
     clearSourceCloud();
     console.log("user is logged out");
@@ -82,7 +82,7 @@ var auth = {
         if (response.msg === "") {
           setCookie("username", user.username, 365);
           hideAllModals();
-          generateContent("");
+          content.generate("");
           auth.showLoggedInButtons();
         } else {
           alert("Error: " + response.msg);

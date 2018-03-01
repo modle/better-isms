@@ -102,7 +102,6 @@ var ismForm = {
       thisIsmObject.comments
     );
     $("#upsertIsmForm fieldset button#btnUpsertIsm").val(thisSource);
-
-    console.log("exiting", getName());
+    log.exit(getName());
   },
 };

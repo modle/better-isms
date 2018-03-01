@@ -56,7 +56,7 @@ var auth = {
   },
   logUserIn : function(event) {
     event.preventDefault();
-    console.log("login button clicked!");
+    log.enter(getName());
 
     // Super basic validation - increase errorCount variable if any fields are blank
     var errorCount = 0;
@@ -90,9 +90,9 @@ var auth = {
       });
     } else {
       alert("Please fill in all fields");
-      console.log("exiting login with return false");
+      log.exit(getName());
       return false;
     }
-    console.log("exiting logUserIn");
+    log.exit(getName());
   },
 };

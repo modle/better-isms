@@ -2,10 +2,10 @@ var database = {
   upsertIsm : function(event) {
     auth.handleLogin();
     event.preventDefault();
-    console.log("entering upsertIsm");
+    log.enter(getName());
     var optionalIsmFields = ["inputComments", "inputTags"];
     if (!forms.validate("upsertIsmForm", optionalIsmFields)) {
-      console.log("exiting upsertIsm before request");
+      log.exit(getName());
       return;
     }
 
@@ -39,7 +39,7 @@ var database = {
         alert("Error: " + response.msg);
       }
     });
-    console.log("exiting upsertIsm");
+    log.exit(getName());
   },
   buildTags : function(tags) {
     if (Array.isArray(tags)) {
@@ -55,9 +55,9 @@ var database = {
   bulkUpsertIsms : function(event) {
     auth.handleLogin();
     event.preventDefault();
-    console.log("entering bulkUpsertIsms");
+    log.enter(getName());
     if (!forms.validate("bulkAddIsmForm")) {
-      console.log("exiting bulkUpsertIsms before request");
+      log.exit(getName());
       return;
     }
     var sourceId = $(this).attr("value");
@@ -78,10 +78,10 @@ var database = {
       }
     });
     modals.hide();
-    console.log("exiting bulkUpsertIsms");
+    log.exit(getName());
   },
   updateIsmSingleField : function(event) {
-    console.log("entering updateIsmSingleField");
+    log.enter(getName());
     let ids = forms.getIdsFromButton();
     let ism = database.getIsm(ids);
     let url = "/isms/updateism/" + ids.sourceId + "/" + ids.ismId;
@@ -99,7 +99,7 @@ var database = {
         resetUpdateTracker();
       }
     });
-    console.log("exiting updateIsmSingleField");
+    log.exit(getName());
   },
   getIsm : function(ids) {
     let ism = database.getIsmFromSource(ids);
@@ -124,7 +124,7 @@ var database = {
   },
   upsertSource : function(event) {
     event.preventDefault();
-    console.log("entering upsertSource!");
+    log.enter(getName());
     auth.handleLogin();
     // Super basic validation - increase errorCount variable if any fields are blank
     var errorCount = 0;
@@ -135,7 +135,7 @@ var database = {
     });
     if (errorCount > 0) {
       alert("Please fill in all required fields");
-      console.log("exiting upsertSource with return false");
+      log.exit(getName());
       return false;
     }
 
@@ -175,7 +175,7 @@ var database = {
     });
     modals.hide();
     database.showSourceUpsertedToast(upsertedToastString);
-    console.log("exiting upsertSource");
+    log.exit(getName());
   },
   showSourceUpsertedToast : function(toastString) {
     if (!toastString) {
@@ -242,9 +242,9 @@ var database = {
         modals.hideAfterAWhile(ismDeletedModal);
       });
     } else {
-      console.log("exiting deleteIsm with return false");
+      log.exit(getName());
       return false;
     }
-    console.log("exiting deleteIsm");
+    log.exit(getName());
   },
 }

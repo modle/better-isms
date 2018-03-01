@@ -210,3 +210,12 @@ function clearFilterAndReload() {
 function getName() {
   return getName.caller.name;
 }
+
+var log = {
+  exit : function(name) {
+    console.log("exiting", name);
+  },
+  enter : function(name) {
+    console.log("entering", name);
+  },
+};

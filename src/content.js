@@ -69,9 +69,9 @@ var content = {
     });
   },
   getIsmsWithoutComments : function() {
-    console.log("entering getIsmsWithoutComments");
+    log.enter(getName());
     globals.targetIsms = globals.cachedIsms.filter( source => source.isms.length > 0 );
-    console.log("exiting getIsmsWithoutComments");
+    log.exit(getName());
   },
   kickOffUpdateForm : function(type) {
     if (type === 'uncommented') {
@@ -81,7 +81,7 @@ var content = {
     }
   },
   kickOffCommentUpdateForm : function() {
-    console.log("entering kickOffCommentUpdateForm");
+    log.enter(getName());
     forms.clearAll();
     if(this.populateCommentIsmForm() && globals.targetIsms.length > 0) {
       hideFooter();
@@ -89,17 +89,17 @@ var content = {
       globals.currentlyUpdating = 'uncommented';
       $("#newComments").focus();
     }
-    console.log("exiting kickOffCommentUpdateForm");
+    log.exit(getName());
   },
   populateCommentIsmForm : function() {
-    console.log("entering populateCommentIsmForm");
+    log.enter(getName());
     const formId = 'updateUncommentedForm';
     const type = 'uncommented';
-    console.log("exiting populateCommentIsmForm");
+    log.exit(getName());
     return this.populateIsmForm(type, formId);
   },
   populateIsmForm : function(type, formId) {
-    console.log("entering populateIsmForm");
+    log.enter(getName());
     // get random source, then random ism from that source
     let source = this.getRandomSource(globals.targetIsms);
     if (!source) {
@@ -120,7 +120,7 @@ var content = {
       return true;
     }
     this.injectIsmIntoForm(type, source, ism, formId);
-    console.log("exiting populateIsmForm");
+    log.exit(getName());
     return true;
   },
   getRandomSource : function(sources) {
@@ -145,7 +145,7 @@ var content = {
     $("#" + form + " fieldset button#save-and-next-" + type).val(source._id + ':' + ism._id + ':' + type);
   },
   getTagmeIsms : function() {
-    console.log("entering getTagmeIsms");
+    log.enter(getName());
     // TODO decide whether a call is needed here
     // on one hand, using mongo to do the filtering for us makes this really simple
     // on the other, we have to make a call to the DB, when we could just Array.filter the cachedIsms
@@ -159,10 +159,10 @@ var content = {
       globals.targetIsms = response;
       content.kickOffUpdateForm('untagged');
     });
-    console.log("exiting getTagmeIsms");
+    log.exit(getName());
   },
   kickOffTagmeUpdateForm : function() {
-    console.log("entering kickOffTagmeUpdateForm");
+    log.enter(getName());
     forms.clearAll();
     if(this.populateTagIsmForm()) {
       hideFooter();
@@ -170,13 +170,13 @@ var content = {
       globals.currentlyUpdating = 'untagged';
       $("#newTags").focus();
     }
-    console.log("exiting kickOffTagmeUpdateForm");
+    log.exit(getName());
   },
   populateTagIsmForm : function() {
-    console.log("entering populateTagIsmForm");
+    log.enter(getName());
     const formId = 'updateTagmeForm';
     const type = 'untagged';
-    console.log("exiting populateTagIsmForm");
+    log.exit(getName());
     return this.populateIsmForm(type, formId);
   },
   manageGetSourceListCall : function() {
@@ -212,13 +212,13 @@ var content = {
     }
   },
   generate : function() {
-    console.log("entering generateIsmDivs");
+    log.enter(getName());
     auth.handleLogin();
     this.prepClouds();
     this.manageGetSourceListCall();
     url = this.determineIsmQueryUrl();
     this.manageGetIsmListCall(url);
-    console.log("exiting generateIsmDivs");
+    log.exit(getName());
   },
   removeIsmFromList : function(sourceId, ismId) {
     let sourceIndex = globals.targetIsms.findIndex(aSource => aSource._id === sourceId);

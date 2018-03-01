@@ -1,7 +1,7 @@
 function upsertSource(event) {
   event.preventDefault();
   console.log("entering upsertSource!");
-  handleLogin();
+  auth.handleLogin();
   // Super basic validation - increase errorCount variable if any fields are blank
   var errorCount = 0;
   $("#upsertSourceForm input").each(function(index, val) {
@@ -74,7 +74,7 @@ function addSource(event) {
 }
 
 function openUpsertSourceForm() {
-  handleLogin();
+  auth.handleLogin();
   showModal(upsertSourceModal);
   $("#sourceFormTitle").html("Add source");
   $("#upsertSourceModal fieldset button#btnSubmitUpsertSource").val("");

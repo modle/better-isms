@@ -1,9 +1,9 @@
 function deleteIsm(event) {
-  handleLogin();
+  auth.handleLogin();
   event.preventDefault();
   console.log("delete ism clicked!");
 
-  handleLogin();
+  auth.handleLogin();
 
   var confirmation = confirm("Are you sure you want to delete this ism?");
   var thisSource = $(this).attr("rel");

@@ -36,7 +36,7 @@ function generateSourceCloud() {
 }
 
 function setSourceCloud(sourceCloud) {
-  $("#sourceCloud").html(sourceCloud);
+  $("#sourceCloudContents").html(sourceCloud);
 }
 
 function clearSourceCloud() {

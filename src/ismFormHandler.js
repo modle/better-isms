@@ -29,7 +29,7 @@ function hideOptionalFields() {
 }
 
 function openNewIsmForm(event) {
-  handleLogin();
+  auth.handleLogin();
   hideFooter();
   hideOptionalFields();
   clearIsmFormFields();
@@ -56,7 +56,7 @@ function setUpdateIsmFormElementText() {
 
 function populateIsmFields(event) {
   event.preventDefault();
-  handleLogin();
+  auth.handleLogin();
   hideFooter();
   setUpdateIsmFormElementText();
 

@@ -11,9 +11,9 @@ var globals = {
 $(document).ready(function() {
   // Click Entry Point Definitions =============================================================
 
-  $("#login").on("click", promptUserToLogin);
-  $("#btnSubmitLogin").on("click", logUserIn);
-  $("#logout").on("click", logUserOut);
+  $("#login").on("click", auth.promptUserToLogin);
+  $("#btnSubmitLogin").on("click", auth.logUserIn);
+  $("#logout").on("click", auth.logUserOut);
   $("#export").on("click", exportData);
 
   $("#addSource").on("click", addSource);
@@ -105,12 +105,12 @@ $(document).ready(function() {
   // generate the isms on initial page load if user is logged in
   hideElement("logout");
   hideElement("login");
-  if (checkLoggedIn()) {
+  if (auth.checkLoggedIn()) {
     generateContent("");
     showElement("logout");
   } else {
     console.log("user is not logged in");
-    promptUserToLogin();
+    auth.promptUserToLogin();
   }
 });
 
@@ -124,7 +124,7 @@ function clearFilter() {
 }
 
 function exportData() {
-  handleLogin();
+  auth.handleLogin();
   var txtFile = "test.txt";
   var file = new File([""], txtFile);
   var str = JSON.stringify(globals.cachedIsms);

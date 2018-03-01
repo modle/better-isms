@@ -233,7 +233,7 @@ function prepClouds() {
 
 function generateContent() {
   console.log("entering generateIsmDivs");
-  handleLogin();
+  auth.handleLogin();
   prepClouds();
   manageGetSourceListCall();
   url = determineIsmQueryUrl();

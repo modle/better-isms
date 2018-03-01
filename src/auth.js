@@ -25,7 +25,7 @@ var auth = {
     hideElements(this.loggedInElements);
   },
   logUserOut : function() {
-    deleteCookie("username");
+    cookie.delete("username");
     content.clearIsmDivs();
     clearTagCloud();
     clearSourceCloud();
@@ -36,7 +36,7 @@ var auth = {
     hideModalAfterAWhile(loggedOutModal);
   },
   checkLoggedIn : function() {
-    var user = getCookie("username");
+    var user = cookie.get("username");
     if (user != "") {
       console.log("user is logged in");
       return true;
@@ -80,7 +80,7 @@ var auth = {
         dataType: "JSON"
       }).done(function(response) {
         if (response.msg === "") {
-          setCookie("username", user.username, 365);
+          cookie.set("username", user.username, 365);
           hideAllModals();
           content.generate("");
           auth.showLoggedInButtons();

@@ -1,5 +1,4 @@
 var cookie = {
-
   delete : function(cookieName) {
     cookie.set(cookieName, "", 0);
   },

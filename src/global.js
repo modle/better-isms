@@ -25,7 +25,7 @@ $(document).ready(function() {
   $("#btnUpsertIsm").on("click", upsertIsm);
   $("#moreFields").on("click", toggleOptionalFields);
 
-  $(".hideModals").on("click", hideAllModals);
+  $(".hideModals").on("click", modals.hide);
   $("#clearFilter").on("click", clearFilterAndReload);
   $("#quitIsmUpdateComment").on("click", stopUpdate);
   $("#quitIsmUpdateTag").on("click", stopUpdate);
@@ -65,7 +65,7 @@ $(document).ready(function() {
     }
     // esc
     if (event.keyCode == 27) {
-      hideAllModals();
+      modals.hide();
       event.preventDefault();
     }
   });
@@ -98,9 +98,6 @@ $(document).ready(function() {
       }
     }
   });
-
-  // get the modals
-  modals = document.getElementsByClassName("modal");
 
   // generate the isms on initial page load if user is logged in
   hideElement("logout");
@@ -201,7 +198,7 @@ function processUncommented() {
 
 function stopUpdate() {
   globals.targetIsms = undefined;
-  hideAllModals();
+  modals.hide();
   clearFilterAndReload()
 }
 

@@ -31,9 +31,9 @@ var auth = {
     clearSourceCloud();
     console.log("user is logged out");
     auth.showLoggedOutButtons();
-    hideAllModals();
-    showModal(loggedOutModal);
-    hideModalAfterAWhile(loggedOutModal);
+    modals.hide();
+    modals.show(loggedOutModal);
+    modals.hideAfterAWhile(loggedOutModal);
   },
   checkLoggedIn : function() {
     var user = cookie.get("username");
@@ -45,7 +45,7 @@ var auth = {
   },
   promptUserToLogin : function() {
     hideFooter();
-    showModal(loginModal);
+    modals.show(loginModal);
     $("#inputUsername").focus();
   },
   handleLogin : function() {
@@ -81,7 +81,7 @@ var auth = {
       }).done(function(response) {
         if (response.msg === "") {
           cookie.set("username", user.username, 365);
-          hideAllModals();
+          modals.hide();
           content.generate("");
           auth.showLoggedInButtons();
         } else {

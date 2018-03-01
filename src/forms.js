@@ -7,7 +7,7 @@ var forms = {
   openBulkAddIsm : function(event) {
     auth.handleLogin();
     var sourceId = $(this).attr("value");
-    hideAllModals();
+    modals.hide();
     bulkIsmPlaceholder =
       "Format: yaml or json. Structure: Array of JavaScript objects (dicts).";
     bulkIsmPlaceholder +=
@@ -15,7 +15,7 @@ var forms = {
     $("#inputBulkIsms").prop("placeholder", bulkIsmPlaceholder);
     $("#btnSubmitBulkAddIsm").val(sourceId);
     $("#bulkAddIsmSourceHeader").html(getSourceDisplayString(sourceId));
-    showModal(bulkAddIsmModal);
+    modals.show(bulkAddIsmModal);
   },
   validate : function(formId, optionalFields) {
     // Super basic validation - increase errorCount variable if any fields are blank

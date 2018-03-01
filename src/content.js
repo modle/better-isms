@@ -86,7 +86,7 @@ var content = {
     forms.clearAll();
     if(this.populateCommentIsmForm() && globals.targetIsms.length > 0) {
       hideFooter();
-      showModal(uncommentedUpdateFormModal);
+      modals.show(uncommentedUpdateFormModal);
       globals.currentlyUpdating = 'uncommented';
       $("#newComments").focus();
     }
@@ -129,12 +129,12 @@ var content = {
   },
   terminateIsmUpdate : function(type) {
     console.log('no more ' + type + ' to update, aborting');
-    hideAllModals();
+    modals.hide();
     clearFilter();
     resetUpdateTracker();
     content.generate();
-    showModal(noIsmsToUpdateToast);
-    hideModalAfterAWhile(noIsmsToUpdateToast);
+    modals.show(noIsmsToUpdateToast);
+    modals.hideAfterAWhile(noIsmsToUpdateToast);
   },
   getRandomIsm : function(source) {
     return source.isms[Math.floor(Math.random() * source.isms.length)];
@@ -167,7 +167,7 @@ var content = {
     forms.clearAll();
     if(this.populateTagIsmForm()) {
       hideFooter();
-      showModal(tagmeUpdateFormModal);
+      modals.show(tagmeUpdateFormModal);
       globals.currentlyUpdating = 'untagged';
       $("#newTags").focus();
     }

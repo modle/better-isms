@@ -25,8 +25,8 @@ function deleteIsm(event) {
       if ($("#upsertIsmForm fieldset button#upsertIsm").val() === thisSource) {
         $("#upsertIsmForm fieldset input").val("");
       }
-      showModal(ismDeletedModal);
-      hideModalAfterAWhile(ismDeletedModal);
+      modals.show(ismDeletedModal);
+      modals.hideAfterAWhile(ismDeletedModal);
     });
   } else {
     console.log("exiting deleteIsm with return false");

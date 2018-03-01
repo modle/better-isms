@@ -34,14 +34,14 @@ function openNewIsmForm(event) {
   hideOptionalFields();
   clearIsmFormFields();
   if (globals.filterType !== "source") {
-    showModal(noSourceSelectedModal);
+    modals.show(noSourceSelectedModal);
     return;
   }
   sourceId = globals.filterId;
   setText('btnUpsertIsm', 'Add Ism');
   $("#btnShowBulkAddIsm").val(sourceId);
   $("#upsertIsmForm fieldset button#btnUpsertIsm").val(sourceId);
-  showModal(upsertIsmFormModal);
+  modals.show(upsertIsmFormModal);
   $("#inputNumber").focus();
 }
 
@@ -50,7 +50,7 @@ function setUpdateIsmFormElementText() {
   setText('upsertIsmHeader', updateIsmText);
   setText('btnUpsertIsm', updateIsmText);
   $("#btnClearIsm").hide();
-  showModal(upsertIsmFormModal);
+  modals.show(upsertIsmFormModal);
   $("#inputNumber").focus();
 }
 

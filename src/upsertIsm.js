@@ -34,7 +34,7 @@ function upsertIsm(event) {
     if (response.msg === "") {
       clearIsmFormFields();
       content.generate(null);
-      hideAllModals();
+      modals.hide();
     } else {
       alert("Error: " + response.msg);
     }
@@ -79,7 +79,7 @@ function bulkUpsertIsms(event) {
       alert("Error: " + response.msg);
     }
   });
-  hideAllModals();
+  modals.hide();
   console.log("exiting bulkUpsertIsms");
 }
 

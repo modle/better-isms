@@ -1,30 +1,31 @@
-function hideModalAfterALongWhile(modal) {
-  hideModalWithDelay(modal, 6000);
-}
-
-function hideModalAfterAWhile(modal) {
-  hideModalWithDelay(modal, 3000);
-}
-
-function hideModalWithDelay(modal, timeInMs) {
-  setTimeout(function() {
-    hideModal(modal);
-  }, timeInMs);
-}
-
-function hideModal(modal) {
-  modal.style.display = "none";
-}
-
-function showModal(modal) {
-  console.log("showing modal: " + modal.id);
-  modal.style.display = "block";
-}
-
-function hideAllModals() {
-  for (var modal of modals) {
-    hideModal(modal);
-  }
-  showFooter();
-  forms.clearAll();
-}
+var modals = {
+  elements : {},
+  init : function() {
+    modals.elements = document.getElementsByClassName("modal");
+  },
+  hideAfterALongWhile : function(modal) {
+    modals.hideWithDelay(modal, 6000);
+  },
+  hideAfterAWhile : function(modal) {
+    modals.hideWithDelay(modal, 3000);
+  },
+  hideWithDelay : function(modal, timeInMs) {
+    setTimeout(function() {
+      modals.hideElement(modal);
+    }, timeInMs);
+  },
+  hideElement : function(modal) {
+    modal.style.display = "none";
+  },
+  show : function(modal) {
+    console.log("showing modal: " + modal.id);
+    modal.style.display = "block";
+  },
+  hide : function() {
+    for (var element of modals.elements) {
+      modals.hideElement(element);
+    }
+    showFooter();
+    forms.clearAll();
+  },
+};

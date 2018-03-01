@@ -49,7 +49,7 @@ function upsertSource(event) {
       alert("Error: " + response.msg);
     }
   });
-  hideAllModals();
+  modals.hide();
   showSourceUpsertedToast(upsertedToastString);
   console.log("exiting upsertSource");
 }
@@ -59,8 +59,8 @@ function showSourceUpsertedToast(toastString) {
     return;
   }
   $("#sourceUpsertedHeader").html(toastString);
-  showModal(sourceUpsertedModal);
-  hideModalAfterALongWhile(sourceUpsertedModal);
+  modals.show(sourceUpsertedModal);
+  modals.hideAfterALongWhile(sourceUpsertedModal);
 }
 
 function clearSourceFormFields() {
@@ -75,7 +75,7 @@ function addSource(event) {
 
 function openUpsertSourceForm() {
   auth.handleLogin();
-  showModal(upsertSourceModal);
+  modals.show(upsertSourceModal);
   $("#sourceFormTitle").html("Add source");
   $("#upsertSourceModal fieldset button#btnSubmitUpsertSource").val("");
   $("#upsertSourceModal fieldset button#btnSubmitUpsertSource").html("Add");

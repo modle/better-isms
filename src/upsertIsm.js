@@ -1,25 +1,3 @@
-function validateTheForm(formId, optionalFields) {
-  // Super basic validation - increase errorCount variable if any fields are blank
-  var errorCount = 0;
-  if (!optionalFields) {
-    optionalFields = [];
-  }
-  $("#" + formId + " input").each(function(index, val) {
-    if (this.value === "" && !optionalFields.includes(this.id)) {
-      errorCount++;
-    }
-  });
-  $("#" + formId + " textarea").each(function(index, val) {
-    if (this.value === "" && !optionalFields.includes(this.id)) {
-      errorCount++;
-    }
-  });
-  if (errorCount > 0) {
-    alert("Please fill in all required fields");
-    return false;
-  }
-  return true;
-}
 
 function upsertIsm(event) {
   auth.handleLogin();
@@ -76,20 +54,6 @@ function buildTags(tags) {
   );
 }
 
-function openBulkAddIsmForm(event) {
-  auth.handleLogin();
-  var sourceId = $(this).attr("value");
-  hideAllModals();
-  bulkIsmPlaceholder =
-    "Format: yaml or json. Structure: Array of JavaScript objects (dicts).";
-  bulkIsmPlaceholder +=
-    " Objects must contain 'number' and 'quote' fields, both strings. Field 'tags' is optional: list of strings.";
-  $("#inputBulkIsms").prop("placeholder", bulkIsmPlaceholder);
-  $("#btnSubmitBulkAddIsm").val(sourceId);
-  $("#bulkAddIsmSourceHeader").html(getSourceDisplayString(sourceId));
-  showModal(bulkAddIsmModal);
-}
-
 function bulkUpsertIsms(event) {
   auth.handleLogin();
   event.preventDefault();
@@ -131,7 +95,7 @@ function updateIsmSingleField(event) {
     dataType: "JSON"
   }).done(function(response) {
     if (response.msg === "") {
-      removeIsmFromList(ids.sourceId, ids.ismId);
+      content.removeIsmFromList(ids.sourceId, ids.ismId);
       content.kickOffUpdateForm(ids.type);
     } else {
       alert("Error: " + response.msg);
@@ -139,19 +103,6 @@ function updateIsmSingleField(event) {
     }
   });
   console.log("exiting updateIsmSingleField");
-}
-
-function getIdsFromButton() {
-  let buttonValues = [];
-  if (globals.currentlyUpdating === 'uncommented') {
-    buttonValues = $("#updateUncommentedForm fieldset button#save-and-next-uncommented").val().split(":");
-  } else if (globals.currentlyUpdating === 'untagged') {
-    buttonValues = $("#updateTagmeForm fieldset button#save-and-next-untagged").val().split(":");
-  }
-  if (buttonValues.length != 3) {
-    throw 'Save button has incorrect number of elements. Expected sourceId,ismId,type, got ' + buttonValues;
-  }
-  return {sourceId: buttonValues[0], ismId: buttonValues[1], type: buttonValues[2]};
 }
 
 function getIsm(ids) {
@@ -177,20 +128,4 @@ function getTagsFromForm() {
 
 function getCommentFromForm() {
   return $("#updateUncommentedForm fieldset textarea#newComments").val();
-}
-
-function removeIsmFromList(sourceId, ismId) {
-  let sourceIndex = globals.targetIsms.findIndex(aSource => aSource._id === sourceId);
-  let ismIndex = globals.targetIsms[sourceIndex].isms.findIndex(anIsm => anIsm._id === ismId);
-  if (ismIndex > -1) {
-    globals.targetIsms[sourceIndex].isms.splice(ismIndex, 1);
-  }
-  removeSourceIfIsmsIsEmpty(sourceIndex);
-}
-
-function removeSourceIfIsmsIsEmpty(sourceIndex) {
-  if (globals.targetIsms[sourceIndex].isms.length < 1) {
-    globals.targetIsms.splice(sourceIndex, 1);
-    return;
-  }
 }

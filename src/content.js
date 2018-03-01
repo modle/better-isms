@@ -116,7 +116,7 @@ var content = {
       let sourceIndex = globals.targetIsms.findIndex(aSource => aSource._id === source._id);
       let ismIndex = globals.targetIsms[sourceIndex].isms.findIndex(anIsm => anIsm._id === ism._id);
       globals.targetIsms[sourceIndex].isms.splice(ismIndex, 1);
-      removeSourceIfIsmsIsEmpty(sourceIndex);
+      this.removeSourceIfIsmsIsEmpty(sourceIndex);
       this.populateCommentIsmForm();
       return true;
     }
@@ -220,5 +220,19 @@ var content = {
     url = this.determineIsmQueryUrl();
     this.manageGetIsmListCall(url);
     console.log("exiting generateIsmDivs");
+  },
+  removeIsmFromList : function(sourceId, ismId) {
+    let sourceIndex = globals.targetIsms.findIndex(aSource => aSource._id === sourceId);
+    let ismIndex = globals.targetIsms[sourceIndex].isms.findIndex(anIsm => anIsm._id === ismId);
+    if (ismIndex > -1) {
+      globals.targetIsms[sourceIndex].isms.splice(ismIndex, 1);
+    }
+    this.removeSourceIfIsmsIsEmpty(sourceIndex);
+  },
+  removeSourceIfIsmsIsEmpty : function(sourceIndex) {
+    if (globals.targetIsms[sourceIndex].isms.length < 1) {
+      globals.targetIsms.splice(sourceIndex, 1);
+      return;
+    }
   },
 }

@@ -14,7 +14,7 @@ var forms = {
       " Objects must contain 'number' and 'quote' fields, both strings. Field 'tags' is optional: list of strings.";
     $("#inputBulkIsms").prop("placeholder", bulkIsmPlaceholder);
     $("#btnSubmitBulkAddIsm").val(sourceId);
-    $("#bulkAddIsmSourceHeader").html(getSourceDisplayString(sourceId));
+    $("#bulkAddIsmSourceHeader").html(sources.getDisplayString(sourceId));
     modals.show(bulkAddIsmModal);
   },
   validate : function(formId, optionalFields) {

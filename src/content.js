@@ -21,7 +21,7 @@ var content = {
     var comments = details.comments === undefined ? "" : details.comments;
     divContent +=
       '<div class="record"><span class="source field">' +
-      getSourceDisplayStringFromDict(source._id) +
+      sources.getDisplayString(source) +
       "</span> | ";
     divContent += '<span class="num field">' + details.number + "</span> | ";
     divContent += generateTagDivs(tags) + " | ";
@@ -192,8 +192,8 @@ var content = {
           globals.sourceCloudDict[this._id] = { title: this.title, author: this.author, added: this.added };
         }
       });
-      var sourceCloud = generateSourceCloud();
-      setSourceCloud(sourceCloud);
+      var sourceCloud = sources.generateCloud();
+      sources.setCloud(sourceCloud);
     });
   },
   determineIsmQueryUrl : function() {

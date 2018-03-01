@@ -28,7 +28,7 @@ function upsertSource(event) {
     type = "PUT";
     upsertedToastString =
       "Source<br>" +
-      getSourceDisplayString(sourceId) +
+      sources.getDisplayString(sourceId) +
       " updated.<br><br>New value:<br>" +
       source.title +
       "(" +

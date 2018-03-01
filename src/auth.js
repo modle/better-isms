@@ -28,7 +28,7 @@ var auth = {
     cookie.delete("username");
     content.clearIsmDivs();
     clearTagCloud();
-    clearSourceCloud();
+    sources.clearCloud();
     console.log("user is logged out");
     auth.showLoggedOutButtons();
     modals.hide();

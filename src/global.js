@@ -16,13 +16,13 @@ $(document).ready(function() {
   $("#logout").on("click", auth.logUserOut);
   $("#export").on("click", exportData);
 
-  $("#addSource").on("click", addSource);
-  $("#btnSubmitUpsertSource").on("click", upsertSource);
+  $("#addSource").on("click", database.addSource);
+  $("#btnSubmitUpsertSource").on("click", database.upsertSource);
 
   $("#newIsm").on("click", openNewIsmForm);
   $("#btnShowBulkAddIsm").on("click", forms.openBulkAddIsm);
-  $("#btnSubmitBulkAddIsm").on("click", bulkUpsertIsms);
-  $("#btnUpsertIsm").on("click", upsertIsm);
+  $("#btnSubmitBulkAddIsm").on("click", database.bulkUpsertIsms);
+  $("#btnUpsertIsm").on("click", database.upsertIsm);
   $("#moreFields").on("click", toggleOptionalFields);
 
   $(".hideModals").on("click", modals.hide);
@@ -31,12 +31,12 @@ $(document).ready(function() {
   $("#quitIsmUpdateTag").on("click", stopUpdate);
 
   $("#ismList isms").on("click", "a.linkeditism", populateIsmFields);
-  $("#ismList isms").on("click", "a.linkdeleteism", deleteIsm);
+  $("#ismList isms").on("click", "a.linkdeleteism", database.deleteIsm);
 
   $("#untagged").on("click", processUntagged);
-  $("#save-and-next-untagged").on("click", updateIsmSingleField);
+  $("#save-and-next-untagged").on("click", database.updateIsmSingleField);
   $("#uncommented").on("click", processUncommented);
-  $("#save-and-next-uncommented").on("click", updateIsmSingleField);
+  $("#save-and-next-uncommented").on("click", database.updateIsmSingleField);
 
 
   $("#tagCloud").on("click", "a.linktagfilter", content.prepFilter);

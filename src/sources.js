@@ -23,7 +23,7 @@ var sources = {
         sourceCloud +=
           ' <button id="btnEditSource" class="submit-button" value="' +
           source[0] +
-          '" style="display: inline-block;" onClick="openUpsertSourceForm()">Edit</button>';
+          '" style="display: inline-block;" onClick="database.openUpsertSourceForm()">Edit</button>';
       }
       sourceCloud += "</div>";
     }

@@ -13,13 +13,13 @@ var sources = {
     for (var source of splitSources) {
       sourceCloud +=
         '<div class="sourceCloudEntry"><a href="#" class="linksourcefilter ' +
-        highlightIfFiltered(source[0]) +
+        content.highlightIfFiltered(source[0]) +
         '" rel="' +
         source[0] +
         '">' +
         sources.getDisplayString(source[1]) +
         "</a>";
-      if (highlightIfFiltered(source[0])) {
+      if (content.highlightIfFiltered(source[0])) {
         sourceCloud +=
           ' <button id="btnEditSource" class="submit-button" value="' +
           source[0] +

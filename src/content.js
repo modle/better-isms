@@ -16,7 +16,7 @@ var content = {
     divHeaders += "<hr>";
     return divHeaders;
   },
-  addIsmDiv : function(source, details, tags) {
+  addIsmDiv : function(source, details, ismTags) {
     var divContent = "";
     var comments = details.comments === undefined ? "" : details.comments;
     divContent +=
@@ -24,7 +24,7 @@ var content = {
       sources.getDisplayString(source) +
       "</span> | ";
     divContent += '<span class="num field">' + details.number + "</span> | ";
-    divContent += generateTagDivs(tags) + " | ";
+    divContent += tags.generateDivs(ismTags) + " | ";
     divContent += '<span class="quote field">' + details.quote + "</span> | ";
     divContent += '<span class="comment field">' + comments + "</span> | ";
     divContent +=
@@ -57,16 +57,15 @@ var content = {
       $.each(response, function() {
         var source = this;
         source.isms.forEach(function(ism) {
-          var tags = ism["tags"];
+          var ismTags = ism["tags"];
           if (updateClouds) {
-            addToTags(tags);
+            tags.add(ismTags);
           }
-          ismDivs += content.addIsmDiv(source, ism, tags);
+          ismDivs += content.addIsmDiv(source, ism, ismTags);
         });
       });
       content.setIsmsList(ismDivs);
-      var tagCloud = generateTagCloud();
-      setTagCloud(tagCloud);
+      tags.setCloud(tags.generateCloud());
     });
   },
   getIsmsWithoutComments : function() {
@@ -244,5 +243,11 @@ var content = {
       globals.filterType = "tag";
     }
     content.generate();
+  },
+  highlightIfFiltered : function(id) {
+    if (id == globals.filterId) {
+      return "highlighted";
+    }
+    return "";
   },
 };

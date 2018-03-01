@@ -4,7 +4,7 @@ function upsertIsm(event) {
   event.preventDefault();
   console.log("entering upsertIsm");
   var optionalIsmFields = ["inputComments", "inputTags"];
-  if (!validateTheForm("upsertIsmForm", optionalIsmFields)) {
+  if (!forms.validate("upsertIsmForm", optionalIsmFields)) {
     console.log("exiting upsertIsm before request");
     return;
   }
@@ -58,7 +58,7 @@ function bulkUpsertIsms(event) {
   auth.handleLogin();
   event.preventDefault();
   console.log("entering bulkUpsertIsms");
-  if (!validateTheForm("bulkAddIsmForm")) {
+  if (!forms.validate("bulkAddIsmForm")) {
     console.log("exiting bulkUpsertIsms before request");
     return;
   }
@@ -85,7 +85,7 @@ function bulkUpsertIsms(event) {
 
 function updateIsmSingleField(event) {
   console.log("entering updateIsmSingleField");
-  let ids = getIdsFromButton();
+  let ids = forms.getIdsFromButton();
   let ism = getIsm(ids);
   let url = "/isms/updateism/" + ids.sourceId + "/" + ids.ismId;
   $.ajax({

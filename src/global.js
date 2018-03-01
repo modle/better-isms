@@ -20,7 +20,7 @@ $(document).ready(function() {
   $("#btnSubmitUpsertSource").on("click", upsertSource);
 
   $("#newIsm").on("click", openNewIsmForm);
-  $("#btnShowBulkAddIsm").on("click", openBulkAddIsmForm);
+  $("#btnShowBulkAddIsm").on("click", forms.openBulkAddIsm);
   $("#btnSubmitBulkAddIsm").on("click", bulkUpsertIsms);
   $("#btnUpsertIsm").on("click", upsertIsm);
   $("#moreFields").on("click", toggleOptionalFields);
@@ -39,9 +39,9 @@ $(document).ready(function() {
   $("#save-and-next-uncommented").on("click", updateIsmSingleField);
 
 
-  $("#tagCloud").on("click", "a.linktagfilter", prepFilter);
+  $("#tagCloud").on("click", "a.linktagfilter", content.prepFilter);
   $("#toggleTags").on("click", toggleTags);
-  $("#sourceCloud").on("click", "a.linksourcefilter", prepFilter);
+  $("#sourceCloud").on("click", "a.linksourcefilter", content.prepFilter);
   $("#toggleSources").on("click", toggleSources);
 
   // Key Events =============================================================

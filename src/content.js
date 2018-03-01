@@ -83,7 +83,7 @@ var content = {
   },
   kickOffCommentUpdateForm : function() {
     console.log("entering kickOffCommentUpdateForm");
-    clearAllForms();
+    forms.clearAll();
     if(this.populateCommentIsmForm() && globals.targetIsms.length > 0) {
       hideFooter();
       showModal(uncommentedUpdateFormModal);
@@ -158,13 +158,13 @@ var content = {
       dataType: "JSON"
     }).done(function(response) {
       globals.targetIsms = response;
-      this.kickOffUpdateForm('untagged');
+      content.kickOffUpdateForm('untagged');
     });
     console.log("exiting getTagmeIsms");
   },
   kickOffTagmeUpdateForm : function() {
     console.log("entering kickOffTagmeUpdateForm");
-    clearAllForms();
+    forms.clearAll();
     if(this.populateTagIsmForm()) {
       hideFooter();
       showModal(tagmeUpdateFormModal);
@@ -235,4 +235,14 @@ var content = {
       return;
     }
   },
-}
+  prepFilter : function(event) {
+    globals.filterId = $(this).attr("rel");
+    eventClasses = $(this).attr("class");
+    if (eventClasses.includes("linksourcefilter")) {
+      globals.filterType = "source";
+    } else if (eventClasses.includes("linktagfilter")) {
+      globals.filterType = "tag";
+    }
+    content.generate();
+  },
+};

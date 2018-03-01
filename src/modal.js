@@ -26,5 +26,5 @@ function hideAllModals() {
     hideModal(modal);
   }
   showFooter();
-  clearAllForms();
+  forms.clearAll();
 }

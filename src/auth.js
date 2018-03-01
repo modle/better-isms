@@ -17,12 +17,12 @@ var auth = {
     "login"
   ],
   showLoggedInButtons : function() {
-    showElements(this.loggedInElements);
-    hideElements(this.loggedOutElements);
+    content.showElements(this.loggedInElements);
+    content.hideElements(this.loggedOutElements);
   },
   showLoggedOutButtons : function() {
-    showElements(this.loggedOutElements);
-    hideElements(this.loggedInElements);
+    content.showElements(this.loggedOutElements);
+    content.hideElements(this.loggedInElements);
   },
   logUserOut : function() {
     cookie.delete("username");
@@ -44,7 +44,7 @@ var auth = {
     return false;
   },
   promptUserToLogin : function() {
-    hideFooter();
+    content.hideFooter();
     modals.show(loginModal);
     $("#inputUsername").focus();
   },

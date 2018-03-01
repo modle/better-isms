@@ -1,4 +1,5 @@
 var forms = {
+  currentlyUpdating : undefined,
   clearAll : function() {
     $("fieldset input").val("");
     $("fieldset textarea").val("");
@@ -41,9 +42,9 @@ var forms = {
   },
   getIdsFromButton : function() {
     let buttonValues = [];
-    if (globals.currentlyUpdating === 'uncommented') {
+    if (forms.currentlyUpdating === 'uncommented') {
       buttonValues = $("#updateUncommentedForm fieldset button#save-and-next-uncommented").val().split(":");
-    } else if (globals.currentlyUpdating === 'untagged') {
+    } else if (forms.currentlyUpdating === 'untagged') {
       buttonValues = $("#updateTagmeForm fieldset button#save-and-next-untagged").val().split(":");
     }
     if (buttonValues.length != 3) {
@@ -51,4 +52,12 @@ var forms = {
     }
     return {sourceId: buttonValues[0], ismId: buttonValues[1], type: buttonValues[2]};
   },
+  stopUpdate : function() {
+    globals.targetIsms = undefined;
+    modals.hide();
+    content.clearFilterAndReload()
+  },
+  resetUpdateTracker : function() {
+    forms.currentlyUpdating = undefined;
+  }
 };

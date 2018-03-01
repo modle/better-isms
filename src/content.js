@@ -84,9 +84,9 @@ var content = {
     log.enter(getName());
     forms.clearAll();
     if(this.populateCommentIsmForm() && globals.targetIsms.length > 0) {
-      hideFooter();
+      content.hideFooter();
       modals.show(uncommentedUpdateFormModal);
-      globals.currentlyUpdating = 'uncommented';
+      forms.currentlyUpdating = 'uncommented';
       $("#newComments").focus();
     }
     log.exit(getName());
@@ -129,8 +129,8 @@ var content = {
   terminateIsmUpdate : function(type) {
     console.log('no more ' + type + ' to update, aborting');
     modals.hide();
-    clearFilter();
-    resetUpdateTracker();
+    content.clearFilter();
+    forms.resetUpdateTracker();
     content.generate();
     modals.show(noIsmsToUpdateToast);
     modals.hideAfterAWhile(noIsmsToUpdateToast);
@@ -165,9 +165,9 @@ var content = {
     log.enter(getName());
     forms.clearAll();
     if(this.populateTagIsmForm()) {
-      hideFooter();
+      content.hideFooter();
       modals.show(tagmeUpdateFormModal);
-      globals.currentlyUpdating = 'untagged';
+      forms.currentlyUpdating = 'untagged';
       $("#newTags").focus();
     }
     log.exit(getName());
@@ -249,5 +249,63 @@ var content = {
       return "highlighted";
     }
     return "";
+  },
+  clearFilter : function() {
+    globals.filterType = "";
+    globals.filterId = "";
+  },
+  clearFilterAndReload : function() {
+    content.clearFilter();
+    content.generate();
+  },
+  hideFooter : function() {
+    var footer = document.getElementById("footer");
+    footer.style.display = "none";
+  },
+  showFooter : function() {
+    var footer = document.getElementById("footer");
+    footer.style.display = "block";
+  },
+  toggleTags : function() {
+    let tagDiv = document.getElementById("tagCloud");
+    if (tagDiv.style.display === "none" || !tagDiv.style.display) {
+      tagDiv.style.display = "flex";
+    } else {
+      tagDiv.style.display = "none";
+    }
+  },
+  toggleSources : function() {
+    let sourceDiv = document.getElementById("sourceCloud");
+    if (sourceDiv.style.display === "flex" || !sourceDiv.style.display) {
+      sourceDiv.style.display = "none";
+    } else {
+      sourceDiv.style.display = "flex";
+    }
+  },
+  hideElements : function(elements) {
+    for (var element of elements) {
+      content.hideElement(element);
+    }
+  },
+  hideElement : function(elementClass) {
+    $("#" + elementClass).hide();
+  },
+  showElements : function(elements) {
+    for (var element of elements) {
+      content.showElement(element);
+    }
+  },
+  showElement : function(elementClass) {
+    $("#" + elementClass).show();
+  },
+  setText : function(elementClass, text) {
+    $("#" + elementClass).text(text);
+  },
+  processUntagged : function() {
+    content.getTagmeIsms();
+  },
+  processUncommented : function() {
+    content.getIsmsWithoutComments();
+    content.kickOffUpdateForm('uncommented');
   },
 };

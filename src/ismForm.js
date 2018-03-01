@@ -15,20 +15,20 @@ var ismForm = {
     }
   },
   showOptionalFields : function() {
-    showElement('moreFields');
-    setText('moreFields', showFewerFieldsText);
-    showElement('inputTags');
-    showElement('inputComments');
+    content.showElement('moreFields');
+    content.setText('moreFields', showFewerFieldsText);
+    content.showElement('inputTags');
+    content.showElement('inputComments');
   },
   hideOptionalFields : function() {
-    showElement('moreFields');
-    setText('moreFields', showMoreFieldsText);
-    hideElement('inputTags');
-    hideElement('inputComments');
+    content.showElement('moreFields');
+    content.setText('moreFields', showMoreFieldsText);
+    content.hideElement('inputTags');
+    content.hideElement('inputComments');
   },
   openNew : function(event) {
     auth.handleLogin();
-    hideFooter();
+    content.hideFooter();
     ismForm.hideOptionalFields();
     ismForm.clearFields();
     if (globals.filterType !== "source") {
@@ -36,7 +36,7 @@ var ismForm = {
       return;
     }
     sourceId = globals.filterId;
-    setText('btnUpsertIsm', 'Add Ism');
+    content.setText('btnUpsertIsm', 'Add Ism');
     $("#btnShowBulkAddIsm").val(sourceId);
     $("#upsertIsmForm fieldset button#btnUpsertIsm").val(sourceId);
     modals.show(upsertIsmFormModal);
@@ -44,8 +44,8 @@ var ismForm = {
   },
   setElementText : function() {
     let updateIsmText = 'Update Ism';
-    setText('upsertIsmHeader', updateIsmText);
-    setText('btnUpsertIsm', updateIsmText);
+    content.setText('upsertIsmHeader', updateIsmText);
+    content.setText('btnUpsertIsm', updateIsmText);
     $("#btnClearIsm").hide();
     modals.show(upsertIsmFormModal);
     $("#inputNumber").focus();
@@ -53,7 +53,7 @@ var ismForm = {
   populateFields : function(event) {
     event.preventDefault();
     auth.handleLogin();
-    hideFooter();
+    content.hideFooter();
     ismForm.setElementText();
 
     // Retrieve sourceId and ismId from link rel attribute
@@ -87,9 +87,9 @@ var ismForm = {
       joinedTags = thisIsmObject.tags;
     }
 
-    hideElement('moreFields');
-    showElement('inputTags');
-    showElement('inputComments');
+    content.hideElement('moreFields');
+    content.showElement('inputTags');
+    content.showElement('inputComments');
 
     // Inject the current values into the appropriate fields
     // consider setting a div to sourceIsms.title instead of populating a field; we don't want to update the title here

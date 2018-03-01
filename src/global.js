@@ -11,38 +11,37 @@ var globals = {
 $(document).ready(function() {
   // Click Entry Point Definitions =============================================================
 
-  $("#login").on("click", auth.promptUserToLogin);
   $("#btnSubmitLogin").on("click", auth.logUserIn);
+  $("#login").on("click", auth.promptUserToLogin);
   $("#logout").on("click", auth.logUserOut);
-  $("#export").on("click", exportData);
 
   $("#addSource").on("click", database.addSource);
-  $("#btnSubmitUpsertSource").on("click", database.upsertSource);
-
-  $("#newIsm").on("click", ismForm.openNew);
-  $("#btnShowBulkAddIsm").on("click", forms.openBulkAddIsm);
   $("#btnSubmitBulkAddIsm").on("click", database.bulkUpsertIsms);
+  $("#btnSubmitUpsertSource").on("click", database.upsertSource);
   $("#btnUpsertIsm").on("click", database.upsertIsm);
-  $("#moreFields").on("click", ismForm.toggleOptionalFields);
-
-  $(".hideModals").on("click", modals.hide);
-  $("#clearFilter").on("click", clearFilterAndReload);
-  $("#quitIsmUpdateComment").on("click", stopUpdate);
-  $("#quitIsmUpdateTag").on("click", stopUpdate);
+  $("#export").on("click", database.exportData);
+  $("#ismList isms").on("click", "a.linkdeleteism", database.deleteIsm);
+  $("#save-and-next-uncommented").on("click", database.updateIsmSingleField);
+  $("#save-and-next-untagged").on("click", database.updateIsmSingleField);
 
   $("#ismList isms").on("click", "a.linkeditism", ismForm.populateFields);
-  $("#ismList isms").on("click", "a.linkdeleteism", database.deleteIsm);
+  $("#moreFields").on("click", ismForm.toggleOptionalFields);
+  $("#newIsm").on("click", ismForm.openNew);
 
-  $("#untagged").on("click", processUntagged);
-  $("#save-and-next-untagged").on("click", database.updateIsmSingleField);
-  $("#uncommented").on("click", processUncommented);
-  $("#save-and-next-uncommented").on("click", database.updateIsmSingleField);
+  $("#btnShowBulkAddIsm").on("click", forms.openBulkAddIsm);
+  $("#quitIsmUpdateComment").on("click", forms.stopUpdate);
+  $("#quitIsmUpdateTag").on("click", forms.stopUpdate);
 
+  $(".hideModals").on("click", modals.hide);
 
-  $("#tagCloud").on("click", "a.linktagfilter", content.prepFilter);
-  $("#toggleTags").on("click", toggleTags);
+  $("#clearFilter").on("click", content.clearFilterAndReload);
   $("#sourceCloud").on("click", "a.linksourcefilter", content.prepFilter);
-  $("#toggleSources").on("click", toggleSources);
+  $("#tagCloud").on("click", "a.linktagfilter", content.prepFilter);
+  $("#toggleSources").on("click", content.toggleSources);
+  $("#toggleTags").on("click", content.toggleTags);
+  $("#uncommented").on("click", content.processUncommented);
+  $("#untagged").on("click", content.processUntagged);
+
 
   // Key Events =============================================================
   $("#upsertIsmForm").keyup(function(event) {
@@ -100,112 +99,16 @@ $(document).ready(function() {
   });
 
   // generate the isms on initial page load if user is logged in
-  hideElement("logout");
-  hideElement("login");
+  content.hideElement("logout");
+  content.hideElement("login");
   if (auth.checkLoggedIn()) {
     content.generate("");
-    showElement("logout");
+    content.showElement("logout");
   } else {
     console.log("user is not logged in");
     auth.promptUserToLogin();
   }
 });
-
-function resetUpdateTracker() {
-  globals.currentlyUpdating = undefined;
-}
-
-function clearFilter() {
-  globals.filterType = "";
-  globals.filterId = "";
-}
-
-function exportData() {
-  auth.handleLogin();
-  var txtFile = "test.txt";
-  var file = new File([""], txtFile);
-  var str = JSON.stringify(globals.cachedIsms);
-  var dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(str);
-
-  var link = document.createElement("a");
-  link.setAttribute("href", dataUri);
-  link.setAttribute("download", "export.json");
-  document.body.appendChild(link); // Required for FF
-
-  link.click(); // This will download the data file named "my_data.csv".
-}
-
-function hideFooter() {
-  var footer = document.getElementById("footer");
-  footer.style.display = "none";
-}
-
-function showFooter() {
-  var footer = document.getElementById("footer");
-  footer.style.display = "block";
-}
-
-function toggleTags() {
-  let tagDiv = document.getElementById("tagCloud");
-  if (tagDiv.style.display === "none" || !tagDiv.style.display) {
-    tagDiv.style.display = "flex";
-  } else {
-    tagDiv.style.display = "none";
-  }
-}
-
-function toggleSources() {
-  let sourceDiv = document.getElementById("sourceCloud");
-  if (sourceDiv.style.display === "flex" || !sourceDiv.style.display) {
-    sourceDiv.style.display = "none";
-  } else {
-    sourceDiv.style.display = "flex";
-  }
-}
-
-function hideElements(elements) {
-  for (var element of elements) {
-    hideElement(element);
-  }
-}
-
-function hideElement(elementClass) {
-  $("#" + elementClass).hide();
-}
-
-function showElements(elements) {
-  for (var element of elements) {
-    showElement(element);
-  }
-}
-
-function showElement(elementClass) {
-  $("#" + elementClass).show();
-}
-
-function setText(elementClass, text) {
-  $("#" + elementClass).text(text);
-}
-
-function processUntagged() {
-  content.getTagmeIsms();
-}
-
-function processUncommented() {
-  content.getIsmsWithoutComments();
-  content.kickOffUpdateForm('uncommented');
-}
-
-function stopUpdate() {
-  globals.targetIsms = undefined;
-  modals.hide();
-  clearFilterAndReload()
-}
-
-function clearFilterAndReload() {
-  clearFilter();
-  content.generate();
-}
 
 function getName() {
   return getName.caller.name;

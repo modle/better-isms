@@ -96,16 +96,16 @@ var database = {
         content.kickOffUpdateForm(ids.type);
       } else {
         alert("Error: " + response.msg);
-        resetUpdateTracker();
+        forms.resetUpdateTracker();
       }
     });
     log.exit(getName());
   },
   getIsm : function(ids) {
     let ism = database.getIsmFromSource(ids);
-    if (globals.currentlyUpdating === 'untagged') {
+    if (forms.currentlyUpdating === 'untagged') {
       ism.tags = database.getTagsFromForm();
-    } else if (globals.currentlyUpdating === 'uncommented') {
+    } else if (forms.currentlyUpdating === 'uncommented') {
       ism.comments = database.getCommentFromForm();
       // this is needed because the post expects an array, but the object stores a string for single tags
       ism.tags = database.buildTags(ism.tags);
@@ -189,8 +189,8 @@ var database = {
     $("#upsertSourceForm fieldset input").val("");
   },
   addSource : function(event) {
-    clearFilter();
-    hideFooter();
+    content.clearFilter();
+    content.hideFooter();
     database.openUpsertSourceForm();
   },
   openUpsertSourceForm : function() {
@@ -246,5 +246,19 @@ var database = {
       return false;
     }
     log.exit(getName());
+  },
+  exportData : function() {
+    auth.handleLogin();
+    var txtFile = "test.txt";
+    var file = new File([""], txtFile);
+    var str = JSON.stringify(globals.cachedIsms);
+    var dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(str);
+
+    var link = document.createElement("a");
+    link.setAttribute("href", dataUri);
+    link.setAttribute("download", "export.json");
+    document.body.appendChild(link); // Required for FF
+
+    link.click(); // This will download the data file named "my_data.csv".
   },
 }

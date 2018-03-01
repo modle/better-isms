@@ -19,18 +19,18 @@ $(document).ready(function() {
   $("#addSource").on("click", database.addSource);
   $("#btnSubmitUpsertSource").on("click", database.upsertSource);
 
-  $("#newIsm").on("click", openNewIsmForm);
+  $("#newIsm").on("click", ismForm.openNew);
   $("#btnShowBulkAddIsm").on("click", forms.openBulkAddIsm);
   $("#btnSubmitBulkAddIsm").on("click", database.bulkUpsertIsms);
   $("#btnUpsertIsm").on("click", database.upsertIsm);
-  $("#moreFields").on("click", toggleOptionalFields);
+  $("#moreFields").on("click", ismForm.toggleOptionalFields);
 
   $(".hideModals").on("click", modals.hide);
   $("#clearFilter").on("click", clearFilterAndReload);
   $("#quitIsmUpdateComment").on("click", stopUpdate);
   $("#quitIsmUpdateTag").on("click", stopUpdate);
 
-  $("#ismList isms").on("click", "a.linkeditism", populateIsmFields);
+  $("#ismList isms").on("click", "a.linkeditism", ismForm.populateFields);
   $("#ismList isms").on("click", "a.linkdeleteism", database.deleteIsm);
 
   $("#untagged").on("click", processUntagged);
@@ -205,4 +205,8 @@ function stopUpdate() {
 function clearFilterAndReload() {
   clearFilter();
   content.generate();
+}
+
+function getName() {
+  return getName.caller.name;
 }

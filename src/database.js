@@ -32,7 +32,7 @@ var database = {
       dataType: "JSON"
     }).done(function(response) {
       if (response.msg === "") {
-        clearIsmFormFields();
+        ismForm.clearFields();
         content.generate(null);
         modals.hide();
       } else {

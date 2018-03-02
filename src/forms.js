@@ -132,4 +132,13 @@ var forms = {
     log.exit(getName());
     return true;
   },
+  getTagsFromForm : function() {
+    return tags.buildArray($("#updateTagmeForm fieldset input#newTags").val());
+  },
+  getCommentFromForm : function() {
+    return $("#updateUncommentedForm fieldset textarea#newComments").val();
+  },
+  clearSourceFormFields : function() {
+    $("#upsertSourceForm fieldset input").val("");
+  },
 };

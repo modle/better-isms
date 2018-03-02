@@ -79,7 +79,7 @@ var database = {
   updateIsmSingleField : function(event) {
     log.enter(getName());
     let ids = forms.getIdsFromButton();
-    let ism = database.getIsm(ids);
+    let ism = contentControl.targetIsmsControl.getIsm(ids);
     let url = "/isms/updateism/" + ids.sourceId + "/" + ids.ismId;
     $.ajax({
       type: "PUT",
@@ -97,27 +97,6 @@ var database = {
     });
     log.exit(getName());
   },
-  getIsm : function(ids) {
-    let ism = database.getIsmFromSource(ids);
-    if (forms.currentlyUpdating === 'untagged') {
-      ism.tags = database.getTagsFromForm();
-    } else if (forms.currentlyUpdating === 'uncommented') {
-      ism.comments = database.getCommentFromForm();
-      // this is needed because the post expects an array, but the object stores a string for single tags
-      ism.tags = tags.buildArray(ism.tags);
-    }
-    return ism;
-  },
-  getIsmFromSource : function(ids) {
-    let source = contentControl.props.targetIsms.find(aSource => aSource._id === ids.sourceId);
-    return source.isms.find(anIsm => anIsm._id === ids.ismId);
-  },
-  getTagsFromForm : function() {
-    return tags.buildArray($("#updateTagmeForm fieldset input#newTags").val());
-  },
-  getCommentFromForm : function() {
-    return $("#updateUncommentedForm fieldset textarea#newComments").val();
-  },
   upsertSource : function(event) {
     event.preventDefault();
     log.enter(getName());
@@ -128,7 +107,7 @@ var database = {
     $.ajax(database.buildSourceAjaxObject(putTargetId))
     .done(function(response) {
       if (response.msg === "") {
-        database.clearSourceFormFields();
+        forms.clearSourceFormFields();
         contentControl.generate(null);
       } else {
         alert("Error: " + response.msg);
@@ -158,14 +137,6 @@ var database = {
     source.title = $("#upsertSourceForm fieldset input#inputTitle").val();
     source.author = $("#upsertSourceForm fieldset input#inputAuthor").val();
     return source;
-  },
-  clearSourceFormFields : function() {
-    $("#upsertSourceForm fieldset input").val("");
-  },
-  addSource : function(event) {
-    contentControl.clearFilter();
-    contentControl.hideFooter();
-    database.openUpsertSourceForm();
   },
   openUpsertSourceForm : function() {
     auth.handleLogin();

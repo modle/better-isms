@@ -5,7 +5,7 @@ $(document).ready(function() {
   $("#login").on("click", auth.promptUserToLogin);
   $("#logout").on("click", auth.logUserOut);
 
-  $("#addSource").on("click", database.addSource);
+  $("#addSource").on("click", contentControl.addSource);
   $("#btnSubmitBulkAddIsm").on("click", database.bulkUpsertIsms);
   $("#btnSubmitUpsertSource").on("click", database.upsertSource);
   $("#btnUpsertIsm").on("click", database.upsertIsm);

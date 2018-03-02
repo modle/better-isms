@@ -25,7 +25,7 @@ var modals = {
     for (var element of modals.elements) {
       modals.hideElement(element);
     }
-    content.showFooter();
+    contentControl.showFooter();
     forms.clearAll();
   },
 };

@@ -1,4 +1,11 @@
 var database = {
+  determineIsmQueryUrl : function() {
+    url = "/isms/ismlist/";
+    if (globals.filterType) {
+      url += globals.filterType + "/" + globals.filterId;
+    }
+    return url;
+  },
   upsertIsm : function(event) {
     auth.handleLogin();
     event.preventDefault();
@@ -33,7 +40,7 @@ var database = {
     }).done(function(response) {
       if (response.msg === "") {
         ismForm.clearFields();
-        content.generate(null);
+        contentControl.generate(null);
         modals.hide();
       } else {
         alert("Error: " + response.msg);
@@ -72,7 +79,7 @@ var database = {
     }).done(function(response) {
       if (response.msg === "") {
         console.log("no problems here, jim");
-        content.generate(null);
+        contentControl.generate(null);
       } else {
         alert("Error: " + response.msg);
       }
@@ -92,8 +99,8 @@ var database = {
       dataType: "JSON"
     }).done(function(response) {
       if (response.msg === "") {
-        content.removeIsmFromList(ids.sourceId, ids.ismId);
-        content.kickOffUpdateForm(ids.type);
+        sources.isms.removeFromList(ids.sourceId, ids.ismId);
+        forms.kickOffUpdateForm(ids.type);
       } else {
         alert("Error: " + response.msg);
         forms.resetUpdateTracker();
@@ -113,7 +120,7 @@ var database = {
     return ism;
   },
   getIsmFromSource : function(ids) {
-    let source = globals.targetIsms.find(aSource => aSource._id === ids.sourceId);
+    let source = contentControl.props.targetIsms.find(aSource => aSource._id === ids.sourceId);
     return source.isms.find(anIsm => anIsm._id === ids.ismId);
   },
   getTagsFromForm : function() {
@@ -168,7 +175,7 @@ var database = {
     }).done(function(response) {
       if (response.msg === "") {
         database.clearSourceFormFields();
-        content.generate(null);
+        contentControl.generate(null);
       } else {
         alert("Error: " + response.msg);
       }
@@ -189,8 +196,8 @@ var database = {
     $("#upsertSourceForm fieldset input").val("");
   },
   addSource : function(event) {
-    content.clearFilter();
-    content.hideFooter();
+    contentControl.clearFilter();
+    contentControl.hideFooter();
     database.openUpsertSourceForm();
   },
   openUpsertSourceForm : function() {
@@ -233,7 +240,7 @@ var database = {
         } else {
           alert("Error: " + response.msg);
         }
-        content.generate();
+        contentControl.generate();
         // clear the update fields if the id matches
         if ($("#upsertIsmForm fieldset button#upsertIsm").val() === thisSource) {
           $("#upsertIsmForm fieldset input").val("");
@@ -251,7 +258,7 @@ var database = {
     auth.handleLogin();
     var txtFile = "test.txt";
     var file = new File([""], txtFile);
-    var str = JSON.stringify(globals.cachedIsms);
+    var str = JSON.stringify(sources.isms.cached);
     var dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(str);
 
     var link = document.createElement("a");
@@ -260,5 +267,63 @@ var database = {
     document.body.appendChild(link); // Required for FF
 
     link.click(); // This will download the data file named "my_data.csv".
+  },
+  getTagmeIsms : function() {
+    log.enter(getName());
+    // TODO decide whether a call is needed here
+    // on one hand, using mongo to do the filtering for us makes this really simple
+    // on the other, we have to make a call to the DB, when we could just Array.filter the cachedIsms
+    // the way we handle the uncommented isms; but this means we would have to remove already-tagged
+    // isms as we come to them, rather than knowing the list we're using has all untagged isms
+    $.ajax({
+      type: "GET",
+      url: '/isms/ismlist/tag/tagme',
+      dataType: "JSON"
+    }).done(function(response) {
+      contentControl.props.targetIsms = response;
+      forms.kickOffUpdateForm('untagged');
+    });
+    log.exit(getName());
+  },
+  getIsms : function(url) {
+    database.manageGetIsmListCall(url);
+  },
+  manageGetIsmListCall : function(url) {
+    ismDivs = elements.generateIsmHeaders();
+    $.ajax({
+      type: "GET",
+      url: url,
+      dataType: "JSON"
+    }).done(function(response) {
+      sources.isms.cached = response;
+      $.each(response, function() {
+        var source = this;
+        source.isms.forEach(function(ism) {
+          var ismTags = ism["tags"];
+          if (updateClouds) {
+            tags.add(ismTags);
+          }
+          ismDivs += elements.addIsmDiv(source, ism, ismTags);
+        });
+      });
+      elements.setIsmsList(ismDivs);
+      tags.setCloud(tags.generateCloud());
+    });
+  },
+  manageGetSourceListCall : function() {
+    var url = "/isms/sourcelist/";
+    $.ajax({
+      type: "GET",
+      url: url,
+      dataType: "JSON"
+    }).done(function(response) {
+      $.each(response, function() {
+        if (updateClouds) {
+          globals.sourceCloudDict[this._id] = { title: this.title, author: this.author, added: this.added };
+        }
+      });
+      var sourceCloud = sources.generateCloud();
+      sources.setCloud(sourceCloud);
+    });
   },
 }

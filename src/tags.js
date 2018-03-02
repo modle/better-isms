@@ -16,7 +16,7 @@ var tags = {
         '<span class="tagSpan"><a href="#" class="linktagfilter ' +
         tags.getNextColor() +
         " " +
-        content.highlightIfFiltered(tag) +
+        contentControl.highlightIfFiltered(tag) +
         '" rel="' +
         tag +
         '" style="font-size:' +

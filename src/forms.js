@@ -53,11 +53,80 @@ var forms = {
     return {sourceId: buttonValues[0], ismId: buttonValues[1], type: buttonValues[2]};
   },
   stopUpdate : function() {
-    globals.targetIsms = undefined;
+    contentControl.props.targetIsms = undefined;
     modals.hide();
-    content.clearFilterAndReload()
+    contentControl.clearFilterAndReload()
   },
   resetUpdateTracker : function() {
     forms.currentlyUpdating = undefined;
-  }
+  },
+  injectIsmIntoForm : function(type, source, ism, form) {
+    console.log('setting form falues; params are: ', type, source, ism, form);
+    $("#readonly-source").text(source.title + ' (' + source.author + ')');
+    $("#" + form + " fieldset textarea#readonly-quote").val(ism.quote);
+    $("#" + form + " fieldset button#save-and-next-" + type).val(source._id + ':' + ism._id + ':' + type);
+  },
+  kickOffTagmeUpdateForm : function() {
+    log.enter(getName());
+    forms.clearAll();
+    if(this.populateTagIsmForm()) {
+      contentControl.hideFooter();
+      modals.show(tagmeUpdateFormModal);
+      forms.currentlyUpdating = 'untagged';
+      $("#newTags").focus();
+    }
+    log.exit(getName());
+  },
+  populateTagIsmForm : function() {
+    log.enter(getName());
+    const formId = 'updateTagmeForm';
+    const type = 'untagged';
+    log.exit(getName());
+    return this.populateIsmForm(type, formId);
+  },
+  kickOffUpdateForm : function(type) {
+    if (type === 'uncommented') {
+      this.kickOffCommentUpdateForm();
+    } else if (type === 'untagged') {
+      this.kickOffTagmeUpdateForm();
+    }
+  },
+  kickOffCommentUpdateForm : function() {
+    log.enter(getName());
+    forms.clearAll();
+    if(this.populateCommentIsmForm() && contentControl.props.targetIsms.length > 0) {
+      contentControl.hideFooter();
+      modals.show(uncommentedUpdateFormModal);
+      forms.currentlyUpdating = 'uncommented';
+      $("#newComments").focus();
+    }
+    log.exit(getName());
+  },
+  populateCommentIsmForm : function() {
+    log.enter(getName());
+    const formId = 'updateUncommentedForm';
+    const type = 'uncommented';
+    log.exit(getName());
+    return this.populateIsmForm(type, formId);
+  },
+  populateIsmForm : function(type, formId) {
+    log.enter(getName());
+    // get random source, then random ism from that source
+    let source = sources.getRandom(contentControl.props.targetIsms);
+    if (!source) {
+      main.terminateIsmUpdate(type);
+      return false;
+    }
+    let ism = sources.isms.getRandom(source);
+    if (!ism) {
+      return;
+    }
+    if (type === 'uncommented' && ism.comments !== '') {
+      contentControl.removeTargetIsm(source, ism);
+      return true;
+    }
+    this.injectIsmIntoForm(type, source, ism, formId);
+    log.exit(getName());
+    return true;
+  },
 };

@@ -1,13 +1,3 @@
-var globals = {
-  targetIsms: undefined,
-  currentlyUpdating: undefined,
-  cachedIsms: {},
-  filterType: "",
-  filterId: "",
-  sourceCloudDict: {},
-  tagCloudDict: {},
-};
-
 $(document).ready(function() {
   // Click Entry Point Definitions =============================================================
 
@@ -34,13 +24,13 @@ $(document).ready(function() {
 
   $(".hideModals").on("click", modals.hide);
 
-  $("#clearFilter").on("click", content.clearFilterAndReload);
-  $("#sourceCloud").on("click", "a.linksourcefilter", content.prepFilter);
-  $("#tagCloud").on("click", "a.linktagfilter", content.prepFilter);
-  $("#toggleSources").on("click", content.toggleSources);
-  $("#toggleTags").on("click", content.toggleTags);
-  $("#uncommented").on("click", content.processUncommented);
-  $("#untagged").on("click", content.processUntagged);
+  $("#clearFilter").on("click", contentControl.clearFilterAndReload);
+  $("#sourceCloud").on("click", "a.linksourcefilter", contentControl.prepFilter);
+  $("#tagCloud").on("click", "a.linktagfilter", contentControl.prepFilter);
+  $("#toggleSources").on("click", contentControl.toggleSources);
+  $("#toggleTags").on("click", contentControl.toggleTags);
+  $("#uncommented").on("click", main.processUncommented);
+  $("#untagged").on("click", main.processUntagged);
 
 
   // Key Events =============================================================
@@ -99,11 +89,13 @@ $(document).ready(function() {
   });
 
   // generate the isms on initial page load if user is logged in
-  content.hideElement("logout");
-  content.hideElement("login");
+  // TODO pass these to hideElements as a list instead
+  contentControl.hideElement("logout");
+  contentControl.hideElement("login");
   if (auth.checkLoggedIn()) {
-    content.generate("");
-    content.showElement("logout");
+    // TODO can we just not pass anything to generate?
+    contentControl.generate("");
+    contentControl.showElement("logout");
   } else {
     console.log("user is not logged in");
     auth.promptUserToLogin();
@@ -122,3 +114,22 @@ var log = {
     console.log("entering", name);
   },
 };
+
+var main = {
+  processUntagged : function() {
+    database.getTagmeIsms();
+  },
+  processUncommented : function() {
+    sources.isms.getWithoutComments();
+    forms.kickOffUpdateForm('uncommented');
+  },
+  terminateIsmUpdate : function(type) {
+    console.log('no more ' + type + ' to update, aborting');
+    modals.hide();
+    contentControl.clearFilter();
+    forms.resetUpdateTracker();
+    contentControl.generate();
+    modals.show(noIsmsToUpdateToast);
+    modals.hideAfterAWhile(noIsmsToUpdateToast);
+  },  
+}

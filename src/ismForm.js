@@ -15,20 +15,24 @@ var ismForm = {
     }
   },
   showOptionalFields : function() {
-    content.showElement('moreFields');
-    content.setText('moreFields', showFewerFieldsText);
-    content.showElement('inputTags');
-    content.showElement('inputComments');
+    contentControl.hideElement('moreFields');
+    contentControl.setText('moreFields', showFewerFieldsText);
+
+    // TODO replace the showElement calls with a call to showElements using a list instead
+    contentControl.showElement('inputTags');
+    contentControl.showElement('inputComments');
   },
   hideOptionalFields : function() {
-    content.showElement('moreFields');
-    content.setText('moreFields', showMoreFieldsText);
-    content.hideElement('inputTags');
-    content.hideElement('inputComments');
+    contentControl.showElement('moreFields');
+    contentControl.setText('moreFields', showMoreFieldsText);
+
+    // TODO replace the hideElement calls with a call to hideElements using a list instead
+    contentControl.hideElement('inputTags');
+    contentControl.hideElement('inputComments');
   },
   openNew : function(event) {
     auth.handleLogin();
-    content.hideFooter();
+    contentControl.hideFooter();
     ismForm.hideOptionalFields();
     ismForm.clearFields();
     if (globals.filterType !== "source") {
@@ -53,7 +57,7 @@ var ismForm = {
   populateFields : function(event) {
     event.preventDefault();
     auth.handleLogin();
-    content.hideFooter();
+    contentControl.hideFooter();
     ismForm.setElementText();
 
     // Retrieve sourceId and ismId from link rel attribute
@@ -62,12 +66,12 @@ var ismForm = {
     var thisIsmId = thisSource.split(":")[1];
 
     // Get Index of source object based on source id value
-    var sourceArrayIndex = globals.cachedIsms
+    var sourceArrayIndex = sources.isms.cached
       .map(function(arrayItem) {
         return arrayItem._id;
       })
       .indexOf(thisSourceId);
-    sourceIsms = globals.cachedIsms[sourceArrayIndex];
+    sourceIsms = sources.isms.cached[sourceArrayIndex];
 
     // Get Index of isms within source object based on ism id value
     var myIsmArrayIndex = sourceIsms.isms
@@ -77,7 +81,7 @@ var ismForm = {
       .indexOf(thisIsmId);
 
     // Get our Ism Object
-    var thisIsmObject = globals.cachedIsms[sourceArrayIndex].isms[myIsmArrayIndex];
+    var thisIsmObject = sources.isms.cached[sourceArrayIndex].isms[myIsmArrayIndex];
 
     // generate tag string from array of tags
     joinedTags = "";
@@ -87,9 +91,10 @@ var ismForm = {
       joinedTags = thisIsmObject.tags;
     }
 
-    content.hideElement('moreFields');
-    content.showElement('inputTags');
-    content.showElement('inputComments');
+    // TODO pass these to hideElements as a list instead
+    contentControl.hideElement('moreFields');
+    contentControl.showElement('inputTags');
+    contentControl.showElement('inputComments');
 
     // Inject the current values into the appropriate fields
     // consider setting a div to sourceIsms.title instead of populating a field; we don't want to update the title here

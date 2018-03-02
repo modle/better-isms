@@ -17,16 +17,16 @@ var auth = {
     "login"
   ],
   showLoggedInButtons : function() {
-    content.showElements(this.loggedInElements);
-    content.hideElements(this.loggedOutElements);
+    contentControl.showElements(this.loggedInElements);
+    contentControl.hideElements(this.loggedOutElements);
   },
   showLoggedOutButtons : function() {
-    content.showElements(this.loggedOutElements);
-    content.hideElements(this.loggedInElements);
+    contentControl.showElements(this.loggedOutElements);
+    contentControl.hideElements(this.loggedInElements);
   },
   logUserOut : function() {
     cookie.delete("username");
-    content.clearIsmDivs();
+    elements.clearIsmDivs();
     tags.clearCloud();
     sources.clearCloud();
     console.log("user is logged out");
@@ -44,7 +44,7 @@ var auth = {
     return false;
   },
   promptUserToLogin : function() {
-    content.hideFooter();
+    contentControl.hideFooter();
     modals.show(loginModal);
     $("#inputUsername").focus();
   },
@@ -82,7 +82,7 @@ var auth = {
         if (response.msg === "") {
           cookie.set("username", user.username, 365);
           modals.hide();
-          content.generate("");
+          contentControl.generate("");
           auth.showLoggedInButtons();
         } else {
           alert("Error: " + response.msg);

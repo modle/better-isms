@@ -120,7 +120,7 @@ var main = {
     database.getTagmeIsms();
   },
   processUncommented : function() {
-    sources.isms.getWithoutComments();
+    contentControl.targetIsmsControl.getWithoutComments();
     forms.kickOffUpdateForm('uncommented');
   },
   terminateIsmUpdate : function(type) {
@@ -131,5 +131,5 @@ var main = {
     contentControl.generate();
     modals.show(noIsmsToUpdateToast);
     modals.hideAfterAWhile(noIsmsToUpdateToast);
-  },  
+  },
 }

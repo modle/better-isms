@@ -63,6 +63,7 @@ var forms = {
   injectIsmIntoForm : function(type, source, ism, form) {
     console.log('setting form falues; params are: ', type, source, ism, form);
     $("#readonly-source").text(source.title + ' (' + source.author + ')');
+    console.log(ism.quote);
     $("#" + form + " fieldset textarea#readonly-quote").val(ism.quote);
     $("#" + form + " fieldset button#save-and-next-" + type).val(source._id + ':' + ism._id + ':' + type);
   },
@@ -123,6 +124,8 @@ var forms = {
     }
     if (type === 'uncommented' && ism.comments !== '') {
       contentControl.removeTargetIsm(source, ism);
+      // RECURSIVE
+      forms.populateCommentIsmForm();
       return true;
     }
     this.injectIsmIntoForm(type, source, ism, formId);

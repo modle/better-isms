@@ -15,16 +15,16 @@ var ismForm = {
     }
   },
   showOptionalFields : function() {
-    contentControl.hideElement('moreFields');
     contentControl.setText('moreFields', showFewerFieldsText);
 
     // TODO replace the showElement calls with a call to showElements using a list instead
+    contentControl.showElement('moreFields');
     contentControl.showElement('inputTags');
     contentControl.showElement('inputComments');
   },
   hideOptionalFields : function() {
-    contentControl.showElement('moreFields');
     contentControl.setText('moreFields', showMoreFieldsText);
+    contentControl.showElement('moreFields');
 
     // TODO replace the hideElement calls with a call to hideElements using a list instead
     contentControl.hideElement('inputTags');
@@ -35,12 +35,12 @@ var ismForm = {
     contentControl.hideFooter();
     ismForm.hideOptionalFields();
     ismForm.clearFields();
-    if (globals.filterType !== "source") {
+    if (contentControl.props.filterType !== "source") {
       modals.show(noSourceSelectedModal);
       return;
     }
-    sourceId = globals.filterId;
-    content.setText('btnUpsertIsm', 'Add Ism');
+    sourceId = contentControl.props.filterId;
+    contentControl.setText('btnUpsertIsm', 'Add Ism');
     $("#btnShowBulkAddIsm").val(sourceId);
     $("#upsertIsmForm fieldset button#btnUpsertIsm").val(sourceId);
     modals.show(upsertIsmFormModal);
@@ -48,8 +48,8 @@ var ismForm = {
   },
   setElementText : function() {
     let updateIsmText = 'Update Ism';
-    content.setText('upsertIsmHeader', updateIsmText);
-    content.setText('btnUpsertIsm', updateIsmText);
+    contentControl.setText('upsertIsmHeader', updateIsmText);
+    contentControl.setText('btnUpsertIsm', updateIsmText);
     $("#btnClearIsm").hide();
     modals.show(upsertIsmFormModal);
     $("#inputNumber").focus();

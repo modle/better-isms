@@ -10,7 +10,7 @@ var tags = {
   },
   generateCloud : function() {
     var tagCloud = "";
-    for (var tag of Array.from(Object.keys(globals.tagCloudDict)).sort()) {
+    for (var tag of Array.from(Object.keys(contentControl.props.tagCloudDict)).sort()) {
       var size = tags.calculateSize(tag);
       tagCloud +=
         '<span class="tagSpan"><a href="#" class="linktagfilter ' +
@@ -30,11 +30,11 @@ var tags = {
     $("#tagCloud").html(tagCloud);
   },
   calculateSize : function(tag) {
-    var tagArray = Array.from(Object.values(globals.tagCloudDict));
+    var tagArray = Array.from(Object.values(contentControl.props.tagCloudDict));
     var maxCount = Math.max.apply(null, tagArray);
     var minCount = Math.min.apply(null, tagArray);
     var range = maxCount - minCount;
-    var tagCount = globals.tagCloudDict[tag];
+    var tagCount = contentControl.props.tagCloudDict[tag];
     var tagSizeRatio = tagCount / range;
     var baseEmSize = 1.5;
     var finalEmSize = tagSizeRatio + baseEmSize;
@@ -66,10 +66,10 @@ var tags = {
   },
   addToDict : function(tagToAdd) {
     lowerCasedTag = tagToAdd.toLowerCase();
-    if (lowerCasedTag in globals.tagCloudDict) {
-      globals.tagCloudDict[lowerCasedTag] += 1;
+    if (lowerCasedTag in contentControl.props.tagCloudDict) {
+      contentControl.props.tagCloudDict[lowerCasedTag] += 1;
     } else {
-      globals.tagCloudDict[lowerCasedTag] = 1;
+      contentControl.props.tagCloudDict[lowerCasedTag] = 1;
     }
   },
   clearCloud : function() {

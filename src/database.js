@@ -1,8 +1,8 @@
 var database = {
   determineIsmQueryUrl : function() {
     url = "/isms/ismlist/";
-    if (globals.filterType) {
-      url += globals.filterType + "/" + globals.filterId;
+    if (contentControl.props.filterType) {
+      url += contentControl.props.filterType + "/" + contentControl.props.filterId;
     }
     return url;
   },
@@ -99,7 +99,7 @@ var database = {
       dataType: "JSON"
     }).done(function(response) {
       if (response.msg === "") {
-        sources.isms.removeFromList(ids.sourceId, ids.ismId);
+        contentControl.targetIsmsControl.removeFromList(ids.sourceId, ids.ismId);
         forms.kickOffUpdateForm(ids.type);
       } else {
         alert("Error: " + response.msg);
@@ -206,12 +206,12 @@ var database = {
     $("#sourceFormTitle").html("Add source");
     $("#upsertSourceModal fieldset button#btnSubmitUpsertSource").val("");
     $("#upsertSourceModal fieldset button#btnSubmitUpsertSource").html("Add");
-    if (globals.filterId) {
-      source = globals.sourceCloudDict[globals.filterId];
+    if (contentControl.props.filterId) {
+      source = contentControl.props.sourceCloudDict[contentControl.props.filterId];
       $("#sourceFormTitle").html("Update source");
       $("#upsertSourceModal fieldset input#inputTitle").val(source["title"]);
       $("#upsertSourceModal fieldset input#inputAuthor").val(source["author"]);
-      $("#upsertSourceModal fieldset button#btnSubmitUpsertSource").val(globals.filterId);
+      $("#upsertSourceModal fieldset button#btnSubmitUpsertSource").val(contentControl.props.filterId);
       $("#upsertSourceModal fieldset button#btnSubmitUpsertSource").html(
         "Update"
       );
@@ -319,7 +319,7 @@ var database = {
     }).done(function(response) {
       $.each(response, function() {
         if (updateClouds) {
-          globals.sourceCloudDict[this._id] = { title: this.title, author: this.author, added: this.added };
+          contentControl.props.sourceCloudDict[this._id] = { title: this.title, author: this.author, added: this.added };
         }
       });
       var sourceCloud = sources.generateCloud();

@@ -1,7 +1,7 @@
 var contentControl = {
-  var props = {
+  props : {
     targetIsms: undefined,
-    updateClouds : false,    
+    updateClouds : false,
     currentlyUpdating: undefined,
     filterType: "",
     filterId: "",
@@ -10,7 +10,7 @@ var contentControl = {
   },
   prepClouds : function() {
     updateClouds = false;
-    if (!this.filterType) {
+    if (!this.props.filterType) {
       this.tagCloudDict = {};
       sourceCloudList = [];
       sourceCloudIds = [];
@@ -27,24 +27,24 @@ var contentControl = {
     log.exit(getName());
   },
   prepFilter : function(event) {
-    globals.filterId = $(this).attr("rel");
+    contentControl.props.filterId = $(this).attr("rel");
     eventClasses = $(this).attr("class");
     if (eventClasses.includes("linksourcefilter")) {
-      globals.filterType = "source";
+      contentControl.props.filterType = "source";
     } else if (eventClasses.includes("linktagfilter")) {
-      globals.filterType = "tag";
+      contentControl.props.filterType = "tag";
     }
     contentControl.generate();
   },
   highlightIfFiltered : function(id) {
-    if (id == globals.filterId) {
+    if (id == this.props.filterId) {
       return "highlighted";
     }
     return "";
   },
   clearFilter : function() {
-    globals.filterType = "";
-    globals.filterId = "";
+    this.props.filterType = "";
+    this.props.filterId = "";
   },
   clearFilterAndReload : function() {
     contentControl.clearFilter();
@@ -95,10 +95,36 @@ var contentControl = {
   },
   removeTargetIsm : function(source, ism) {
     console.log('ism already commented: ', ism.comments, "; ism is: ", ism);
-    let sourceIndex = sources.getIndex(source._id);
-    let ismIndex = sources.isms.getIndex(source.isms, ism);
-    sources.removeIfIsmsIsEmpty(sourceIndex);
-    forms.populateCommentIsmForm();
+    let sourceIndex = this.targetIsmsControl.getSourceIndex(source._id);
+    let ismIndex = this.targetIsmsControl.getIsmIndex(source.isms, ism._id);
     this.props.targetIsms[sourceIndex].isms.splice(ismIndex, 1);
+    this.targetIsmsControl.removeIfIsmsIsEmpty(sourceIndex);
   },
+  targetIsmsControl : {
+    getSourceIndex : function(id) {
+      return contentControl.props.targetIsms.findIndex(item => item._id === id);
+    },
+    getIsmIndex : function(isms, id) {
+      return isms.findIndex(item => item._id === id);
+    },
+    removeIfIsmsIsEmpty : function(sourceIndex) {
+      if (contentControl.props.targetIsms[sourceIndex].isms.length < 1) {
+        contentControl.props.targetIsms.splice(sourceIndex, 1);
+        return;
+      }
+    },
+    removeFromList : function(sourceId, ismId) {
+      let sourceIndex = contentControl.props.targetIsms.findIndex(aSource => aSource._id === sourceId);
+      let ismIndex = contentControl.props.targetIsms[sourceIndex].isms.findIndex(anIsm => anIsm._id === ismId);
+      if (ismIndex > -1) {
+        contentControl.props.targetIsms[sourceIndex].isms.splice(ismIndex, 1);
+      }
+      this.removeIfIsmsIsEmpty(sourceIndex);
+    },
+    getWithoutComments : function() {
+      log.enter(getName());
+      contentControl.props.targetIsms = sources.isms.cached.filter( source => source.isms.length > 0 );
+      log.exit(getName());
+    },
+  }
 };

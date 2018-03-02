@@ -4,8 +4,8 @@ var sources = {
   },
   generateCloud : function() {
     var sourceCloud = "";
-    var splitSources = Object.keys(globals.sourceCloudDict).map(function(key) {
-      return [key, globals.sourceCloudDict[key]];
+    var splitSources = Object.keys(contentControl.props.sourceCloudDict).map(function(key) {
+      return [key, contentControl.props.sourceCloudDict[key]];
     });
     splitSources.sort(function(first, second) {
       return second[1]['added'] - first[1]['added'];
@@ -38,35 +38,10 @@ var sources = {
   getRandom : function(sources) {
     return sources[Math.floor(Math.random() * sources.length)];
   },
-  removeIfIsmsIsEmpty : function(sourceIndex) {
-    if (contentControl.props.targetIsms[sourceIndex].isms.length < 1) {
-      contentControl.props.targetIsms.splice(sourceIndex, 1);
-      return;
-    }
-  },
-  getIndex : function(id) {
-    return contentControl.props.targetIsms.findIndex(item => item._id === id);
-  },
   isms : {
     cached : {},
     getRandom : function(source) {
       return source.isms[Math.floor(Math.random() * source.isms.length)];
-    },
-    removeFromList : function(sourceId, ismId) {
-      let sourceIndex = contentControl.props.targetIsms.findIndex(aSource => aSource._id === sourceId);
-      let ismIndex = contentControl.props.targetIsms[sourceIndex].isms.findIndex(anIsm => anIsm._id === ismId);
-      if (ismIndex > -1) {
-        contentControl.props.targetIsms[sourceIndex].isms.splice(ismIndex, 1);
-      }
-      sources.removeIfIsmsIsEmpty(sourceIndex);
-    },
-    getWithoutComments : function() {
-      log.enter(getName());
-      contentControl.props.targetIsms = sources.isms.cached.filter( source => source.isms.length > 0 );
-      log.exit(getName());
-    },
-    getIndex : function(isms, id) {
-      return isms.findIndex(item => item._id === id);
     },
   }
 }

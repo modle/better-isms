@@ -5,7 +5,9 @@ $(document).ready(function() {
   $("#login").on("click", auth.promptUserToLogin);
   $("#logout").on("click", auth.logUserOut);
 
-  $("#addSource").on("click", contentControl.addSource);
+  $("#uncommented").on("click", main.processUncommented);
+  $("#untagged").on("click", main.processUntagged);
+
   $("#btnSubmitBulkAddIsm").on("click", database.bulkUpsertIsms);
   $("#btnSubmitUpsertSource").on("click", database.upsertSource);
   $("#btnUpsertIsm").on("click", database.upsertIsm);
@@ -24,13 +26,12 @@ $(document).ready(function() {
 
   $(".hideModals").on("click", modals.hide);
 
+  $("#addSource").on("click", contentControl.addSource);
   $("#clearFilter").on("click", contentControl.clearFilterAndReload);
   $("#sourceCloud").on("click", "a.linksourcefilter", contentControl.prepFilter);
   $("#tagCloud").on("click", "a.linktagfilter", contentControl.prepFilter);
   $("#toggleSources").on("click", contentControl.toggleSources);
   $("#toggleTags").on("click", contentControl.toggleTags);
-  $("#uncommented").on("click", main.processUncommented);
-  $("#untagged").on("click", main.processUntagged);
 
 
   // Key Events =============================================================

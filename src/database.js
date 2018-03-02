@@ -1,10 +1,51 @@
 var database = {
+  manageGetSourceListCall : function() {
+    var url = "/isms/sourcelist/";
+    $.ajax({
+      type: "GET",
+      url: url,
+      dataType: "JSON"
+    }).done(function(response) {
+      $.each(response, function() {
+        if (updateClouds) {
+          contentControl.props.sourceCloudDict[this._id] = { title: this.title, author: this.author, added: this.added };
+        }
+      });
+      var sourceCloud = sources.generateCloud();
+      sources.setCloud(sourceCloud);
+    });
+  },
   determineIsmQueryUrl : function() {
     url = "/isms/ismlist/";
     if (contentControl.props.filterType) {
       url += contentControl.props.filterType + "/" + contentControl.props.filterId;
     }
     return url;
+  },
+  getIsms : function(url) {
+    database.manageGetIsmListCall(url);
+  },
+  manageGetIsmListCall : function(url) {
+    ismDivs = elements.generateIsmHeaders();
+    $.ajax({
+      type: "GET",
+      url: url,
+      dataType: "JSON"
+    }).done(function(response) {
+      sources.isms.cached = response;
+      $.each(response, function() {
+        var source = this;
+        source.isms.forEach(function(ism) {
+          var ismTags = ism["tags"];
+          if (updateClouds) {
+            tags.add(ismTags);
+          }
+          ismDivs += elements.addIsmDiv(source, ism, ismTags);
+        });
+      });
+      elements.setIsmsList(ismDivs);
+      tags.setCloud(tags.generateCloud());
+    });
   },
   upsertIsm : function(event) {
     auth.handleLogin();
@@ -59,7 +100,6 @@ var database = {
     var sourceId = $(this).attr("value");
     var content = {};
     content["isms"] = $("#bulkAddIsmForm fieldset textarea#inputBulkIsms").val();
-    console.log(content);
     $.ajax({
       type: "POST",
       data: content,
@@ -124,7 +164,6 @@ var database = {
     }
   },
   buildSourceAjaxObject : function(putTarget) {
-    console.log(putTarget);
     return {
       type: putTarget ? "PUT" : "POST",
       data: this.buildSourceObject(),
@@ -139,6 +178,10 @@ var database = {
     return source;
   },
   openUpsertSourceForm : function() {
+    // FIXME Ideally this would be in forms, but it causes a strange error
+    // even when the onClick in sources.generate is correctly set to forms.openUpsertSourceForm():
+    //   Uncaught TypeError: forms.openUpsertSourceForm is not a function
+    //     at HTMLButtonElement.onclick (VM17259 :1)
     auth.handleLogin();
     modals.show(upsertSourceModal);
     $("#sourceFormTitle").html("Add source");
@@ -158,9 +201,8 @@ var database = {
   },
   deleteIsm : function(event) {
     auth.handleLogin();
+    log.enter(getName());
     event.preventDefault();
-    console.log("delete ism clicked!");
-
     auth.handleLogin();
 
     var confirmation = confirm("Are you sure you want to delete this ism?");
@@ -194,6 +236,7 @@ var database = {
   },
   exportData : function() {
     auth.handleLogin();
+    log.enter(getName());
     var txtFile = "test.txt";
     var file = new File([""], txtFile);
     var str = JSON.stringify(sources.isms.cached);
@@ -205,6 +248,7 @@ var database = {
     document.body.appendChild(link); // Required for FF
 
     link.click(); // This will download the data file named "my_data.csv".
+    log.exit(getName());
   },
   getTagmeIsms : function() {
     log.enter(getName());
@@ -222,46 +266,5 @@ var database = {
       forms.kickOffUpdateForm('untagged');
     });
     log.exit(getName());
-  },
-  getIsms : function(url) {
-    database.manageGetIsmListCall(url);
-  },
-  manageGetIsmListCall : function(url) {
-    ismDivs = elements.generateIsmHeaders();
-    $.ajax({
-      type: "GET",
-      url: url,
-      dataType: "JSON"
-    }).done(function(response) {
-      sources.isms.cached = response;
-      $.each(response, function() {
-        var source = this;
-        source.isms.forEach(function(ism) {
-          var ismTags = ism["tags"];
-          if (updateClouds) {
-            tags.add(ismTags);
-          }
-          ismDivs += elements.addIsmDiv(source, ism, ismTags);
-        });
-      });
-      elements.setIsmsList(ismDivs);
-      tags.setCloud(tags.generateCloud());
-    });
-  },
-  manageGetSourceListCall : function() {
-    var url = "/isms/sourcelist/";
-    $.ajax({
-      type: "GET",
-      url: url,
-      dataType: "JSON"
-    }).done(function(response) {
-      $.each(response, function() {
-        if (updateClouds) {
-          contentControl.props.sourceCloudDict[this._id] = { title: this.title, author: this.author, added: this.added };
-        }
-      });
-      var sourceCloud = sources.generateCloud();
-      sources.setCloud(sourceCloud);
-    });
   },
 }

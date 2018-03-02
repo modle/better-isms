@@ -8,15 +8,6 @@ var contentControl = {
     sourceCloudDict: {},
     tagCloudDict: {},
   },
-  prepClouds : function() {
-    updateClouds = false;
-    if (!this.props.filterType) {
-      this.tagCloudDict = {};
-      sourceCloudList = [];
-      sourceCloudIds = [];
-      updateClouds = true;
-    }
-  },
   generate : function() {
     log.enter(getName());
     auth.handleLogin();
@@ -25,6 +16,14 @@ var contentControl = {
     url = database.determineIsmQueryUrl();
     database.getIsms(url);
     log.exit(getName());
+  },
+  prepClouds : function() {
+    updateClouds = false;
+    if (!this.props.filterType) {
+      this.props.tagCloudDict = {};
+      this.props.sourceCloudDict = {};
+      updateClouds = true;
+    }
   },
   prepFilter : function(event) {
     contentControl.props.filterId = $(this).attr("rel");

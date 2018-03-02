@@ -118,6 +118,14 @@ var database = {
   getCommentFromForm : function() {
     return $("#updateUncommentedForm fieldset textarea#newComments").val();
   },
+  buildAjaxObject : function(type, source, url) {
+    return {
+      type: type,
+      data: source,
+      url: url,
+      dataType: "JSON"
+    };
+  },
   upsertSource : function(event) {
     event.preventDefault();
     log.enter(getName());
@@ -148,19 +156,15 @@ var database = {
         ")<br><br>Clear filter or refresh page to update source cloud";
     }
 
-    $.ajax({
-      type: type,
-      data: source,
-      url: url,
-      dataType: "JSON"
-    }).done(function(response) {
-      if (response.msg === "") {
-        database.clearSourceFormFields();
-        contentControl.generate(null);
-      } else {
-        alert("Error: " + response.msg);
-      }
-    });
+    $.ajax(database.buildAjaxObject(type, source, url))
+      .done(function(response) {
+        if (response.msg === "") {
+          database.clearSourceFormFields();
+          contentControl.generate(null);
+        } else {
+          alert("Error: " + response.msg);
+        }
+      });
     modals.hide();
     database.showSourceUpsertedToast(upsertedToastString);
     log.exit(getName());

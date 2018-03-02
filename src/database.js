@@ -18,7 +18,7 @@ var database = {
 
     var ism = {};
     ism.number = $("#upsertIsmForm fieldset input#inputNumber").val();
-    ism.tags = database.buildTags($("#upsertIsmForm fieldset input#inputTags").val());
+    ism.tags = tags.buildArray($("#upsertIsmForm fieldset input#inputTags").val());
     ism.quote = $("#upsertIsmForm fieldset textarea#inputQuote").val();
     ism.comments = $("#upsertIsmForm fieldset textarea#inputComments").val();
 
@@ -47,17 +47,6 @@ var database = {
       }
     });
     log.exit(getName());
-  },
-  buildTags : function(tags) {
-    if (Array.isArray(tags)) {
-      return tags;
-    }
-    return Array.from(
-      tags
-      .trim()
-      .toLowerCase()
-      .split(/\s*,\s*/)
-    );
   },
   bulkUpsertIsms : function(event) {
     auth.handleLogin();
@@ -115,7 +104,7 @@ var database = {
     } else if (forms.currentlyUpdating === 'uncommented') {
       ism.comments = database.getCommentFromForm();
       // this is needed because the post expects an array, but the object stores a string for single tags
-      ism.tags = database.buildTags(ism.tags);
+      ism.tags = tags.buildArray(ism.tags);
     }
     return ism;
   },
@@ -124,7 +113,7 @@ var database = {
     return source.isms.find(anIsm => anIsm._id === ids.ismId);
   },
   getTagsFromForm : function() {
-    return database.buildTags($("#updateTagmeForm fieldset input#newTags").val());
+    return tags.buildArray($("#updateTagmeForm fieldset input#newTags").val());
   },
   getCommentFromForm : function() {
     return $("#updateUncommentedForm fieldset textarea#newComments").val();
@@ -133,15 +122,7 @@ var database = {
     event.preventDefault();
     log.enter(getName());
     auth.handleLogin();
-    // Super basic validation - increase errorCount variable if any fields are blank
-    var errorCount = 0;
-    $("#upsertSourceForm input").each(function(index, val) {
-      if (this.value === "") {
-        errorCount++;
-      }
-    });
-    if (errorCount > 0) {
-      alert("Please fill in all required fields");
+    if (!forms.validate("upsertSourceForm")) {
       log.exit(getName());
       return false;
     }

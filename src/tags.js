@@ -75,4 +75,15 @@ var tags = {
   clearCloud : function() {
     setCloud("");
   },
+  buildArray : function(tags) {
+    if (Array.isArray(tags)) {
+      return tags;
+    }
+    return Array.from(
+      tags
+      .trim()
+      .toLowerCase()
+      .split(/\s*,\s*/)
+    );
+  },
 };

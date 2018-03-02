@@ -118,64 +118,46 @@ var database = {
   getCommentFromForm : function() {
     return $("#updateUncommentedForm fieldset textarea#newComments").val();
   },
-  buildAjaxObject : function(type, source, url) {
-    return {
-      type: type,
-      data: source,
-      url: url,
-      dataType: "JSON"
-    };
-  },
   upsertSource : function(event) {
     event.preventDefault();
     log.enter(getName());
+    if(database.okToProceed("upsertSourceForm")) {
+      return false;
+    };
+    let putTargetId = $(this).attr("value");
+    $.ajax(database.buildSourceAjaxObject(putTargetId))
+    .done(function(response) {
+      if (response.msg === "") {
+        database.clearSourceFormFields();
+        contentControl.generate(null);
+      } else {
+        alert("Error: " + response.msg);
+      }
+    });
+    modals.hide();
+    log.exit(getName());
+  },
+  okToProceed : function(formName) {
     auth.handleLogin();
-    if (!forms.validate("upsertSourceForm")) {
+    if (!forms.validate(formName)) {
       log.exit(getName());
       return false;
     }
-
+  },
+  buildSourceAjaxObject : function(putTarget) {
+    console.log(putTarget);
+    return {
+      type: putTarget ? "PUT" : "POST",
+      data: this.buildSourceObject(),
+      url: putTarget ? "/isms/updatesource/" + putTarget : "/isms/addsource/",
+      dataType: "JSON"
+    };
+  },
+  buildSourceObject : function() {
     var source = {};
     source.title = $("#upsertSourceForm fieldset input#inputTitle").val();
     source.author = $("#upsertSourceForm fieldset input#inputAuthor").val();
-
-    url = "/isms/addsource/";
-    type = "POST";
-    upsertedToastString = "";
-    var sourceId = $(this).attr("value");
-    if (sourceId) {
-      url = "/isms/updatesource/" + sourceId;
-      type = "PUT";
-      upsertedToastString =
-        "Source<br>" +
-        sources.getDisplayString(sourceId) +
-        " updated.<br><br>New value:<br>" +
-        source.title +
-        "(" +
-        source.author +
-        ")<br><br>Clear filter or refresh page to update source cloud";
-    }
-
-    $.ajax(database.buildAjaxObject(type, source, url))
-      .done(function(response) {
-        if (response.msg === "") {
-          database.clearSourceFormFields();
-          contentControl.generate(null);
-        } else {
-          alert("Error: " + response.msg);
-        }
-      });
-    modals.hide();
-    database.showSourceUpsertedToast(upsertedToastString);
-    log.exit(getName());
-  },
-  showSourceUpsertedToast : function(toastString) {
-    if (!toastString) {
-      return;
-    }
-    $("#sourceUpsertedHeader").html(toastString);
-    modals.show(sourceUpsertedModal);
-    modals.hideAfterALongWhile(sourceUpsertedModal);
+    return source;
   },
   clearSourceFormFields : function() {
     $("#upsertSourceForm fieldset input").val("");

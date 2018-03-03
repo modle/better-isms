@@ -1,18 +1,11 @@
 var tags = {
   cloudData : {},
   generateCloudHtml : function() {
-    // should there be a new data structure to handle a mapping of the tags?
-    // {a: {atag1, atag2, atag3}, b: {btag1, btag2, btag3}}
-    // if it were organized this way, there wouldn't be the need to check the letter of each tag
-    // and it would be easier to wrap each tag grouping in a div of its own, which would allow
-    // the use of flex to appropriately wrap them
     let tagCloud = "";
     Array.from(Object.keys(tags.cloudData)).sort().forEach( letter => {
-      Array.from(Object.keys(tags.cloudData[letter])).sort().forEach( tag => {
-        tagCloud += tags.htmlBuilder.getNextLetterIfNeeded(tag);
-        tagCloud += '<span class="tagSpan">' + tags.htmlBuilder.buildLink(tag) + '</span>';
-        tagCloud += tags.htmlBuilder.buildSeparator();
-      });
+      tagCloud += tags.htmlBuilder.letter.opening(letter);
+      tagCloud += tags.htmlBuilder.tag(letter);
+      tagCloud += tags.htmlBuilder.letter.closing(letter);
     });
     return tagCloud;
   },
@@ -21,13 +14,21 @@ var tags = {
     currentIndex : 0,
     baseEmSize : 1.5,
     previousLetter : "",
-    getNextLetterIfNeeded : function(tag) {
-      currentLetter = tag.substring(0, 1);
-      if (currentLetter != this.previousLetter) {
-        this.previousLetter = currentLetter;
-        return '<div style="font-size:' + this.baseEmSize + 'em">' + currentLetter + ': </div>';
-      };
-      return "";
+    letter : {
+      opening : function(letter) {
+        return '<div><span style="font-size: 2em">' + letter + ': </span>';
+      },
+      closing : function() {
+        return '</div><hr>';
+      }
+    },
+    tag : function(letter) {
+      theHtml = ""
+      Array.from(Object.keys(tags.cloudData[letter])).sort().forEach( tag => {
+        theHtml += '<span class="tagSpan">' + tags.htmlBuilder.buildLink(tag) + '</span>';
+        theHtml += tags.htmlBuilder.buildSeparator();
+      });
+      return theHtml;
     },
     buildLink : function(tag) {
       let size = this.calculateSize(tag);
@@ -101,6 +102,9 @@ var tags = {
     addToDict : function(tagToAdd) {
       tagToAdd = tagToAdd.toLowerCase();
       tagLetter = tagToAdd.substring(0, 1);
+      if (!tagLetter) {
+        return;
+      }
       if (!(tagLetter in tags.cloudData)) {
         tags.cloudData[tagLetter] = {}
       }

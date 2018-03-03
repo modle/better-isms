@@ -22,7 +22,7 @@ var elements = {
       sources.getDisplayString(source) +
       "</span> | ";
     divContent += '<span class="num field">' + details.number + "</span> | ";
-    divContent += tags.generateDivs(ismTags) + " | ";
+    divContent += tags.generateDivsForIsm(ismTags) + " | ";
     divContent += '<span class="quote field">' + details.quote + "</span> | ";
     divContent += '<span class="comment field">' + comments + "</span> | ";
     divContent +=

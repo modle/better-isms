@@ -1,0 +1,2 @@
+DATABASE_URL='mongodb://testuser:test@ds147884.mlab.com:47884/better-isms-test2'
+PASSWORD=test

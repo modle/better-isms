@@ -132,7 +132,7 @@ var forms = {
     return true;
   },
   getTagsFromForm : function() {
-    return tags.buildArray($("#updateTagmeForm fieldset input#newTags").val());
+    return utils.buildArray($("#updateTagmeForm fieldset input#newTags").val());
   },
   getCommentFromForm : function() {
     return $("#updateUncommentedForm fieldset textarea#newComments").val();

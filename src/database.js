@@ -38,13 +38,13 @@ var database = {
         source.isms.forEach(function(ism) {
           var ismTags = ism["tags"];
           if (updateClouds) {
-            tags.add(ismTags);
+            tags.cloud.add(ismTags);
           }
           ismDivs += elements.addIsmDiv(source, ism, ismTags);
         });
       });
       elements.setIsmsList(ismDivs);
-      tags.setCloud(tags.generateCloud());
+      tags.display.setElement();
     });
   },
   upsertIsm : function(event) {
@@ -59,7 +59,7 @@ var database = {
 
     var ism = {};
     ism.number = $("#upsertIsmForm fieldset input#inputNumber").val();
-    ism.tags = tags.buildArray($("#upsertIsmForm fieldset input#inputTags").val());
+    ism.tags = utils.buildArray($("#upsertIsmForm fieldset input#inputTags").val());
     ism.quote = $("#upsertIsmForm fieldset textarea#inputQuote").val();
     ism.comments = $("#upsertIsmForm fieldset textarea#inputComments").val();
 

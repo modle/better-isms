@@ -118,7 +118,7 @@ var contentControl = {
       } else if (forms.currentlyUpdating === 'uncommented') {
         ism.comments = forms.getCommentFromForm();
         // this is needed because the post expects an array, but the object stores a string for single tags
-        ism.tags = tags.buildArray(ism.tags);
+        ism.tags = utils.buildArray(ism.tags);
       }
       return ism;
     },

@@ -134,3 +134,17 @@ var main = {
     modals.hideAfterAWhile(noIsmsToUpdateToast);
   },
 }
+
+var utils = {
+  buildArray : function(value) {
+    if (Array.isArray(value)) {
+      return value;
+    }
+    return Array.from(
+      value
+        .trim()
+        .toLowerCase()
+        .split(/\s*,\s*/)
+    );
+  },
+}

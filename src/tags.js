@@ -1,13 +1,6 @@
 var tags = {
   currentIndex : 0,
   colors : ["mediumseagreen", "tomato", "violet", "orange", "slateblue"],
-  getNextColor : function() {
-    tags.currentIndex += 1;
-    if (tags.currentIndex == tags.colors.length) {
-      tags.currentIndex = 0;
-    }
-    return tags.colors[tags.currentIndex];
-  },
   generateCloud : function() {
     var tagCloud = "";
     for (var tag of Array.from(Object.keys(contentControl.props.tagCloudDict)).sort()) {
@@ -26,8 +19,12 @@ var tags = {
     }
     return tagCloud;
   },
-  setCloud : function(tagCloud) {
-    $("#tagCloud").html(tagCloud);
+  getNextColor : function() {
+    tags.currentIndex += 1;
+    if (tags.currentIndex == tags.colors.length) {
+      tags.currentIndex = 0;
+    }
+    return tags.colors[tags.currentIndex];
   },
   calculateSize : function(tag) {
     var tagArray = Array.from(Object.values(contentControl.props.tagCloudDict));
@@ -39,6 +36,9 @@ var tags = {
     var baseEmSize = 1.5;
     var finalEmSize = tagSizeRatio + baseEmSize;
     return finalEmSize;
+  },
+  setCloud : function(tagCloud) {
+    $("#tagCloud").html(tagCloud);
   },
   generateDivs : function(tagsToUse) {
     tagDivs = "";

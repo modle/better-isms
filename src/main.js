@@ -148,3 +148,7 @@ var utils = {
     );
   },
 }
+
+var debug = function() {
+  console.log(arguments);
+}

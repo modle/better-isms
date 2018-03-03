@@ -6,7 +6,6 @@ var contentControl = {
     filterType: "",
     filterId: "",
     sourceCloudDict: {},
-    tagCloudDict: {},
   },
   generate : function() {
     log.enter(getName());

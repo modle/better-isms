@@ -1,2 +1,3 @@
 DATABASE_URL='mongodb://testuser:test@ds147884.mlab.com:47884/better-isms-test2'
+DATABASE_URL='mongodb://testuser:test@ds251598.mlab.com:51598/better-isms-test3'
 PASSWORD=test

@@ -1,4 +1,5 @@
 var tags = {
+  cloudData : {},
   generateCloudHtml : function() {
     // should there be a new data structure to handle a mapping of the tags?
     // {a: {atag1, atag2, atag3}, b: {btag1, btag2, btag3}}
@@ -6,10 +7,12 @@ var tags = {
     // and it would be easier to wrap each tag grouping in a div of its own, which would allow
     // the use of flex to appropriately wrap them
     let tagCloud = "";
-    Array.from(Object.keys(contentControl.props.tagCloudDict)).sort().forEach( tag => {
-      tagCloud += tags.htmlBuilder.getNextLetterIfNeeded(tag);
-      tagCloud += '<span class="tagSpan">' + tags.htmlBuilder.buildLink(tag) + '</span>';
-      tagCloud += tags.htmlBuilder.buildSeparator();
+    Array.from(Object.keys(tags.cloudData)).sort().forEach( letter => {
+      Array.from(Object.keys(tags.cloudData[letter])).sort().forEach( tag => {
+        tagCloud += tags.htmlBuilder.getNextLetterIfNeeded(tag);
+        tagCloud += '<span class="tagSpan">' + tags.htmlBuilder.buildLink(tag) + '</span>';
+        tagCloud += tags.htmlBuilder.buildSeparator();
+      });
     });
     return tagCloud;
   },
@@ -22,7 +25,7 @@ var tags = {
       currentLetter = tag.substring(0, 1);
       if (currentLetter != this.previousLetter) {
         this.previousLetter = currentLetter;
-        return '<br><span style="font-size:' + this.baseEmSize + 'em">' + currentLetter + ': </span>';
+        return '<div style="font-size:' + this.baseEmSize + 'em">' + currentLetter + ': </div>';
       };
       return "";
     },
@@ -52,15 +55,13 @@ var tags = {
       return '<span>&nbsp;</span>';
     },
     calculateSize : function(tag) {
-      var tagArray = Array.from(Object.values(contentControl.props.tagCloudDict));
+      var tagArray = Array.from(Object.values(tags.cloudData));
       var maxCount = Math.max.apply(null, tagArray);
       var minCount = Math.min.apply(null, tagArray);
       var range = 1 + maxCount - minCount;
-      var tagCount = contentControl.props.tagCloudDict[tag];
+      var tagCount = tags.cloudData[tag];
       var tagSizeRatio = tagCount / range;
-      console.log("ratio for " + tag + " is", tagSizeRatio);
       var finalEmSize = tagSizeRatio + this.baseEmSize;
-      console.log("final em size for " + tag + " is", finalEmSize);
       return finalEmSize;
     },
   },
@@ -98,11 +99,15 @@ var tags = {
       }
     },
     addToDict : function(tagToAdd) {
-      lowerCasedTag = tagToAdd.toLowerCase();
-      if (lowerCasedTag in contentControl.props.tagCloudDict) {
-        contentControl.props.tagCloudDict[lowerCasedTag] += 1;
+      tagToAdd = tagToAdd.toLowerCase();
+      tagLetter = tagToAdd.substring(0, 1);
+      if (!(tagLetter in tags.cloudData)) {
+        tags.cloudData[tagLetter] = {}
+      }
+      if (tagToAdd in tags.cloudData[tagLetter]) {
+        tags.cloudData[tagLetter][tagToAdd] += 1;
       } else {
-        contentControl.props.tagCloudDict[lowerCasedTag] = 1;
+        tags.cloudData[tagLetter][tagToAdd] = 1;
       }
     },
   },

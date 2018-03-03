@@ -1,23 +1,31 @@
 var tags = {
   currentIndex : 0,
   colors : ["mediumseagreen", "tomato", "violet", "orange", "slateblue"],
+  baseEmSize : 1.5,
   generateCloud : function() {
-    var tagCloud = "";
-    for (var tag of Array.from(Object.keys(contentControl.props.tagCloudDict)).sort()) {
-      var size = tags.calculateSize(tag);
-      tagCloud +=
-        '<span class="tagSpan"><a href="#" class="linktagfilter ' +
-        tags.getNextColor() +
-        " " +
-        contentControl.highlightIfFiltered(tag) +
-        '" rel="' +
-        tag +
-        '" style="font-size:' +
-        size +
-        'em">';
-      tagCloud += tag + "</a></span><span>&nbsp;</span>";
-    }
+    // should there be a new data structure to handle a mapping of the tags?
+    // {a: {atag1, atag2, atag3}, b: {btag1, btag2, btag3}}
+    let tagCloud = "";
+    Array.from(Object.keys(contentControl.props.tagCloudDict)).sort().forEach( tag => {
+      tagCloud += '<span class="tagSpan">' + tags.buildLink(tag) + '</span>';
+      tagCloud += tags.buildSeparator();
+    });
     return tagCloud;
+  },
+  buildLink : function(tag) {
+    let size = tags.calculateSize(tag);
+    return '<a href="#" ' +
+      tags.getCssClasses(tag) +
+      ' rel="' + tag + '"' +
+      'style="font-size:' + size + 'em" ' +
+      '>' +tag + '</a>';
+  },
+  getCssClasses : function(tag) {
+    return 'class="linktagfilter ' +
+    tags.getNextColor() +
+    " " +
+    contentControl.highlightIfFiltered(tag) +
+    '"';
   },
   getNextColor : function() {
     tags.currentIndex += 1;
@@ -25,6 +33,9 @@ var tags = {
       tags.currentIndex = 0;
     }
     return tags.colors[tags.currentIndex];
+  },
+  buildSeparator : function() {
+    return '<span>&nbsp;</span>';
   },
   calculateSize : function(tag) {
     var tagArray = Array.from(Object.values(contentControl.props.tagCloudDict));

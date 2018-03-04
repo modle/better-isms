@@ -46,67 +46,52 @@ var ismForm = {
     modals.show(upsertIsmFormModal);
     $("#inputNumber").focus();
   },
-  setElementText : function() {
-    let updateIsmText = 'Update Ism';
-    contentControl.setText('upsertIsmHeader', updateIsmText);
-    contentControl.setText('btnUpsertIsm', updateIsmText);
-    $("#btnClearIsm").hide();
-    modals.show(upsertIsmFormModal);
-    $("#inputNumber").focus();
-  },
   populateFields : function(event) {
+    log.enter(getName());
+    ismForm.prep();
+    let ids = ismForm.getIds($(this).attr("rel"));
+    let thisIsm = ismForm.getIsm(ids);
+    ismForm.injectValues(ids, thisIsm);
+    log.exit(getName());
+  },
+  prep : function() {
     event.preventDefault();
     auth.handleLogin();
     contentControl.hideFooter();
-    ismForm.setElementText();
-
-    // Retrieve sourceId and ismId from link rel attribute
-    var thisSource = $(this).attr("rel");
-    var thisSourceId = thisSource.split(":")[0];
-    var thisIsmId = thisSource.split(":")[1];
-
-    // Get Index of source object based on source id value
-    var sourceArrayIndex = sources.isms.cached
-      .map(function(arrayItem) {
-        return arrayItem._id;
-      })
-      .indexOf(thisSourceId);
-    sourceIsms = sources.isms.cached[sourceArrayIndex];
-
-    // Get Index of isms within source object based on ism id value
-    var myIsmArrayIndex = sourceIsms.isms
-      .map(function(ism) {
-        return ism._id;
-      })
-      .indexOf(thisIsmId);
-
-    // Get our Ism Object
-    var thisIsmObject = sources.isms.cached[sourceArrayIndex].isms[myIsmArrayIndex];
-
-    // generate tag string from array of tags
-    joinedTags = "";
-    if (Array.isArray(thisIsmObject.tags)) {
-      joinedTags = thisIsmObject.tags.join();
-    } else {
-      joinedTags = thisIsmObject.tags;
-    }
-
-    // TODO pass these to hideElements as a list instead
+    ismForm.setElements();
+  },
+  setElements : function() {
+    let updateIsmText = 'Update Ism';
+    contentControl.setText('upsertIsmHeader', updateIsmText);
+    contentControl.setText('btnUpsertIsm', updateIsmText);
+    // TODO pass these to hide/showElements as a list instead
     contentControl.hideElement('moreFields');
     contentControl.showElement('inputTags');
     contentControl.showElement('inputComments');
-
-    // Inject the current values into the appropriate fields
-    // consider setting a div to sourceIsms.title instead of populating a field; we don't want to update the title here
-    $("#currentSource").text(sourceIsms.title + " (" + sourceIsms.author + ")");
-
-    $("#upsertIsmForm fieldset input#inputNumber").val(thisIsmObject.number);
-    $("#upsertIsmForm fieldset input#inputTags").val(joinedTags);
-    $("#upsertIsmForm fieldset textarea#inputQuote").val(thisIsmObject.quote);
-    $("#upsertIsmForm fieldset textarea#inputComments").val(
-      thisIsmObject.comments
-    );
-    $("#upsertIsmForm fieldset button#btnUpsertIsm").val(thisSource);
-    log.exit(getName());
+    modals.show(upsertIsmFormModal);
+    $("#inputNumber").focus();
   },
+  getIds : function(event) {
+    return {
+      event : event,
+      source : event.split(":")[0],
+      ism : event.split(":")[1]
+    };
+  },
+  getIsm : function(ids) {
+    return sources.isms.cached
+      .find(source => source._id === ids.source).isms
+      .find(ism => ism._id === ids.ism);
+  },
+  formatTags : function(ism) {
+    return Array.isArray(ism.tags) ? ism.tags.join() : ism.tags;
+  },
+  injectValues : function(ids, ism) {
+    $("#currentSource").text(sources.getDisplayString(contentControl.props.sourceCloudDict[ids.source]));
+    $("#upsertIsmForm fieldset input#inputNumber").val(ism.number);
+    $("#upsertIsmForm fieldset input#inputTags").val(ismForm.formatTags(ism));
+    $("#upsertIsmForm fieldset textarea#inputQuote").val(ism.quote);
+    $("#upsertIsmForm fieldset textarea#inputComments").val(ism.comments);
+    $("#upsertIsmForm fieldset button#btnUpsertIsm").val(ids.event);
+  }
 };

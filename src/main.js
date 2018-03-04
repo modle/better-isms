@@ -61,14 +61,6 @@ $(document).ready(function() {
     }
   });
 
-  $("#btnClearIsm").on("keydown", function(evt) {
-    if (evt.keyCode === 9) {
-      // Tab pressed
-      evt.preventDefault();
-      $("#inputNumber").focus();
-    }
-  });
-
   $("input,select").keydown(function(event) {
     var key = event.charCode
       ? event.charCode

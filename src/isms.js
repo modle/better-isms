@@ -1,4 +1,4 @@
-var elements = {
+var isms = {
   clearIsmDivs : function() {
     this.setIsmsList("");
   },
@@ -44,5 +44,4 @@ var elements = {
   setIsmsList : function(ismDivs) {
     $("#ismList isms").html(ismDivs);
   },
-
 }

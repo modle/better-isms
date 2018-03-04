@@ -26,7 +26,7 @@ var database = {
     database.manageGetIsmListCall(url);
   },
   manageGetIsmListCall : function(url) {
-    ismDivs = elements.generateIsmHeaders();
+    ismDivs = isms.generateIsmHeaders();
     $.ajax({
       type: "GET",
       url: url,
@@ -40,10 +40,10 @@ var database = {
           if (updateClouds) {
             tags.cloud.add(ismTags);
           }
-          ismDivs += elements.addIsmDiv(source, ism, ismTags);
+          ismDivs += isms.addIsmDiv(source, ism, ismTags);
         });
       });
-      elements.setIsmsList(ismDivs);
+      isms.setIsmsList(ismDivs);
       tags.display.setElement();
     });
   },

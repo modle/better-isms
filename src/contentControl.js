@@ -14,6 +14,7 @@ var contentControl = {
     database.manageGetSourceListCall();
     url = database.determineIsmQueryUrl();
     database.getIsms(url);
+    contentControl.setCurrentFilter();
     log.exit(getName());
   },
   prepClouds : function() {
@@ -31,22 +32,34 @@ var contentControl = {
       contentControl.props.filterType = "source";
     } else if (eventClasses.includes("linktagfilter")) {
       contentControl.props.filterType = "tag";
-    }
+    };
     contentControl.generate();
+  },
+  setCurrentFilter : function() {
+    // TODO this could be cleaned up
+    let currentFilterContents = this.props.filterId;
+    if (this.props.filterType == "source") {
+      currentFilterContents = sources.getDisplayString(this.props.sourceCloudDict[this.props.filterId]);
+    };
+    $("#currentFilterContents").html(currentFilterContents);
+    this.props.filterType ? contentControl.showElement('currentFilter') : contentControl.hideElement('currentFilter');
+    if (!this.props.filterType) {
+      window.location.href = '#';
+    };
   },
   highlightIfFiltered : function(id) {
     if (id == this.props.filterId) {
       return "highlighted";
-    }
+    };
     return "";
-  },
-  clearFilter : function() {
-    this.props.filterType = "";
-    this.props.filterId = "";
   },
   clearFilterAndReload : function() {
     contentControl.clearFilter();
     contentControl.generate();
+  },
+  clearFilter : function() {
+    this.props.filterType = "";
+    this.props.filterId = "";
   },
   hideFooter : function() {
     var footer = document.getElementById("footer");
@@ -62,7 +75,7 @@ var contentControl = {
       tagDiv.style.display = "flex";
     } else {
       tagDiv.style.display = "none";
-    }
+    };
   },
   toggleSources : function() {
     let sourceDiv = document.getElementById("sourceCloud");
@@ -70,12 +83,12 @@ var contentControl = {
       sourceDiv.style.display = "none";
     } else {
       sourceDiv.style.display = "flex";
-    }
+    };
   },
   hideElements : function(elements) {
     for (var element of elements) {
       contentControl.hideElement(element);
-    }
+    };
   },
   hideElement : function(elementClass) {
     $("#" + elementClass).hide();
@@ -83,7 +96,7 @@ var contentControl = {
   showElements : function(elements) {
     for (var element of elements) {
       contentControl.showElement(element);
-    }
+    };
   },
   showElement : function(elementClass) {
     $("#" + elementClass).show();
@@ -136,7 +149,7 @@ var contentControl = {
       let ismIndex = contentControl.props.targetIsms[sourceIndex].isms.findIndex(anIsm => anIsm._id === ismId);
       if (ismIndex > -1) {
         contentControl.props.targetIsms[sourceIndex].isms.splice(ismIndex, 1);
-      }
+      };
       this.removeIfIsmsIsEmpty(sourceIndex);
     },
     getWithoutComments : function() {

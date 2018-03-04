@@ -28,6 +28,7 @@ $(document).ready(function() {
 
   $("#addSource").on("click", contentControl.addSource);
   $("#clearFilter").on("click", contentControl.clearFilterAndReload);
+  $("#clearFilter2").on("click", contentControl.clearFilterAndReload);
   $("#sourceCloud").on("click", "a.linksourcefilter", contentControl.prepFilter);
   $("#tagCloud").on("click", "a.linktagfilter", contentControl.prepFilter);
   $("#toggleSources").on("click", contentControl.toggleSources);

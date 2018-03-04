@@ -103,6 +103,16 @@ a {
   align-content: flex-start;
 }
 
+#currentFilter {
+  display: flex;
+  flex-flow: wrap;
+  align-content: flex-start;
+}
+
+#currentFilterContents {
+  font-size: 2.5em;
+}
+
 .tagSpan {
   display: inline-block;
   flex-flow: row;

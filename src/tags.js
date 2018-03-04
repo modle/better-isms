@@ -19,8 +19,8 @@ var tags = {
         return '<div><span style="font-size: 2em">' + letter + ': </span>';
       },
       closing : function() {
-        return '</div><hr>';
-      }
+        return '</div>';
+      },
     },
     tag : function(letter) {
       theHtml = ""

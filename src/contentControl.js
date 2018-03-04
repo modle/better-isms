@@ -124,7 +124,7 @@ var contentControl = {
       return isms.findIndex(item => item._id === id);
     },
     getIsm : function(ids) {
-      let ism = database.getIsmFromSource(ids);
+      let ism = contentControl.targetIsmsControl.getIsmFromSource(ids);
       if (forms.currentlyUpdating === 'untagged') {
         ism.tags = forms.getTagsFromForm();
       } else if (forms.currentlyUpdating === 'uncommented') {

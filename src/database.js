@@ -64,13 +64,14 @@ var database = {
     ism.comments = $("#upsertIsmForm fieldset textarea#inputComments").val();
 
     var buttonValue = $("#upsertIsmForm fieldset button#btnUpsertIsm").val();
+    var type = "POST";
+    var url = "/isms/addism/" + buttonValue;
+    var jumpToEndWhenSuccess = true;
     if (buttonValue.includes(":")) {
       var type = "PUT";
       ism._id = buttonValue.split(":")[1];
       url = "/isms/updateism/" + buttonValue.replace(":", "/");
-    } else {
-      var type = "POST";
-      url = "/isms/addism/" + buttonValue;
+      jumpToEndWhenSuccess = false;
     }
     console.log(type, "to", url);
     $.ajax({
@@ -83,6 +84,9 @@ var database = {
         ismForm.clearFields();
         contentControl.generate(null);
         modals.hide();
+        if (jumpToEndWhenSuccess) {
+          window.location.href = '#endOfPage'
+        }
       } else {
         alert("Error: " + response.msg);
       }

@@ -132,7 +132,13 @@ var forms = {
     return this.populateIsmForm(type, formId);
   },
   getTagsFromForm : function() {
-    return utils.buildArray($("#updateTagmeForm fieldset input#newTags").val());
+    let tagFieldContents = $("#updateTagmeForm fieldset input#newTags").val();
+    debug("tag field contents", tagFieldContents);
+    if (!tagFieldContents) {
+      tagFieldContents = "tagme";
+    }
+    debug("tag field contents", tagFieldContents);
+    return utils.buildArray(tagFieldContents);
   },
   getCommentFromForm : function() {
     return $("#updateUncommentedForm fieldset textarea#newComments").val();

@@ -37,6 +37,7 @@ var ismForm = {
     ismForm.clearFields();
     if (contentControl.props.filterType !== "source") {
       modals.show(noSourceSelectedModal);
+      contentControl.jumpToAnchor('#');
       return;
     }
     sourceId = contentControl.props.filterId;

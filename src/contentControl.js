@@ -43,9 +43,6 @@ var contentControl = {
     };
     $("#currentFilterContents").html(currentFilterContents);
     this.props.filterType ? contentControl.showElement('currentFilter') : contentControl.hideElement('currentFilter');
-    if (!this.props.filterType) {
-      window.location.href = '#';
-    };
   },
   highlightIfFiltered : function(id) {
     if (id == this.props.filterId) {
@@ -60,6 +57,7 @@ var contentControl = {
   clearFilter : function() {
     this.props.filterType = "";
     this.props.filterId = "";
+    contentControl.jumpToAnchor("#");
   },
   hideFooter : function() {
     var footer = document.getElementById("footer");
@@ -157,5 +155,8 @@ var contentControl = {
       contentControl.props.targetIsms = sources.isms.cached.filter( source => source.isms.length > 0 );
       log.exit(getName());
     },
+  },
+  jumpToAnchor : function(anchor) {
+    window.location.href = anchor;
   },
 };

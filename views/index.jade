@@ -191,10 +191,20 @@ block content
     .clouds
       // THE CLOUDS
       #sourceCloud.cloud
+        //- #sourceCloudButtons
+        //-   button.sourceSortButton#title.submit-button(title='clear tag or source') Title
+        //-   button.sourceSortButton#author.submit-button(title='toggle sources') Author
+        //-   button.sourceSortButton#added.submit-button(title='toggle tags') Added
+        #sourceCloudContents
       br
       #tagCloud.cloud
       br
       // /THE CLOUDS
+
+    #currentFilter.cloud
+      button#clearFilter2.submit-button(title='clear tag or source') Clear
+      #currentFilterContents
+      a(name="currentFilter")
 
     // ISM LIST
     #ismList.cloud
@@ -203,13 +213,12 @@ block content
 
   // /WRAPPER
 
-  a(name="endOfPage")
 
   #footer
     button#newIsm.submit-button New Ism
     button#addSource.submit-button New Source
     a(href="#")#toTop.submit-button(title='go to top') Top
-    a(href="#endOfPage")#toBottom.submit-button(title='page down') Down
+    a(href="#endOfPage")#toBottom.submit-button(title='page down') Bottom
     button#clearFilter.submit-button(title='clear tag or source') Clear
     button#toggleSources.submit-button(title='toggle sources') Sources
     button#toggleTags.submit-button(title='toggle tags') Tags
@@ -218,3 +227,5 @@ block content
     button#export.submit-button Export
     button#logout.submit-button Logout
     button#login.submit-button Login
+
+  a(name="endOfPage")

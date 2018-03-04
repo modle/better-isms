@@ -43,6 +43,7 @@ var database = {
           ismDivs += isms.addIsmDiv(source, ism, ismTags);
         });
       });
+      window.location.href = '#ismsTop';
       isms.setIsmsList(ismDivs);
       tags.display.setElement();
     });

@@ -3,8 +3,8 @@ var isms = {
     this.setIsmsList("");
   },
   generateIsmHeaders : function() {
-    var divHeaders = "";
-    divHeaders += '<div class="record"><span class="source">source</span> | ';
+    var divHeaders = '<div class="record"><a name="ismsTop"></a>';
+    divHeaders += '<span class="source">source</span> | ';
     divHeaders += '<span class="num">page number</span> | ';
     divHeaders += '<span class="tag">tags</span> | ';
     divHeaders += '<span class="quote">quote</span> | ';
@@ -16,7 +16,6 @@ var isms = {
   },
   addIsmDiv : function(source, details, ismTags) {
     var divContent = "";
-    console.log(details._id);
     var comments = details.comments === undefined ? "" : details.comments;
     divContent +=
       '<div class="record"><a name=' + details._id + '></a><span class="source field">' +

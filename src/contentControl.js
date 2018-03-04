@@ -114,7 +114,7 @@ var contentControl = {
   addSource : function(event) {
     contentControl.clearFilter();
     contentControl.hideFooter();
-    forms.openUpsertSourceForm();
+    database.openUpsertSourceForm();
   },
   targetIsmsControl : {
     getSourceIndex : function(id) {

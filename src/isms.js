@@ -16,9 +16,10 @@ var isms = {
   },
   addIsmDiv : function(source, details, ismTags) {
     var divContent = "";
+    console.log(details._id);
     var comments = details.comments === undefined ? "" : details.comments;
     divContent +=
-      '<div class="record"><span class="source field">' +
+      '<div class="record"><a name=' + details._id + '></a><span class="source field">' +
       sources.getDisplayString(source) +
       "</span> | ";
     divContent += '<span class="num field">' + details.number + "</span> | ";

@@ -85,7 +85,9 @@ var database = {
         contentControl.generate(null);
         modals.hide();
         if (jumpToEndWhenSuccess) {
-          window.location.href = '#endOfPage'
+          window.location.href = '#endOfPage';
+        } else {
+          window.location.href = '#' + ism._id;
         }
       } else {
         alert("Error: " + response.msg);

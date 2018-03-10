@@ -117,37 +117,6 @@ block content
               button.hideModals.submit-button Hide
     // /BULK ADD ISM FORM
 
-    // ISM FORM
-    .modal#upsertIsmFormModal
-      br
-      br
-      br
-      br
-      .modal-container
-        #upsertIsmForm
-          .form-container-wrapper
-            fieldset.form-container
-              h1#currentSource
-              br
-              span required
-              br
-              input#inputNumber(type='number', placeholder='page number', value='').form-field
-              br
-              span required
-              br
-              textarea#inputQuote(type='textarea', placeholder='quote or note', rows=10, value='').form-field
-              br
-              button#moreFields.submit-button More
-              button#btnShowBulkAddIsm.submit-button Bulk Add Instead
-              br
-              input#inputTags(type='text', placeholder='comma-separated tag list', value='').form-field
-              br
-              textarea#inputComments(type='textarea', placeholder='your comments', rows=10, value='').form-field
-              br
-              button#btnUpsertIsm.submit-button Add Ism
-              button.hideModals.submit-button Hide
-    // /ISM FORM
-
     // UNCOMMENTED UPDATE FORM
     .modal#uncommentedUpdateFormModal
       br
@@ -205,6 +174,37 @@ block content
       button#clearFilter2.submit-button(title='clear tag or source') Clear
       #currentFilterContents
       a(name="currentFilter")
+
+    // ISM FORM
+    .modal#upsertIsmFormModal
+      br
+      br
+      br
+      br
+      .modal-container
+        #upsertIsmForm
+          .form-container-wrapper
+            fieldset.form-container
+              h1#currentSource
+              br
+              span required
+              br
+              input#inputNumber(type='number', placeholder='page number', value='').form-field
+              br
+              span required
+              br
+              textarea#inputQuote(type='textarea', placeholder='quote or note', rows=10, value='').form-field
+              br
+              button#moreFields.submit-button More
+              button#btnShowBulkAddIsm.submit-button Bulk Add Instead
+              br
+              input#inputTags(type='text', placeholder='comma-separated tag list', value='').form-field
+              br
+              textarea#inputComments(type='textarea', placeholder='your comments', rows=10, value='').form-field
+              br
+              button#btnUpsertIsm.submit-button Add Ism
+              button.hideModals.submit-button Hide
+    // /ISM FORM
 
     // ISM LIST
     #ismList.cloud

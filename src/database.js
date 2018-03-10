@@ -1,4 +1,5 @@
 var database = {
+  justPutIsm : false,
   manageGetSourceListCall : function() {
     var url = "/isms/sourcelist/";
     $.ajax({
@@ -43,7 +44,10 @@ var database = {
           ismDivs += isms.addIsmDiv(source, ism, ismTags);
         });
       });
-      window.location.href = '#currentFilter';
+      if (!database.justPutIsm) {
+        contentControl.jumpToAnchor('#currentFilter');
+        database.justPutIsm = false;
+      };
       isms.setIsmsList(ismDivs);
       tags.display.setElement();
     });
@@ -67,12 +71,11 @@ var database = {
     var buttonValue = $("#upsertIsmForm fieldset button#btnUpsertIsm").val();
     var type = "POST";
     var url = "/isms/addism/" + buttonValue;
-    var jumpToEndWhenSuccess = true;
     if (buttonValue.includes(":")) {
+      database.justPutIsm = true;
       var type = "PUT";
       ism._id = buttonValue.split(":")[1];
       url = "/isms/updateism/" + buttonValue.replace(":", "/");
-      jumpToEndWhenSuccess = false;
     }
     console.log(type, "to", url);
     $.ajax({
@@ -85,11 +88,7 @@ var database = {
         ismForm.clearFields();
         contentControl.generate(null);
         modals.hide();
-        if (jumpToEndWhenSuccess) {
-          window.location.href = '#endOfPage';
-        } else {
-          window.location.href = '#' + ism._id;
-        }
+        contentControl.jumpToAnchor('#' + ism._id);
       } else {
         alert("Error: " + response.msg);
       }

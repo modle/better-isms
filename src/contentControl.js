@@ -43,9 +43,6 @@ var contentControl = {
     };
     $("#currentFilterContents").html(currentFilterContents);
     this.props.filterType ? contentControl.showElement('currentFilter') : contentControl.hideElement('currentFilter');
-    if (!this.props.filterType) {
-      window.location.href = '#';
-    };
   },
   highlightIfFiltered : function(id) {
     if (id == this.props.filterId) {
@@ -60,6 +57,7 @@ var contentControl = {
   clearFilter : function() {
     this.props.filterType = "";
     this.props.filterId = "";
+    contentControl.jumpToAnchor("#");
   },
   hideFooter : function() {
     var footer = document.getElementById("footer");
@@ -114,7 +112,7 @@ var contentControl = {
   addSource : function(event) {
     contentControl.clearFilter();
     contentControl.hideFooter();
-    forms.openUpsertSourceForm();
+    database.openUpsertSourceForm();
   },
   targetIsmsControl : {
     getSourceIndex : function(id) {
@@ -124,7 +122,7 @@ var contentControl = {
       return isms.findIndex(item => item._id === id);
     },
     getIsm : function(ids) {
-      let ism = database.getIsmFromSource(ids);
+      let ism = contentControl.targetIsmsControl.getIsmFromSource(ids);
       if (forms.currentlyUpdating === 'untagged') {
         ism.tags = forms.getTagsFromForm();
       } else if (forms.currentlyUpdating === 'uncommented') {
@@ -157,5 +155,8 @@ var contentControl = {
       contentControl.props.targetIsms = sources.isms.cached.filter( source => source.isms.length > 0 );
       log.exit(getName());
     },
+  },
+  jumpToAnchor : function(anchor) {
+    window.location.href = anchor;
   },
 };

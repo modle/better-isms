@@ -61,37 +61,19 @@ var forms = {
     forms.currentlyUpdating = undefined;
   },
   injectIsmIntoForm : function(type, source, ism, form) {
-    console.log('setting form falues; params are: ', type, source, ism, form);
     $("#readonly-source").text(source.title + ' (' + source.author + ')');
     $("#" + form + " fieldset textarea#readonly-quote").val(ism.quote);
     $("#" + form + " fieldset button#save-and-next-" + type).val(source._id + ':' + ism._id + ':' + type);
-  },
-  kickOffTagmeUpdateForm : function() {
-    log.enter(getName());
-    forms.clearAll();
-    if(this.populateTagIsmForm()) {
-      contentControl.hideFooter();
-      modals.show(tagmeUpdateFormModal);
-      forms.currentlyUpdating = 'untagged';
-      $("#newTags").focus();
-    }
-    log.exit(getName());
-  },
-  populateTagIsmForm : function() {
-    log.enter(getName());
-    const formId = 'updateTagmeForm';
-    const type = 'untagged';
-    log.exit(getName());
-    return this.populateIsmForm(type, formId);
   },
   kickOffUpdateForm : function(type) {
     if (type === 'uncommented') {
       this.kickOffCommentUpdateForm();
     } else if (type === 'untagged') {
       this.kickOffTagmeUpdateForm();
-    }
+    };
   },
   kickOffCommentUpdateForm : function() {
+    // TODO refactor; this is very similar to kickOffTagmeUpdateForm; combine them
     log.enter(getName());
     forms.clearAll();
     if(this.populateCommentIsmForm() && contentControl.props.targetIsms.length > 0) {
@@ -99,7 +81,7 @@ var forms = {
       modals.show(uncommentedUpdateFormModal);
       forms.currentlyUpdating = 'uncommented';
       $("#newComments").focus();
-    }
+    };
     log.exit(getName());
   },
   populateCommentIsmForm : function() {
@@ -131,8 +113,32 @@ var forms = {
     log.exit(getName());
     return true;
   },
+  kickOffTagmeUpdateForm : function() {
+    log.enter(getName());
+    forms.clearAll();
+    if(this.populateTagIsmForm()) {
+      contentControl.hideFooter();
+      modals.show(tagmeUpdateFormModal);
+      forms.currentlyUpdating = 'untagged';
+      $("#newTags").focus();
+    }
+    log.exit(getName());
+  },
+  populateTagIsmForm : function() {
+    log.enter(getName());
+    const formId = 'updateTagmeForm';
+    const type = 'untagged';
+    log.exit(getName());
+    return this.populateIsmForm(type, formId);
+  },
   getTagsFromForm : function() {
-    return utils.buildArray($("#updateTagmeForm fieldset input#newTags").val());
+    let tagFieldContents = $("#updateTagmeForm fieldset input#newTags").val();
+    debug("tag field contents", tagFieldContents);
+    if (!tagFieldContents) {
+      tagFieldContents = "tagme";
+    }
+    debug("tag field contents", tagFieldContents);
+    return utils.buildArray(tagFieldContents);
   },
   getCommentFromForm : function() {
     return $("#updateUncommentedForm fieldset textarea#newComments").val();

@@ -37,14 +37,17 @@ var ismForm = {
     ismForm.clearFields();
     if (contentControl.props.filterType !== "source") {
       modals.show(noSourceSelectedModal);
+      contentControl.jumpToAnchor('#currentFilter');
       return;
     }
     sourceId = contentControl.props.filterId;
     contentControl.setText('btnUpsertIsm', 'Add Ism');
+    contentControl.setText('currentSource', sources.getDisplayString(contentControl.props.sourceCloudDict[sourceId]));
     $("#btnShowBulkAddIsm").val(sourceId);
     $("#upsertIsmForm fieldset button#btnUpsertIsm").val(sourceId);
     modals.show(upsertIsmFormModal);
     $("#inputNumber").focus();
+    contentControl.jumpToAnchor('#currentFilter');
   },
   populateFields : function(event) {
     log.enter(getName());

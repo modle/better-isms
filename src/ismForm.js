@@ -45,9 +45,9 @@ var ismForm = {
     contentControl.setText('currentSource', sources.getDisplayString(contentControl.props.sourceCloudDict[sourceId]));
     $("#btnShowBulkAddIsm").val(sourceId);
     $("#upsertIsmForm fieldset button#btnUpsertIsm").val(sourceId);
+    contentControl.jumpToAnchor('#currentFilter');
     modals.show(upsertIsmFormModal);
     $("#inputNumber").focus();
-    contentControl.jumpToAnchor('#currentFilter');
   },
   populateFields : function(event) {
     log.enter(getName());

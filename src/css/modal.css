@@ -24,29 +24,6 @@
   padding: 2em;
 }
 
-/* Add Animation */
-@-webkit-keyframes animatetop {
-  from {
-    top: -25em;
-    opacity: 0;
-  }
-  to {
-    top: 0;
-    opacity: 1;
-  }
-}
-
-@keyframes animatetop {
-  from {
-    top: -25em;
-    opacity: 0;
-  }
-  to {
-    top: 0;
-    opacity: 1;
-  }
-}
-
 @media (max-device-width: 767px) {
   .modal {
     width: 100%;

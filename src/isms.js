@@ -44,4 +44,4 @@ var isms = {
   setIsmsList : function(ismDivs) {
     $("#ismList isms").html(ismDivs);
   },
-}
+};

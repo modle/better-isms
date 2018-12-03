@@ -64,3 +64,17 @@ PASSWORD=yourpassword
 heroku local
 ```
 
+# Usage
+
+### Hotkeys
+
+<dl>
+  <dt>ctrl+s</dt>
+  <dd>save ism</dd>
+  <dt>ctrl+i</dt>
+  <dd>new ism</dd>
+  <dt>escape</dt>
+  <dd>hide modals</dd>
+  <dt>enter</dt>
+  <dd>next field if modal open and not in multi-line textfield</dd>
+</dl>
